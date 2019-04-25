@@ -54,5 +54,6 @@
                out.println(error);
            }
         %>
+        <jsp:include page="include/header.jsp" />
     </body>
 </html>

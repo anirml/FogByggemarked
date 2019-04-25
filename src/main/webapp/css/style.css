@@ -1,0 +1,35 @@
+
+.my-container{
+    border: 1px solid green;
+}
+
+.my-row{
+    border: 1px solid red;
+}
+
+.my-col{
+    border: 2px dotted blue;
+}
+
+#logo-main {
+    display: block;
+    margin: 8px auto;
+    display: inline-block;
+}
+
+#banner {
+    height: 126px;
+}
+
+#navbar{
+    padding: 0;
+}
+
+.nav-item{
+    font-size: 18px;
+}
+
+option[value=""][disabled] {
+    display: none;
+}
+
