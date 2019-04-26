@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
-<div class="container text-center" id="banner">
-
-</div>
 <div class="container" id="navbar">
     <img src="img/banner.png" class="img-fluid" alt="Responsive image">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -32,7 +29,7 @@
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a href="bestil" class="nav-link ">Bestil</a>
+                    <a href="gableroof.jsp" class="nav-link ">Bestil</a>
                 </li>
 
             </ul>
