@@ -29,7 +29,7 @@
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a href="WEB-INF\gableroof.jsp" class="nav-link ">Bestil</a>
+                    <a href="WEB-INF\gableroofpage.jsp" class="nav-link ">Bestil</a>
                 </li>
 
             </ul>
