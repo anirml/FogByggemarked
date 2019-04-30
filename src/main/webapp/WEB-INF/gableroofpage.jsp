@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
-<jsp:include page="include/header.jsp" />
+<jsp:include page="../include/header.jsp" />
 <div class="container jumbotron">
         <div class="row">
             <div class="col-sm-10">
@@ -12,7 +12,7 @@
                    Felter markeret * SKAL udfyldes!</p>
             </div>
             <div class="col-sm-2">
-                <img src="img/quickmrejs.gif">
+                <img src="../img/quickmrejs.gif">
             </div>
             </div>
     <form action="#######" method="post">

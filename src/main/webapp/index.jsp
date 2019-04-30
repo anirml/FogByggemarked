@@ -46,6 +46,15 @@
                         <input type="submit" value="Submit">
                     </form>
                 </td>
+                <td>
+                    <form name="bestil" action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="choice">
+                        Bestil:
+                        <input type="submit" value="Submit">
+
+                    </form>
+                </td>
+
             </tr>
         </table>
         <% String error = (String) request.getAttribute( "error");
