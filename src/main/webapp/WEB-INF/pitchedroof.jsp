@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
-<jsp:include page="include/header.jsp" />
+<jsp:include page="../include/header.jsp" />
 <div class="container jumbotron">
         <div class="row">
             <div class="col-sm-10">
@@ -12,7 +12,7 @@
                    Felter markeret * SKAL udfyldes!</p>
             </div>
             <div class="col-sm-2">
-                <img src="img/quickmrejs.gif">
+                <img src="../img/quickmrejs.gif">
             </div>
             </div>
     <form action="FrontController" method="POST">
@@ -74,10 +74,14 @@
         </select>
         <label><b>Tag hældning</b></label>
         <select class="form-control" name="angle">
-            <option value="0" disabled selected>Vælg hældning
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value="15" selected>15 grader</option>
+            <option value="20">20 grader</option>
+            <option value="25">25 grader</option>
+            <option value="30">30 grader</option>
+            <option value="35">35 grader</option>
+            <option value="40">40 grader</option>
+            <option value="45">45 grader</option>
+
         </select>
         <br>
         <p><b>Redskabsrum:</b><br>
