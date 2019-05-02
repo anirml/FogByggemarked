@@ -16,7 +16,7 @@
             </div>
             </div>
     <form action="FrontController" method="POST">
-        <input type="hidden" name="command" value="requestForm"/>
+        <input type="hidden" name="command" value="getRequest"/>
     <div class="col-md">
         <label><b>Carport bredde</b></label>
         <select class="form-control" name="width">
@@ -149,7 +149,7 @@
             <input type="text" class="form-control" id="inputZipcode" name="zipcode">
         </div>
         <div class="form-group">
-            <label for="inputPhone"><b>Postnummer</b></label>
+            <label for="inputPhone"><b>Telefon nummer</b></label>
             <input type="text" class="form-control" id="inputPhone" name="phone">
         </div>
         <div class="form-group">
@@ -157,11 +157,11 @@
             <input type="text" class="form-control" id="inputEmail" name="email">
         </div>
         <div class="form-group">
-            <label for="Textarea"><b>Evt. bemærkninger</b></label>
-            <textarea class="form-control" name="textarea" id="Textarea" rows="2"></textarea>
+            <label for="Comment"><b>Evt. bemærkninger</b></label>
+            <textarea class="form-control" name="comment" id="Comment" rows="2"></textarea>
         </div>
         <div class="col-md-3 text-center">
-            <input type="submit" name="sendrequest" value="Send Forespørgsel" class="btn btn-secondary form-control"/>
+            <input type="submit" name="sendRequest" value="Send Forespørgsel" class="btn btn-secondary form-control"/>
         </div>
 
     </div>
