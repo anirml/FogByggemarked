@@ -17,11 +17,11 @@ public class ChoiceJ extends Command {
         HttpSession session = request.getSession();
         System.out.println("Er i ChoiceJ");
         List<Roof> roofList = DBAccess.ItemMapper.readRoofList();
-/*
+
         for (int i = 0; i <roofList.size() ; i++) {
             System.out.println(roofList.get(i).toString());
         }
-*/
+
 
         List<Roof> menuList = DBAccess.ItemMapper.makeRoofMenu(roofList);
 
