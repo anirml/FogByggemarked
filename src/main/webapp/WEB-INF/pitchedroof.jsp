@@ -9,7 +9,7 @@
                 <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram.</p><br>
                 <p>Tilbud og skitsetegning fremsendes med post hurtigst muligt. Standardbyggevejledning medfølger ved bestilling.</p>
                 <b>Udfyld nedenstående omhyggeligt og klik på "Bestil tilbud"</b><br>
-                   Felter markeret * SKAL udfyldes!</p>
+                <p>Felter markeret * SKAL udfyldes!</p>
             </div>
             <div class="col-sm-2">
                 <img src="../img/quickmrejs.gif">
