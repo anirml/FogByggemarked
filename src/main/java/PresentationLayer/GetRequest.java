@@ -58,6 +58,7 @@ public class GetRequest extends Command {
             System.out.println("der var en fejl");
         }
 
-        return "pitchedroof";
+
+        return "calculate"+ "page";
     }
 }

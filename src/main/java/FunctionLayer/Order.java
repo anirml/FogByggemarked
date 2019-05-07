@@ -2,6 +2,20 @@ package FunctionLayer;
 
 public class Order {
 
+    private int order_id;
+    private String order_date;
+    //user_id
+    private boolean order_status;
+    private String order_comment;
+    private int order_roof_angle;
+    private String roof_material;
+    private int order_length;
+    private int order_width;
+    private boolean order_shed;
+    private int order_shed_length;
+    private int order_shed_width;
+    private String order_ship_date;
+
     public int getOrder_id() {
         return order_id;
     }

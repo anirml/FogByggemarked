@@ -9,7 +9,7 @@
                 <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram.</p><br>
                 <p>Tilbud og skitsetegning fremsendes med post hurtigst muligt. Standardbyggevejledning medfølger ved bestilling.</p>
                 <b>Udfyld nedenstående omhyggeligt og klik på "Bestil tilbud"</b><br>
-                <p>Felter markeret * SKAL udfyldes!</p>
+                   Felter markeret * SKAL udfyldes!</p>
             </div>
             <div class="col-sm-2">
                 <img src="../img/quickmrejs.gif">
@@ -37,8 +37,7 @@
             <option value="630">630 cm</option>
             <option value="660">660 cm</option>
             <option value="690">690 cm</option>
-            <option value="720">720 cm</option>
-            <option value="750">750 cm</option>
+
 
         </select>
         <label><b>Carport længde</b></label>
@@ -63,6 +62,10 @@
             <option value="720">720 cm</option>
             <option value="750">750 cm</option>
             <option value="780">780 cm</option>
+            <option value="810">810 cm</option>
+            <option value="840">840 cm</option>
+            <option value="870">870 cm</option>
+            <option value="900">900 cm</option>
 
         </select>
         <label><b>Tag</b></label>
