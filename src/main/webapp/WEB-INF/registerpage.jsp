@@ -5,7 +5,7 @@
 <div class="container jumbotron">
     <div class="row">
         <div class="col text-center">
-            <h2>Opret</h2>
+            <h2>Log ind</h2>
             </br>
         </div>
     </div>
@@ -14,6 +14,40 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <center><h5>Indtast e-mail og kodeord</h5></center>
+            <form name="register" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="login">
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="email" placeholder="e-mail">
+                </div>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                    </div>
+                    <input type="password" class="form-control" name="password" placeholder="kodeord">
+                </div>
+                <div class="input-group mb-2 mr-sm-2 justify-content-center">
+                    <input type="submit" name="opretknap" value="Log ind" class="btn btn-success btn-block"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4 col-md-3 text-center">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <h2>Opret</h2>
+            </br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-3 text-center">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <center><h5>Indtast oplysninger</h5></center>
             <form name="register" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="register">
                 <div class="input-group mb-2 mr-md-2">
@@ -65,7 +99,7 @@
                     <input type="text" class="form-control" name="phone" placeholder="tefelon">
                 </div>
                 <div class="input-group mb-2 mr-sm-2 justify-content-center">
-                    <input type="submit" name="opretknap" value="opret" class="btn btn-success btn-block"/>
+                    <input type="submit" name="opretknap" value="Opret" class="btn btn-success btn-block"/>
                 </div>
             </form>
         </div>
