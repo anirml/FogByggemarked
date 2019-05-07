@@ -1,12 +1,15 @@
 package DBAccess;
 
+import FunctionLayer.Description;
 import FunctionLayer.Roof;
+import FunctionLayer.Wood;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemMapper {
@@ -61,4 +64,89 @@ public class ItemMapper {
         }
         return menuList;
     }
+
+    public  static HashMap<Integer,Wood> readWoodMap() {
+
+        HashMap<Integer,Wood> woodMap = new HashMap<>();
+
+        try {
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog_byggemarked.wood_material;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int woodId =resultSet.getInt("wood_id");
+                int woodDim1 = resultSet.getInt("wood_dim1");
+                int woodDim2 = resultSet.getInt("wood_dim2");
+                String woodDesc = resultSet.getString("wood_description");
+                int woodlength = resultSet.getInt("wood_length");
+                String woodUnit = resultSet.getString("wood_unit");
+                double woodPrice = resultSet.getDouble("wood_price");
+                Wood tempWood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodlength, woodUnit, woodPrice);
+                woodMap.put(woodId,tempWood);
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return woodMap;
+    }
+
+    public static List<Wood> readWoodList() {
+        List<Wood> woodList = new ArrayList<>();
+        try {
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog_byggemarked.wood_material;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int woodId =resultSet.getInt("wood_id");
+                int woodDim1 = resultSet.getInt("wood_dim1");
+                int woodDim2 = resultSet.getInt("wood_dim2");
+                String woodDesc = resultSet.getString("wood_description");
+                int woodlength = resultSet.getInt("wood_length");
+                String woodUnit = resultSet.getString("wood_unit");
+                double woodPrice = resultSet.getDouble("wood_price");
+                Wood tempWood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodlength, woodUnit, woodPrice);
+                woodList.add(tempWood);
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return woodList;
+    }
+
+    public  static HashMap<String, Description> readDescMap() {
+
+        HashMap<String, Description> descMap = new HashMap<>();
+
+        try {
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog_byggemarked.use_description;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int useId =resultSet.getInt("use_id");
+                String useDesc = resultSet.getString("use_description");
+                String useCode = resultSet.getString("use_code");
+                Description tempDesc = new Description(useId, useDesc, useCode);
+                descMap.put(useCode, tempDesc);
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return descMap;
+    }
+
 }

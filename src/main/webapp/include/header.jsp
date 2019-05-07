@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fog Byggemarked</title>
-    <link rel="icon" href="img/logo.png" type="image/gif" sizes="16x16">
+    <link rel="icon" href="img/favicon.ico" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -29,13 +29,19 @@
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a href="WEB-INF\gableroofpage.jsp" class="nav-link ">Bestil</a>
+                    <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Quick-Byg</a>
+                </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=testpage" class="nav-link ">Testpage</a>
+                </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=virkerikke" class="nav-link ">Denne virker ikke med vilje</a>
                 </li>
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item"><a href="login.jsp" class="nav-link">
-                <span class="fas fa-user"></span> Log Ind</a></li>
+                    <span class="fas fa-user"></span> Log Ind</a></li>
             </ul>
         </div>
     </nav>
@@ -43,4 +49,3 @@
 
 </body>
 </html>
-
