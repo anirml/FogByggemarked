@@ -5,7 +5,7 @@ package FunctionLayer;
  * @author kasper
  */
 public class User {
-    public User(String name, String email, String password, String address, int zipcode, String city, int phone, String type) {
+    public User(String name, String email, String password, String address, String zipcode, String city, String phone, String type) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -27,9 +27,9 @@ public class User {
     private String email;
     private String password; // Should be hashed and secured
     private String address;
-    private int zipcode;
+    private String zipcode;
     private String city;
-    private int phone;
+    private String phone;
     private String type;
 
     public String getEmail() {
@@ -72,11 +72,11 @@ public class User {
         this.address = address;
     }
 
-    public int getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
@@ -88,11 +88,11 @@ public class User {
         this.city = city;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

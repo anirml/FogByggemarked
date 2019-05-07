@@ -26,9 +26,9 @@ public class UserMapper {
             ps.setString( 2, user.getEmail() );
             ps.setString( 3, user.getPassword() );
             ps.setString( 4, user.getAddress() );
-            ps.setInt( 5, user.getZipcode() );
+            ps.setString( 5, user.getZipcode() );
             ps.setString( 6, user.getCity() );
-            ps.setInt( 7, user.getPhone() );
+            ps.setString( 7, user.getPhone() );
             ps.setString( 8, user.getType() );
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();

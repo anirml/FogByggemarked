@@ -15,6 +15,13 @@
         <div class="col-lg-4 col-md-6">
             <center><h5>Indtast e-mail og kodeord</h5></center>
             <form name="register" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="register">
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="name" placeholder="navn">
+                </div>
                 <div class="input-group mb-2 mr-md-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-envelope"></i></div>
@@ -25,7 +32,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-lock"></i></div>
                     </div>
-                    <input type="password" class="form-control" name="password" placeholder="kodeord">
+                    <input type="password" class="form-control" name="password1" placeholder="kodeord">
                 </div>
                 <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -33,8 +40,32 @@
                     </div>
                     <input type="password" class="form-control" name="password2" placeholder="gentag kodeord">
                 </div>
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-home"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="address" placeholder="addresse">
+                </div>
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-map-marker-alt"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="zipcode" placeholder="postnummer">
+                </div>
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-industry"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="city" placeholder="by">
+                </div>
+                <div class="input-group mb-2 mr-md-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                    </div>
+                    <input type="text" class="form-control" name="phone" placeholder="tefelon">
+                </div>
                 <div class="input-group mb-2 mr-sm-2 justify-content-center">
-                    <input type="submit" name="opretknap" value="Opret" class="btn btn-success btn-block"/>
+                    <input type="submit" name="opretknap" value="opret" class="btn btn-success btn-block"/>
                 </div>
             </form>
         </div>

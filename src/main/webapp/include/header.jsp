@@ -30,7 +30,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Quick-Byg</a>
-                    <a href="FrontController?command=nav&action=quickbyg" class="nav-link ">Quick-Byg</a>
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Testpage</a>
@@ -44,7 +43,7 @@
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a href="login.jsp" class="nav-link">
+                <li class="nav-item"><a href="FrontController?command=nav&action=register" class="nav-link">
                 <span class="fas fa-user"></span> Log Ind</a></li>
             </ul>
         </div>
