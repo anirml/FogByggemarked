@@ -14,7 +14,7 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
             ps.setString( 1, user.getEmail() );
             ps.setString( 2, user.getPassword() );
-            ps.setString( 3, user.getRole() );
+            ps.setString( 3, user.getType() );
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();

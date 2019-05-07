@@ -14,7 +14,11 @@
         <title>Welcome page</title>
     </head>
     <body>
-        <h1>Welcome to Sem 2</h1>
+
+    <jsp:include page="include/header.jsp" />
+
+
+    <h1>Welcome to Sem 2</h1>
         
         <table>
             <tr><td>Login</td>
@@ -72,6 +76,6 @@
                out.println(error);
            }
         %>
-        <jsp:include page="include/header.jsp" />
+
     </body>
 </html>

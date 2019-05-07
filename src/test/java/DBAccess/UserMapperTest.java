@@ -72,7 +72,7 @@ public class UserMapperTest {
     public void testLogin03() throws LoginSampleException {
         // Jens is supposed to be a customer
         User user = UserMapper.login( "jens@somewhere.com", "jensen" );
-        assertEquals( "customer", user.getRole() );
+        assertEquals( "customer", user.getType() );
     }
 
     @Test
@@ -82,6 +82,6 @@ public class UserMapperTest {
         User original = new User( "king@kong.com", "uhahvorhemmeligt", "konge" );
         UserMapper.createUser( original );
         User retrieved = UserMapper.login( "king@kong.com", "uhahvorhemmeligt" );
-        assertEquals( "konge", retrieved.getRole() );
+        assertEquals( "konge", retrieved.getType() );
     }
 }
