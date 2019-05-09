@@ -49,9 +49,9 @@ public class ItemMapper {
         return roofList;
     }
 
-    public static List<Roof> makeRoofMenu(List<Roof> roofList) {
+    public static List<Roof> makePitchRoofMenu(List<Roof> roofList) {
 
-        List<Roof> menuList = new ArrayList<>();
+        List<Roof> menuPitchList = new ArrayList<>();
         int roofId;
         String roofDescT;
 
@@ -59,10 +59,31 @@ public class ItemMapper {
             if (roofList.get(i).getRoofMenu() == 1) {
                 roofId = roofList.get(i).getRoofId();
                 roofDescT = roofList.get(i).getRoofDesc() + " " + roofList.get(i).getRoofColor();
-                menuList.add(new Roof(roofId, roofDescT));
+                menuPitchList.add(new Roof(roofId, roofDescT));
             }
         }
-        return menuList;
+        return menuPitchList;
+    }
+
+    public static List<Roof> makeFlatRoofMenu(List<Roof> roofList) {
+
+        List<Roof> menuFlatList = new ArrayList<>();
+        int roofId;
+        String roofDescT;
+        String tempType="";
+
+        for (int i = 0; i < roofList.size(); i++) {
+            if (roofList.get(i).getRoofMenu() == 0) {
+                roofId = roofList.get(i).getRoofId();
+                roofDescT = roofList.get(i).getRoofDesc() + " " + roofList.get(i).getRoofColor();
+
+                if (!tempType.equals(roofDescT)) {
+                    menuFlatList.add(new Roof(roofId, roofDescT));
+                    tempType = roofDescT;
+                }
+            }
+        }
+        return menuFlatList;
     }
 
     public  static HashMap<Integer,Wood> readWoodMap() {
