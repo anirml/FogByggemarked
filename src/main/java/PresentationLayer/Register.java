@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 public class Register extends Command {
 
+
     @Override
     String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
         String name = request.getParameter( "name" );
@@ -29,5 +30,4 @@ public class Register extends Command {
             throw new LoginSampleException( "the two passwords did not match" );
         }
     }
-
 }
