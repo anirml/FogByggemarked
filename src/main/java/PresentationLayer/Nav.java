@@ -21,7 +21,7 @@ public class Nav extends Command {
                     destination = "quickbygpage";
                     break;
                     case "pitchedroof":
-                        destination = "pitchedroofpage";
+                        destination = "pitchedroofstep1page";
                         break;
                     case "itemlist":
                         destination = "itemlistpage";

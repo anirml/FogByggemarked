@@ -29,7 +29,7 @@
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Quick-Byg</a>
+                    <a href="FrontController?command=nav&action=quickbyg" class="nav-link ">Quick-Byg</a>
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=toolshedchoice" class="nav-link ">Testpage</a>
