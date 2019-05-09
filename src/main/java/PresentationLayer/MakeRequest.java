@@ -16,30 +16,23 @@ public class MakeRequest extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
-
         try {
-            String destination = "../index.jsp";
 
-            String width = request.getParameter("width");
-            String lenght = request.getParameter("lenght");
-            String roof = request.getParameter("roof");
-            String angle = request.getParameter("angle");
-            String toolShed = request.getParameter("toolShed");
-            String toolShedWidth = request.getParameter("toolShedWidth");
-            String toolShedLenght = request.getParameter("toolShedLenght");
-            String comment = request.getParameter("comment");
+            String width = "";
+            String lenght = "";
+            String roof = "";
+            String angle = "";
+            String toolShedWidth = "";
+            String toolShedLenght = "";
 
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String zipcode = request.getParameter("zipcode");
-            String city = request.getParameter("city");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
+            String comment = request.getParameter("comment");
 
-
-            System.out.println(width + " " + lenght);
-
-            LogicFacade.createRequest(width,lenght,roof,angle,toolShed,toolShedWidth,toolShedLenght,comment,name,address,zipcode,city,phone,email);
+            String destination = "../index";
 
             HttpSession session = request.getSession();
 
@@ -52,25 +45,22 @@ public class MakeRequest extends Command {
                 list.add(lenght);
                 list.add(roof);
                 list.add(angle);
-                list.add(toolShed);
                 list.add(toolShedWidth);
                 list.add(toolShedLenght);
-                list.add(comment);
 
                 list.add(name);
                 list.add(address);
                 list.add(zipcode);
-                list.add(city);
                 list.add(phone);
                 list.add(email);
+                list.add(comment);
             }else {
                 list = (List<String>) session.getAttribute("list");
             }
 
 
-
             switch (request.getParameter("command")){
-                case "getRequest":
+                case "makeRequest":
                     switch (request.getParameter("action")){
                         case "step1":
                             destination = "pitchedroofstep1page";
@@ -125,7 +115,7 @@ public class MakeRequest extends Command {
                         default :
                             destination = "404page";
                     }
-                case "getRequestBack":
+                case "makeRequestBack":
                     switch (request.getParameter("action")){
                         case "bstep1":
                             destination = "pitchedroofstep1page";
