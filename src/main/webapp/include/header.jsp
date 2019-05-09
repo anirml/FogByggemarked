@@ -43,8 +43,38 @@
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
+                <%
+                    String userEmail = (String)session.getAttribute("email");
+                    String userType = (String)session.getAttribute("type");
+                    if (userType == null) {
+                        userType = "";
+                %>
+
                 <li class="nav-item"><a href="FrontController?command=nav&action=register" class="nav-link">
-                <span class="fas fa-user"></span> Log Ind</a></li>
+                    <span class="fas fa-user"></span> Log Ind</a></li>
+
+                <%
+                    }
+
+                    if (userType.equals("employee") || userType.equals("customer")) {
+                %>
+
+                <li id="mypage_button">
+                    <div>
+                        <form name="MyPage" action="FrontController" method="POST">
+
+                            <a href="FrontController?command=nav&action=<%=userType%>" class="nav-link ">
+                                <span class="fas fa-envelope"></span><%=userEmail%></a>
+
+                        </form>
+                    </div>
+                </li>
+
+                <%
+                    }
+                %>
+
+
             </ul>
         </div>
     </nav>
