@@ -31,7 +31,7 @@
         <select class="form-control" name="roof">
             <option value="0" disabled selected>Vælg tag</option>
                     <%
-            List<Roof> menuList = (List<Roof>) session.getAttribute("roofMenu");
+            List<Roof> menuList = (List<Roof>) session.getAttribute("roofPitchMenu");
             String roofSel;
 
             for (int i = 0; i < menuList.size(); i++) {

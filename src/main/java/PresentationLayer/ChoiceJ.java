@@ -36,7 +36,7 @@ public class ChoiceJ extends Command {
                     System.out.println();
                 }
                 session.setAttribute("roofPitchMenu",menuPitchList);
-                destination = "pitchroofstep1";
+                destination = "pitchedroofstep1";
                 break;
             case  "flat":
                 // code block
