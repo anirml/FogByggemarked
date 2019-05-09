@@ -1,5 +1,6 @@
 package PresentationLayer;
 
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
 
@@ -51,7 +52,9 @@ public class GetRequest extends Command {
             session.setAttribute("list",list);
 
 
-
+            //     Order order = LogicFacade.createRequest(width,lenght,roof,angle,toolShedWidth,
+            //             toolShedLenght,name,address,zipcode,phone,email,comment);
+            //User user = LogicFacade.createUser( email, password1 );
 
 
         } catch (Exception e){
