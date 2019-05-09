@@ -1,5 +1,6 @@
 package PresentationLayer;
 
+import DBAccess.ItemMapper;
 import FunctionLayer.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,8 @@ public class ChoiceJ extends Command {
         }
 */
         session.setAttribute("roofMenu",menuList);
+
+        System.out.println(ItemMapper.readWoodList());
 
 
         /*List<Wood> woodList = DBAccess.ItemMapper.readWoodList();
