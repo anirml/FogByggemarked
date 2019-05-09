@@ -17,7 +17,7 @@
             <br>
             <hr>
             <center><h5>Carport med rejsning</h5></center>
-            <a href="FrontController?command=nav&action=pitchedroof">
+            <a href="FrontController?command=choice">
                 <img style="display: block; margin-left: auto; margin-right: auto;" title="Carport med rejsning" alt="Carport med rejsning" src="img/quickmrejs.gif" height="87" width="165" class="img-responsive">
             </a>
         </div>

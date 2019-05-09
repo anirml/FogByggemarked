@@ -17,6 +17,8 @@ abstract class Command {
         commands.put( "makeRequest" , new makeRequest() );
         commands.put( "choice", new ChoiceJ());
         commands.put( "calculate", new CalculateJ());
+        commands.put( "toolshedchoice", new ToolshedChoice() );
+        commands.put( "getRequestBack", new makeRequest() );
     }
 
     static Command from( HttpServletRequest request ) {

@@ -1,3 +1,5 @@
+<%@ page import="FunctionLayer.Roof" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -66,15 +68,31 @@
             <option value="840">840 cm</option>
             <option value="870">870 cm</option>
             <option value="900">900 cm</option>
-
         </select>
+
+
+
         <label><b>Tag</b></label>
         <select class="form-control" name="roof">
             <option value="0" disabled selected>Vælg tag
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+        <%
+            List<Roof> menuList = (List<Roof>) session.getAttribute("roofMenu");
+            String roofSel;
+
+            for (int i = 0; i < menuList.size(); i++) {
+                roofSel = "<option value=\"_roofid_\">_roofdesc_</option>";
+
+                String roofid = Integer.toString(menuList.get(i).getRoofId());
+                String roofdesc= menuList.get(i).getRoofDesc();
+
+                roofSel = roofSel.replace("_roofid_",roofid);
+                roofSel = roofSel.replace("_roofdesc_",roofdesc);
+
+                out.print(roofSel);
+            }
+        %>
         </select>
+
         <label><b>Tag hældning</b></label>
         <select class="form-control" name="angle">
             <option value="15" selected>15 grader</option>
@@ -137,28 +155,6 @@
 
         </select>
         <br>
-        <hr>
-        <br>
-        <div class="form-group">
-            <label for="inputName"><b>Navn</b></label>
-            <input type="text" class="form-control" id="inputName" name="name">
-        </div>
-        <div class="form-group">
-            <label for="inputAddress"><b>Adresse</b></label>
-            <input type="text" class="form-control" id="inputAddress" name="address">
-        </div>
-        <div class="form-group">
-            <label for="inputZipcode"><b>Postnummer og By</b></label>
-            <input type="text" class="form-control" id="inputZipcode" name="zipcode">
-        </div>
-        <div class="form-group">
-            <label for="inputPhone"><b>Telefon nummer</b></label>
-            <input type="text" class="form-control" id="inputPhone" name="phone">
-        </div>
-        <div class="form-group">
-            <label for="inputEmail"><b>E-mail adresse</b></label>
-            <input type="text" class="form-control" id="inputEmail" name="email">
-        </div>
         <div class="form-group">
             <label for="Comment"><b>Evt. bemærkninger</b></label>
             <textarea class="form-control" name="comment" id="Comment" rows="2"></textarea>

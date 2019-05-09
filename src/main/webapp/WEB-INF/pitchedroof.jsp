@@ -16,7 +16,7 @@
             </div>
             </div>
     <form action="FrontController" method="POST">
-        <input type="hidden" name="command" value="makeRequest"/>
+        <input type="hidden" name="command" value="getRequest"/>
     <div class="col-md">
         <label><b>Carport bredde</b></label>
         <select class="form-control" name="width">
@@ -86,14 +86,9 @@
         <br>
         <p><b>Redskabsrum:</b><br>
             NB! Der skal beregnes 15 cm tagudhæng på hver side af redskabsrummet*</p>
-        <label><b>Ønskes redskabsrum?</b></label>
-        <select class="form-control" name="toolShed">
-            <option value="false" selected>Nej</option>
-            <option value="true">Ja</option>
-        </select>
         <label><b>Redskabsrum bredde</b></label>
         <select class="form-control" name="toolShedWidth">
-            <option selected="selected" value="0"></option>
+            <option selected="selected" value="0">Ønsker ikke redskabsrum</option>
             <option value="210">210 cm</option>
             <option value="240">240 cm</option>
             <option value="270">270 cm</option>
@@ -150,12 +145,8 @@
             <input type="text" class="form-control" id="inputAddress" name="address">
         </div>
         <div class="form-group">
-            <label for="inputZipcode"><b>Postnummer</b></label>
+            <label for="inputZipcode"><b>Postnummer og By</b></label>
             <input type="text" class="form-control" id="inputZipcode" name="zipcode">
-        </div>
-        <div class="form-group">
-            <label for="inputZipcode"><b>By</b></label>
-            <input type="text" class="form-control" id="inputCity" name="city">
         </div>
         <div class="form-group">
             <label for="inputPhone"><b>Telefon nummer</b></label>

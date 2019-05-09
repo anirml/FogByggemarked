@@ -31,6 +31,13 @@
                         <td>Stk</td>
                         <td>Understernbrædder til for & bag ende</td>
                     </tr>
+                    <tr>
+                        <td scope="row">25x200 mm. trykimp. Brædt</td>
+                        <td>360</td>
+                        <td>4</td>
+                        <td>Stk</td>
+                        <td>Understernbrædder til for & bag ende</td>
+                    </tr>
                     <th scope="row">Beslag & Skruer</th>
                     <th></th>
                     <th></th>

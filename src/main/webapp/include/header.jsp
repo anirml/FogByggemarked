@@ -32,7 +32,7 @@
                     <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Quick-Byg</a>
                 </li>
                 <li class="nav-item">
-                    <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Testpage</a>
+                    <a href="FrontController?command=toolshedchoice" class="nav-link ">Testpage</a>
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=itemlist" class="nav-link ">itemlist</a>
