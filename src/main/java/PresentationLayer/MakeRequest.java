@@ -97,6 +97,7 @@ public class MakeRequest extends Command {
                                 destination = "pitchedroofstep2page";
                                 break;
                             }
+                            ToolshedChoice.calcToolshedChoice(request);
                             list.set(2,roof);
                             list.set(3,angle);
                             destination = "pitchedroofstep3page";
@@ -104,6 +105,11 @@ public class MakeRequest extends Command {
                         case "step4":
                             toolShedWidth = request.getParameter("toolShedWidth");
                             toolShedLenght = request.getParameter("toolShedLenght");
+                            if (toolShedWidth == null || toolShedLenght == null){
+                                request.setAttribute("message","Du mangler at vælge Bredde eller Længde");
+                                destination = "pitchedroofstep2page";
+                                break;
+                            }
                             list.set(4,toolShedWidth);
                             list.set(5,toolShedLenght);
                             System.out.println("B&L Skur :" + toolShedWidth + " " + toolShedLenght);
