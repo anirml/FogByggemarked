@@ -739,7 +739,7 @@ public class CalculateJ extends Command {
 
 //******GENERING AF TEGNING **** SLUT ***********************************************************************
 
-        return "drawflatroof" + "page";
+        return "draw" + "page";
     }
 
 }

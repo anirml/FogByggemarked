@@ -1,5 +1,3 @@
-<%@ page import="FunctionLayer.Roof" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -11,7 +9,7 @@
                 <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram.</p><br>
                 <p>Tilbud og skitsetegning fremsendes med post hurtigst muligt. Standardbyggevejledning medfølger ved bestilling.</p>
                 <b>Udfyld nedenstående omhyggeligt og klik på "Bestil tilbud"</b><br>
-                   Felter markeret * SKAL udfyldes!</p>
+                <p>Felter markeret * SKAL udfyldes!</p>
             </div>
             <div class="col-sm-2">
                 <img src="../img/quickmrejs.gif">
@@ -39,7 +37,8 @@
             <option value="630">630 cm</option>
             <option value="660">660 cm</option>
             <option value="690">690 cm</option>
-
+            <option value="720">720 cm</option>
+            <option value="750">750 cm</option>
 
         </select>
         <label><b>Carport længde</b></label>
@@ -64,35 +63,15 @@
             <option value="720">720 cm</option>
             <option value="750">750 cm</option>
             <option value="780">780 cm</option>
-            <option value="810">810 cm</option>
-            <option value="840">840 cm</option>
-            <option value="870">870 cm</option>
-            <option value="900">900 cm</option>
+
         </select>
-
-
-
         <label><b>Tag</b></label>
         <select class="form-control" name="roof">
             <option value="0" disabled selected>Vælg tag
-        <%
-            List<Roof> menuList = (List<Roof>) session.getAttribute("roofMenu");
-            String roofSel;
-
-            for (int i = 0; i < menuList.size(); i++) {
-                roofSel = "<option value=\"_roofid_\">_roofdesc_</option>";
-
-                String roofid = Integer.toString(menuList.get(i).getRoofId());
-                String roofdesc= menuList.get(i).getRoofDesc();
-
-                roofSel = roofSel.replace("_roofid_",roofid);
-                roofSel = roofSel.replace("_roofdesc_",roofdesc);
-
-                out.print(roofSel);
-            }
-        %>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
         </select>
-
         <label><b>Tag hældning</b></label>
         <select class="form-control" name="angle">
             <option value="15" selected>15 grader</option>
@@ -155,6 +134,28 @@
 
         </select>
         <br>
+        <hr>
+        <br>
+        <div class="form-group">
+            <label for="inputName"><b>Navn</b></label>
+            <input type="text" class="form-control" id="inputName" name="name">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress"><b>Adresse</b></label>
+            <input type="text" class="form-control" id="inputAddress" name="address">
+        </div>
+        <div class="form-group">
+            <label for="inputZipcode"><b>Postnummer og By</b></label>
+            <input type="text" class="form-control" id="inputZipcode" name="zipcode">
+        </div>
+        <div class="form-group">
+            <label for="inputPhone"><b>Telefon nummer</b></label>
+            <input type="text" class="form-control" id="inputPhone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail"><b>E-mail adresse</b></label>
+            <input type="text" class="form-control" id="inputEmail" name="email">
+        </div>
         <div class="form-group">
             <label for="Comment"><b>Evt. bemærkninger</b></label>
             <textarea class="form-control" name="comment" id="Comment" rows="2"></textarea>

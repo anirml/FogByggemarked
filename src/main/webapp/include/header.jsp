@@ -29,10 +29,13 @@
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a href="FrontController?command=nav&action=pitchedroof" class="nav-link ">Quick-Byg</a>
+                    <a href="FrontController?command=nav&action=quickbyg" class="nav-link ">Quick-Byg</a>
                 </li>
                 <li class="nav-item">
-                    <a href="FrontController?command=nav&action=testpage" class="nav-link ">Testpage</a>
+                    <a href="FrontController?command=toolshedchoice" class="nav-link ">Testpage</a>
+                </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=itemlist" class="nav-link ">itemlist</a>
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=virkerikke" class="nav-link ">Denne virker ikke med vilje</a>
@@ -40,8 +43,8 @@
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a href="login.jsp" class="nav-link">
-                    <span class="fas fa-user"></span> Log Ind</a></li>
+                <li class="nav-item"><a href="FrontController?command=nav&action=register" class="nav-link">
+                <span class="fas fa-user"></span> Log Ind</a></li>
             </ul>
         </div>
     </nav>
@@ -49,3 +52,4 @@
 
 </body>
 </html>
+

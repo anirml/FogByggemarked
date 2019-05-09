@@ -100,6 +100,9 @@ public class ChoiceJ extends Command {
 
         session.setAttribute("styklist",tempStykList);
        */
-        return "pitchedroof" + "page";
+
+
+
+        return "pitchedroofstep1" + "page";
     }
 }

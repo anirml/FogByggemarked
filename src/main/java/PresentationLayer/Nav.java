@@ -17,12 +17,19 @@ public class Nav extends Command {
         switch (request.getParameter("command")){
             case "nav":
                 switch (request.getParameter("action")){
-                    case "pitchedroof":
-                    destination = "pitchedroofpage";
+                    case "quickbyg":
+                    destination = "quickbygpage";
                     break;
-                    case "testpage":
-                        destination = "testpage";
+                    case "pitchedroof":
+                        destination = "pitchedroofstep1page";
                         break;
+                    case "itemlist":
+                        destination = "itemlistpage";
+                        break;
+                    case "register":
+                        destination = "registerpage";
+                        break;
+
 
                     default :
                         destination = "404page";

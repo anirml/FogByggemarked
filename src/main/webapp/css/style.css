@@ -21,6 +21,10 @@
     height: 126px;
 }
 
+.input-group-text {
+    min-width: 45px;
+}
+
 #navbar{
     padding: 0;
 }
