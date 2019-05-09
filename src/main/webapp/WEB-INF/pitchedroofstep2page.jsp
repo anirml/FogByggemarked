@@ -15,7 +15,7 @@
             </div>
             </div>
     <form action="FrontController" method="POST">
-        <input type="hidden" name="command" value="getRequest"/>
+        <input type="hidden" name="command" value="makeRequest"/>
     <div class="col-md">
 
         <%
@@ -63,7 +63,7 @@
         <br>
         <div class="row">
             <div class="col-md-2 text-center">
-                <a class="btn btn-secondary form-control" href="FrontController?command=getRequestBack&action=bstep1">Step 1</a>
+                <a class="btn btn-secondary form-control" href="FrontController?command=makeRequestBack&action=bstep1">Step 1</a>
             </div>
         <div class="col-md-8 text-center">
         </div>

@@ -15,7 +15,7 @@
             </div>
             </div>
     <form action="FrontController" method="POST">
-        <input type="hidden" name="command" value="getRequest"/>
+        <input type="hidden" name="command" value="makeRequest"/>
     <div class="col-md">
         <%
             if (request.getAttribute("message") != null){

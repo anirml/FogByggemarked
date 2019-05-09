@@ -18,7 +18,7 @@ abstract class Command {
         commands.put( "choice", new ChoiceJ());
         commands.put( "calculate", new CalculateJ());
         commands.put( "toolshedchoice", new ToolshedChoice() );
-        commands.put( "getRequestBack", new MakeRequest() );
+        commands.put( "makeRequestBack", new MakeRequest() );
         commands.put( "mypage", new MyPage() );
     }
 
