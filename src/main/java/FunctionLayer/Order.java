@@ -112,7 +112,6 @@ public class Order {
         this.order_ship_date = order_ship_date;
     }
 
-    int order_id;
 
     public Order(int order_id, String order_date, boolean order_status, String order_comment, int order_roof_angle, String roof_material, int order_length, int order_width, boolean order_shed, int order_shed_length, int order_shed_width, String order_ship_date) {
         this.order_id = order_id;
@@ -129,18 +128,6 @@ public class Order {
         this.order_ship_date = order_ship_date;
     }
 
-    String order_date;
-    //user_id
-    boolean order_status;
-    String order_comment;
-    int order_roof_angle;
-    String roof_material;
-    int order_length;
-    int order_width;
-    boolean order_shed;
-    int order_shed_length;
-    int order_shed_width;
-    String order_ship_date;
 
 
 }

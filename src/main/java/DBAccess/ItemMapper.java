@@ -20,7 +20,7 @@ public class ItemMapper {
 
         try {
             Connection con = Connector.connection();
-            String sql = "SELECT * FROM fog_byggemarked.roof_material";
+            String sql = "SELECT * FROM fog_byggemarked.roof_material;";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultSet = ps.executeQuery(sql);
 

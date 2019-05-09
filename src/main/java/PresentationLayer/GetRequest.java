@@ -1,5 +1,6 @@
 package PresentationLayer;
 
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
 
@@ -17,12 +18,12 @@ public class GetRequest extends Command {
 
         try {
 
-            String width = request.getParameter("width");
-            String lenght = request.getParameter("lenght");
-            String roof = request.getParameter("roof");
-            String angle = request.getParameter("angle");
-            String toolShedWidth = request.getParameter("toolShedWidth");
-            String toolShedLenght = request.getParameter("toolShedLenght");
+            String width = "";
+            String lenght = "";
+            String roof = "";
+            String angle = "";
+            String toolShedWidth = "";
+            String toolShedLenght = "";
 
             String name = request.getParameter("name");
             String address = request.getParameter("address");
@@ -30,35 +31,115 @@ public class GetRequest extends Command {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String comment = request.getParameter("comment");
-            System.out.println(width + " " + lenght);
+
+            String destination = "../index";
 
             HttpSession session = request.getSession();
-            List<String> list = new ArrayList<>();
 
-            list.add(width);
-            list.add(lenght);
-            list.add(roof);
-            list.add(angle);
-            list.add(toolShedWidth);
-            list.add(toolShedLenght);
-            list.add(name);
-            list.add(address);
-            list.add(zipcode);
-            list.add(phone);
-            list.add(email);
-            list.add(comment);
+            List<String> list;
+
+            if (session.getAttribute("list") == null) {
+                list = new ArrayList<>();
+
+                list.add(width);
+                list.add(lenght);
+                list.add(roof);
+                list.add(angle);
+                list.add(toolShedWidth);
+                list.add(toolShedLenght);
+
+                list.add(name);
+                list.add(address);
+                list.add(zipcode);
+                list.add(phone);
+                list.add(email);
+                list.add(comment);
+            }else {
+                list = (List<String>) session.getAttribute("list");
+            }
+
+
+            switch (request.getParameter("command")){
+                case "getRequest":
+                    switch (request.getParameter("action")){
+                        case "step1":
+                            destination = "pitchedroofstep1page";
+                            break;
+                        case "step2":
+                            width = request.getParameter("width");
+                            lenght = request.getParameter("lenght");
+                            if (width == null || lenght == null){
+                                request.setAttribute("message","Du mangler at vælge Bredde eller Længde!");
+                                destination = "pitchedroofstep1page";
+                                break;
+                            }
+                            list.set(0,width);
+                            list.set(1,lenght);
+                            System.out.println("B&L :" + width + " " + lenght);
+                            destination = "pitchedroofstep2page";
+                            break;
+                        case "step3":
+                            roof = request.getParameter("roof");
+                            angle = request.getParameter("angle");
+                            System.out.println("TAG & GRAD :" + roof + " " + angle);
+                            if (roof == null || angle == null){
+                                request.setAttribute("message","Du mangler at vælge Tagtype eller Taghældning");
+                                destination = "pitchedroofstep2page";
+                                break;
+                            }
+                            list.set(2,roof);
+                            list.set(3,angle);
+                            destination = "pitchedroofstep3page";
+                            break;
+                        case "step4":
+                            toolShedWidth = request.getParameter("toolShedWidth");
+                            toolShedLenght = request.getParameter("toolShedLenght");
+                            list.set(4,toolShedWidth);
+                            list.set(5,toolShedLenght);
+                            System.out.println("B&L Skur :" + toolShedWidth + " " + toolShedLenght);
+                            destination = "pitchedroofstep4page";
+                            break;
+                        case "step5":
+                            comment = request.getParameter("comment");
+                            list.set(11,comment);
+                            System.out.println("comment :" + comment);
+                            destination = "calculatepage";
+                            break;
+
+                        default :
+                            destination = "404page";
+                    }
+                case "getRequestBack":
+                    switch (request.getParameter("action")){
+                        case "bstep1":
+                            destination = "pitchedroofstep1page";
+                            break;
+                        case "bstep2":
+                            System.out.println("step2");
+                            destination = "pitchedroofstep2page";
+                            break;
+                        case "bstep3":
+                            System.out.println("step3");
+                            destination = "pitchedroofstep3page";
+                            break;
+                        case "bstep4":
+                            System.out.println("step4");
+                            destination = "pitchedroofstep4page";
+                            break;
+
+                    }
+            }
+
 
             session.setAttribute("list",list);
 
 
-
-
+            return destination;
 
         } catch (Exception e){
-            System.out.println("der var en fejl");
+            System.out.println("der var en fejl i GetRequest");
         }
 
-
-        return "calculate"+ "page";
+        return "404page";
     }
 }
