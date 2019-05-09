@@ -1,132 +1,132 @@
 package FunctionLayer;
 
+import java.util.Date;
+
 public class Order {
 
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
-    }
-
-    public String getOrder_date() {
-        return order_date;
-    }
-
-    public void setOrder_date(String order_date) {
-        this.order_date = order_date;
-    }
-
-    public boolean isOrder_status() {
-        return order_status;
-    }
-
-    public void setOrder_status(boolean order_status) {
-        this.order_status = order_status;
-    }
-
-    public String getOrder_comment() {
-        return order_comment;
-    }
-
-    public void setOrder_comment(String order_comment) {
-        this.order_comment = order_comment;
-    }
-
-    public int getOrder_roof_angle() {
-        return order_roof_angle;
-    }
-
-    public void setOrder_roof_angle(int order_roof_angle) {
-        this.order_roof_angle = order_roof_angle;
-    }
-
-    public String getRoof_material() {
-        return roof_material;
-    }
-
-    public void setRoof_material(String roof_material) {
-        this.roof_material = roof_material;
-    }
-
-    public int getOrder_length() {
-        return order_length;
-    }
-
-    public void setOrder_length(int order_length) {
-        this.order_length = order_length;
-    }
-
-    public int getOrder_width() {
-        return order_width;
-    }
-
-    public void setOrder_width(int order_width) {
-        this.order_width = order_width;
-    }
-
-    public boolean isOrder_shed() {
-        return order_shed;
-    }
-
-    public void setOrder_shed(boolean order_shed) {
-        this.order_shed = order_shed;
-    }
-
-    public int getOrder_shed_length() {
-        return order_shed_length;
-    }
-
-    public void setOrder_shed_length(int order_shed_length) {
-        this.order_shed_length = order_shed_length;
-    }
-
-    public int getOrder_shed_width() {
-        return order_shed_width;
-    }
-
-    public void setOrder_shed_width(int order_shed_width) {
-        this.order_shed_width = order_shed_width;
-    }
-
-    public String getOrder_ship_date() {
-        return order_ship_date;
-    }
-
-    public void setOrder_ship_date(String order_ship_date) {
-        this.order_ship_date = order_ship_date;
-    }
-
-    int order_id;
-
-    public Order(int order_id, String order_date, boolean order_status, String order_comment, int order_roof_angle, String roof_material, int order_length, int order_width, boolean order_shed, int order_shed_length, int order_shed_width, String order_ship_date) {
-        this.order_id = order_id;
-        this.order_date = order_date;
-        this.order_status = order_status;
-        this.order_comment = order_comment;
-        this.order_roof_angle = order_roof_angle;
-        this.roof_material = roof_material;
-        this.order_length = order_length;
-        this.order_width = order_width;
-        this.order_shed = order_shed;
-        this.order_shed_length = order_shed_length;
-        this.order_shed_width = order_shed_width;
-        this.order_ship_date = order_ship_date;
-    }
-
-    String order_date;
+    private int orderId;
+    private String orderDate;
     //user_id
-    boolean order_status;
-    String order_comment;
-    int order_roof_angle;
-    String roof_material;
-    int order_length;
-    int order_width;
-    boolean order_shed;
-    int order_shed_length;
-    int order_shed_width;
-    String order_ship_date;
+    private String orderStatus;
+    private String orderComment;
+    private String orderRoofAngle;
+    private String roofMaterial;
+    private String orderLength;
+    private String orderWidth;
+    private String orderShed;
+    private String orderShedLength;
+    private String orderShedWidth;
+    private String orderShipDate;
 
+    public Order(String  orderStatus, String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
+                 String orderWidth, String orderShed, String orderShedLength, String orderShedWidth) {
+        //this.orderId = orderId;
+        //this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.orderComment = orderComment;
+        this.orderRoofAngle = orderRoofAngle;
+        this.roofMaterial = roofMaterial;
+        this.orderLength = orderLength;
+        this.orderWidth = orderWidth;
+        this.orderShed = orderShed;
+        this.orderShedLength = orderShedLength;
+        this.orderShedWidth = orderShedWidth;
+        //this.orderShipDate = orderShipDate;
+    }
 
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String isOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getOrderComment() {
+        return orderComment;
+    }
+
+    public void setOrderComment(String orderComment) {
+        this.orderComment = orderComment;
+    }
+
+    public String getOrderRoofAngle() {
+        return orderRoofAngle;
+    }
+
+    public void setOrderRoofAngle(String orderRoofAngle) {
+        this.orderRoofAngle = orderRoofAngle;
+    }
+
+    public String getRoofMaterial() {
+        return roofMaterial;
+    }
+
+    public void setRoofMaterial(String roofMaterial) {
+        this.roofMaterial = roofMaterial;
+    }
+
+    public String getOrderLength() {
+        return orderLength;
+    }
+
+    public void setOrderLength(String orderLength) {
+        this.orderLength = orderLength;
+    }
+
+    public String getOrderWidth() {
+        return orderWidth;
+    }
+
+    public void setOrderWidth(String orderWidth) {
+        this.orderWidth = orderWidth;
+    }
+
+    public String  isOrderShed() {
+        return orderShed;
+    }
+
+    public void setOrderShed(String orderShed) {
+        this.orderShed = orderShed;
+    }
+
+    public String getOrderShedLength() {
+        return orderShedLength;
+    }
+
+    public void setOrderShedLength(String orderShedLength) {
+        this.orderShedLength = orderShedLength;
+    }
+
+    public String getOrderShedWidth() {
+        return orderShedWidth;
+    }
+
+    public void setOrderShedWidth(String orderShedWidth) {
+        this.orderShedWidth = orderShedWidth;
+    }
+
+    public String getOrderShipDate() {
+        return orderShipDate;
+    }
+
+    public void setOrderShipDate(String orderShipDate) {
+        this.orderShipDate = orderShipDate;
+    }
 }

@@ -40,7 +40,7 @@
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a href="login.jsp" class="nav-link">
+                <li class="nav-item"><a href="FrontController?command=nav&action=register" class="nav-link">
                 <span class="fas fa-user"></span> Log Ind</a></li>
             </ul>
         </div>
