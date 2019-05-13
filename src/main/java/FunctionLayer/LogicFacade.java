@@ -43,7 +43,9 @@ public class LogicFacade {
         arrayRafter[3] = wid + 300;
         return arrayRafter;
     }
+/*
 
+//Gammel stolpe beregning
     public static int[] post (int len) {
         //arrayPost[0] = numberPost pr. side
         //arrayPost[1] = postDist (mellemafstand)
@@ -70,6 +72,8 @@ public class LogicFacade {
         }
         return arrayPost;
     }
+
+*/
 
     public static int[] stern (int len, int wid){
         //arrayStern[0] = antal understern gavl del1
@@ -113,7 +117,7 @@ public class LogicFacade {
             i = i - 1;
         }
         arrayRoofFlat[1] = 1;
-        arrayRoofFlat[2] = (wid ) / 890 + 1;
+        arrayRoofFlat[2] = wid  / 890 + 1;
 
         if (len>5700){
             i = 5;
