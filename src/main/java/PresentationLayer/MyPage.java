@@ -15,11 +15,11 @@ public class MyPage extends Command {
         User user = (User)session.getAttribute("user");
         String email = user.getEmail();
         request.setAttribute("email", email);
-        String userRole = request.getParameter("role");
+        String userRole = request.getParameter("type");
         if (userRole.equals("employee")) {
-            return "employeepage";
+            return "employee";
         } else {
-            return "customerpage";
+            return "customer";
         }
     }
 

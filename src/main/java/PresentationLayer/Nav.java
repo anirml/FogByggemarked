@@ -36,6 +36,14 @@ public class Nav extends Command {
                         destination = "roofmaterialpage";
                         break;
 
+                    case "customer":
+                        destination = "customerpage";
+                        break;
+
+                    case "employee":
+                        destination = "employeepage";
+                        break;
+
 
                     default :
                         destination = "404page";
