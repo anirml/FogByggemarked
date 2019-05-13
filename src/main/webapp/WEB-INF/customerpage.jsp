@@ -13,7 +13,9 @@
     </head>
     <body>
     <jsp:include page="../include/header.jsp" />
-        <h1>Hello <%=request.getParameter( "email" )%> </h1>
+        <h1>Hello <%=session.getAttribute( "email" )%> </h1>
         You are now logged in as a customer of our wonderful site.
+
+
     </body>
 </html>

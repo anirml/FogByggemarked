@@ -60,14 +60,8 @@
                 %>
 
                 <li id="mypage_button">
-                    <div>
-                        <form name="MyPage" action="FrontController" method="POST">
-
                             <a href="FrontController?command=nav&action=<%=userType%>" class="nav-link ">
-                                <span class="fas fa-envelope"></span><%=userEmail%></a>
-
-                        </form>
-                    </div>
+                                <span class="fas fa-envelope"></span>  <%=userEmail%></a>
                 </li>
 
                 <%
