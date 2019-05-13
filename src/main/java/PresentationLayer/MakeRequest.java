@@ -35,12 +35,14 @@ public class MakeRequest extends Command {
             String zipcode = request.getParameter("zipcode");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            String userId = "";
+
 
             String destination = "../index";
 
 
             HttpSession session = request.getSession();
+
+            String userId = (String) session.getAttribute("id");
 
             List<String> list;
 
@@ -118,8 +120,10 @@ public class MakeRequest extends Command {
                             list.set(6,comment);
                             System.out.println("comment: " + comment);
 
-                            User user = (User) session.getAttribute("user");
-                            userId = String.valueOf(user.getId());
+
+                            userId = (String) session.getAttribute("id");
+                           // User user = (String) session.getAttribute("id");
+                            //userId = String.valueOf(user.getId());
 
                             list.set(7,userId);
                             System.out.println("User ID: " + list.get(7));
