@@ -40,6 +40,12 @@
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=virkerikke" class="nav-link ">Denne virker ikke med vilje</a>
                 </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=woodmaterial" class="nav-link ">Wood list</a>
+                </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=roofmaterial" class="nav-link ">Roof list</a>
+                </li>
 
             </ul>
             <ul class="nav navbar-nav ml-auto">

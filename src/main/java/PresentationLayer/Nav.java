@@ -29,6 +29,12 @@ public class Nav extends Command {
                     case "register":
                         destination = "registerpage";
                         break;
+                    case "woodmaterial":
+                        destination = "woodmaterialpage";
+                        break;
+                    case "roofmaterial":
+                        destination = "roofmaterialpage";
+                        break;
 
 
                     default :
