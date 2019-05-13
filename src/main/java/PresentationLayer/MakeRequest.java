@@ -29,6 +29,7 @@ public class MakeRequest extends Command {
             String toolShedWidth = "";
             String toolShedLenght = "";
             String comment = "";
+            String userId = "";
 
             String name = request.getParameter("name");
             String address = request.getParameter("address");
@@ -37,12 +38,13 @@ public class MakeRequest extends Command {
             String email = request.getParameter("email");
 
 
+
             String destination = "../index";
 
 
             HttpSession session = request.getSession();
 
-            String userId = (String) session.getAttribute("id");
+          //  String userId = (String) session.getAttribute("id");
 
             List<String> list;
 

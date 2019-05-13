@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class LogicFacade {
 
-    public static User login(String id, String email, String password) throws LoginSampleException {
+    public static User login(String email, String password) throws LoginSampleException {
         return UserMapper.login( email, password );
     } 
 
@@ -54,7 +54,6 @@ public class LogicFacade {
         }
 
         Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
-       // User user = new User(list.get(7));
         OrderMapper.createRequest(order);
     }
 
