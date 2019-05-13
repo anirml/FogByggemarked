@@ -14,6 +14,9 @@
     <body>
     <jsp:include page="../include/header.jsp" />
         <h1>Hello <%=session.getAttribute( "email" )%> </h1>
-        You are now logged in as a EMPLOYEE of our wonderful site.
+        You are now logged in as an EMPLOYEE of our wonderful site.
+
+
+
     </body>
 </html>
