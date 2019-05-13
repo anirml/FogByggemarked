@@ -18,7 +18,7 @@ public class Order {
     private String orderShedWidth;
     private String orderShipDate;
 
-    public Order(String  orderStatus, String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
+    public Order(String orderStatus, String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
                  String orderWidth, String orderShed, String orderShedLength, String orderShedWidth) {
         //this.orderId = orderId;
         //this.orderDate = orderDate;
@@ -98,14 +98,6 @@ public class Order {
         this.orderWidth = orderWidth;
     }
 
-    public String  isOrderShed() {
-        return orderShed;
-    }
-
-    public void setOrderShed(String orderShed) {
-        this.orderShed = orderShed;
-    }
-
     public String getOrderShedLength() {
         return orderShedLength;
     }
@@ -129,4 +121,8 @@ public class Order {
     public void setOrderShipDate(String orderShipDate) {
         this.orderShipDate = orderShipDate;
     }
+
+    public String getOrderShed() { return orderShed; }
+
+    public void setOrderShed(String orderShed) { this.orderShed = orderShed; }
 }

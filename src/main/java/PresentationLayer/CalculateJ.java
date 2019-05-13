@@ -65,7 +65,6 @@ public class CalculateJ extends Command {
 
         List<Wood> woodList = DBAccess.ItemMapper.readWoodList();
         List<Roof> roofList = DBAccess.ItemMapper.readRoofList();
-
         HashMap<Integer, ItemForList> rafterMap = new HashMap<>();
         HashMap<Integer, ItemForList> postMap = new HashMap<>();
         HashMap<Integer, ItemForList> uSternMap = new HashMap<>();
