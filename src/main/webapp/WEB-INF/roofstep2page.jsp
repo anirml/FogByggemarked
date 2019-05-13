@@ -30,8 +30,14 @@
         <label><b>Tag</b></label>
         <select class="form-control" name="roof">
             <option value="0" disabled selected>Vælg tag</option>
-                    <%
-            List<Roof> menuList = (List<Roof>) session.getAttribute("roofPitchMenu");
+        <%
+            boolean roofPitch = (boolean) session.getAttribute("roofPitch");
+            List<Roof> menuList =null;
+            if (roofPitch) {
+                menuList = (List<Roof>) session.getAttribute("roofPitchMenu");
+            } else {
+                menuList = (List<Roof>) session.getAttribute("roofFlatMenu");
+            }
             String roofSel;
 
             for (int i = 0; i < menuList.size(); i++) {
@@ -48,6 +54,9 @@
         %>
         </select>
 
+        <%
+        if (roofPitch) {
+            %>
         <label><b>Tag hældning</b></label>
         <select class="form-control" name="angle">
             <option value="0" disabled selected>Vælg hældning</option>
@@ -60,6 +69,19 @@
             <option value="45">45 grader</option>
 
         </select>
+        <%
+        } else {
+        %>
+
+        <label><b>Tag hældning</b></label>
+        <select class="form-control" name="angle">
+            <option value="0">Fladt tag</option>
+
+        </select>
+
+        <%
+        }
+        %>
         <br>
         <div class="row">
             <div class="col-md-2 text-center">

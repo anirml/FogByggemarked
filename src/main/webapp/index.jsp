@@ -21,6 +21,7 @@
     <h1>Welcome to Sem 2</h1>
         
         <table>
+<!--
                 <td>
                     <form name="bestil" action="FrontController" method="POST">
                         <input type="hidden" name="command" value="choice">
@@ -29,7 +30,7 @@
 
                     </form>
                 </td>
-
+-->
                 <td>
                     <form name="beregn" action="FrontController" method="POST">
                         <input type="hidden" name="command" value="calculate">

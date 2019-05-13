@@ -18,46 +18,47 @@ public class ToolshedChoice extends Command {
     }
 
     public static void calcToolshedChoice(HttpServletRequest request){
-        HttpSession session = request.getSession();
+
+    HttpSession session = request.getSession();
 
     System.out.println("Er i toolshedchoice");
 
     List<String> dimlist = new ArrayList<>();
     dimlist = (List<String>) session.getAttribute("list");
 
+    // carportLength dimlist.get(0)
+    // carportWidth dimlist.get(1)
     System.out.println(dimlist.get(0) + " " + dimlist.get(1));
 
-    List<String> shedwidthlist = new ArrayList<>();
+    List<String> shedWidthList = new ArrayList<>();
 
 
-    final int WIDTHSTARTDIM = 210;
+    final int SHEDSTARTWIDTH = 120;
 
-    for (int i = WIDTHSTARTDIM; i < Integer.parseInt(dimlist.get(0)) ; i = i+30) {
+    for (int i = SHEDSTARTWIDTH; i < Integer.parseInt(dimlist.get(0))-30 ; i = i+30) {
         //System.out.println(i);
-        shedwidthlist.add(Integer.toString(i));
+        shedWidthList.add(Integer.toString(i));
     }
 
-    session.setAttribute("toolshedWidthList",shedwidthlist);
+    session.setAttribute("toolshedWidthList",shedWidthList);
 
 
     //Længde
 
 
-    List<String> shedlengthlist = new ArrayList<>();
+    List<String> shedLengthList = new ArrayList<>();
 
-    final int LENGTHSTARTDIM = 150;
+    final int SHEDSTARTLENGTH = 120;
 
-    for (int i = LENGTHSTARTDIM; i < Integer.parseInt(dimlist.get(1)) ; i = i+30) {
+    for (int i = SHEDSTARTLENGTH; i < Integer.parseInt(dimlist.get(1))-60 ; i = i+30) {
         //System.out.println(i);
-        shedlengthlist.add(Integer.toString(i));
+        shedLengthList.add(Integer.toString(i));
     }
-    //System.out.println(shedlengthlist);
+    //System.out.println(shedLengthList);
 
-    session.setAttribute("toolshedLengthList",shedlengthlist);
+    session.setAttribute("toolshedLengthList",shedLengthList);
 
-    //System.out.println(shedlist);
-
-        return;
+    return;
 }
 
 }
