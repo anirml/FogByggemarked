@@ -14,6 +14,8 @@ public class Roof {
     private int roofStatus;
     private int roofMenu;
 
+    public Roof() {
+    }
 
     public Roof(int roofId, String roofDesc) {
         this.roofId = roofId;

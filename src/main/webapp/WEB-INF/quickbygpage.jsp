@@ -11,7 +11,7 @@
             <p>Rekvirér tilbud - start med at vælge type: </p>
             <hr>
             <center><h5>Carport med fladt tag</h5></center>
-                <a href="FrontController?command=nav&action=choice&action=flat">
+                <a href="FrontController?command=choice&action=flat">
                     <img style="display: block; margin-left: auto; margin-right: auto;" title="Carport med fladt tag" alt="Carport med fladt tag" src="img/quickurejs.gif" height="87" width="165" class="img-responsive">
                 </a>
             <br>

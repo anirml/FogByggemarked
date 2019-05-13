@@ -29,6 +29,7 @@ public class ChoiceJ extends Command {
         switch (request.getParameter("action")){
             case "pitch":
                 // code block
+                boolean roofPitch =true;
                 List<Roof> menuPitchList = DBAccess.ItemMapper.makePitchRoofMenu(roofList);
 
                 for (int i = 0; i <menuPitchList.size() ; i++) {
@@ -36,10 +37,12 @@ public class ChoiceJ extends Command {
                     System.out.println();
                 }
                 session.setAttribute("roofPitchMenu",menuPitchList);
-                destination = "pitchedroofstep1";
+                session.setAttribute("roofPitch",roofPitch);
+                destination = "roofstep1";
                 break;
             case  "flat":
                 // code block
+                roofPitch =false;
                 List<Roof> menuFlatList = DBAccess.ItemMapper.makeFlatRoofMenu(roofList);
 
                 System.out.println();
@@ -48,7 +51,8 @@ public class ChoiceJ extends Command {
                     System.out.println();
                 }
                 session.setAttribute("roofFlatMenu",menuFlatList);
-                destination = "flatroofstep1";
+                session.setAttribute("roofPitch",roofPitch);
+                destination = "roofstep1";
                 break;
             default:
                 // code block

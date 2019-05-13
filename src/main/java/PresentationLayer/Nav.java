@@ -18,10 +18,10 @@ public class Nav extends Command {
             case "nav":
                 switch (request.getParameter("action")){
                     case "quickbyg":
-                    destination = "quickbygpage";
+                        destination = "quickbygpage";
                     break;
                     case "pitchedroof":
-                        destination = "pitchedroofstep1page";
+                        destination = "roofstep1page";
                         break;
                     case "itemlist":
                         destination = "itemlistpage";
