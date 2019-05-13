@@ -22,6 +22,11 @@ public class User {
         this.type = type;
     }
 
+    public User(String id) {
+        this.id = Integer.parseInt(id);
+    }
+
+
     private int id; // just used to demo retrieval of autogen keys in UserMapper
     private String name;
     private String email;
@@ -96,8 +101,8 @@ public class User {
         this.phone = phone;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
     }
 
     public void setId( int id ) {

@@ -3,16 +3,20 @@ package PresentationLayer;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
+import FunctionLayer.User;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MakeRequest extends Command {
+
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
@@ -24,15 +28,17 @@ public class MakeRequest extends Command {
             String angle = "";
             String toolShedWidth = "";
             String toolShedLenght = "";
+            String comment = "";
 
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String zipcode = request.getParameter("zipcode");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            String comment = request.getParameter("comment");
+            String userId = "";
 
             String destination = "../index";
+
 
             HttpSession session = request.getSession();
 
@@ -47,13 +53,14 @@ public class MakeRequest extends Command {
                 list.add(angle);
                 list.add(toolShedWidth);
                 list.add(toolShedLenght);
+                list.add(comment);
 
+                list.add(userId);
                 list.add(name);
                 list.add(address);
                 list.add(zipcode);
                 list.add(phone);
                 list.add(email);
-                list.add(comment);
             }else {
                 list = (List<String>) session.getAttribute("list");
             }
@@ -107,8 +114,17 @@ public class MakeRequest extends Command {
                             break;
                         case "step5":
                             comment = request.getParameter("comment");
-                            list.set(11,comment);
-                            System.out.println("comment :" + comment);
+                            list.set(6,comment);
+                            System.out.println("comment: " + comment);
+
+                            User user = (User) session.getAttribute("user");
+                            userId = String.valueOf(user.getId());
+
+                            list.set(7,userId);
+                            System.out.println("User ID: " + list.get(7));
+
+                            LogicFacade.createRequest(list);
+
                             destination = "calculatepage";
                             break;
 
@@ -136,16 +152,13 @@ public class MakeRequest extends Command {
                     }
             }
 
-
             session.setAttribute("list",list);
-
 
             return destination;
 
         } catch (Exception e){
-            System.out.println("der var en fejl i GetRequest");
+            System.out.println("der var en fejl i MakeRequest");
         }
-
         return "404page";
     }
 }
