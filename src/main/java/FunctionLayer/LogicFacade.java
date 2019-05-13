@@ -3,6 +3,7 @@ package FunctionLayer;
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class LogicFacade {
 
-    public static User login(String id, String email, String password) throws LoginSampleException {
+    public static User login(String email, String password) throws LoginSampleException {
         return UserMapper.login( email, password );
     } 
 
@@ -40,6 +41,7 @@ public class LogicFacade {
         System.out.println(list.get(4));
         System.out.println(list.get(5));
         System.out.println(list.get(6));
+        System.out.println(list.get(7));
 
         if(list.get(4).equals("0")||list.get(5).equals("0")){
             orderShed = null;
