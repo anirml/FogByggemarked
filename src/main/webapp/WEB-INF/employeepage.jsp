@@ -13,10 +13,32 @@
     </head>
     <body>
     <jsp:include page="../include/header.jsp" />
-        <h1>Hello <%=session.getAttribute( "email" )%> </h1>
-        You are now logged in as an EMPLOYEE of our wonderful site.
+
+    <div class="container-jumbotron">
+
+        <div class="col text-center">
+            <h1>Hello <%=session.getAttribute( "email" )%> </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-3 text-center">
+            </div>
+            <div class="col-lg-4 col-md-6">
 
 
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
 
     </body>
 </html>
