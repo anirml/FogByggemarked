@@ -53,9 +53,9 @@ public class LogicFacade {
             orderWidth = list.get(4);
         }
 
-        Order order = new Order("0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
-        User user = new User(list.get(7));
-        OrderMapper.createRequest(order,user);
+        Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
+       // User user = new User(list.get(7));
+        OrderMapper.createRequest(order);
     }
 
     public static int[] rafter (int len, int wid){

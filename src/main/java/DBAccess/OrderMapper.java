@@ -13,7 +13,7 @@ import java.util.List;
 
 public class OrderMapper {
 
-    public static void createRequest(Order order, User user) throws LoginSampleException {
+    public static void createRequest(Order order) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
 
@@ -29,8 +29,8 @@ public class OrderMapper {
             LocalDateTime orderTimeConverted = orderTime.toLocalDateTime();
 
             ps.setString(1,String.valueOf(orderTimeConverted));
-            ps.setString(2,user.getId());
-            ps.setString(3,order.isOrderStatus());
+            ps.setString(2,order.getUserId());
+            ps.setString(3,order.getOrderStatus());
             ps.setString(4,order.getOrderComment());
             ps.setString(5,order.getOrderRoofAngle());
             ps.setString(6,order.getRoofMaterial());
