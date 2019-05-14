@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-2 text-center">
             <input type="hidden" name="action" value="step5"/>
-            <input type="submit" value="Beregn" class="btn btn-secondary form-control"/>
+            <input type="submit" value="Vis tegning" class="btn btn-secondary form-control"/>
         </div>
         </div>
 

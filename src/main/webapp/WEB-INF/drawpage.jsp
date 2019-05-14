@@ -62,7 +62,14 @@
             </tbody>
         </table>
     </div>
+    <td>
+        <form name="beregn" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="sendRequest">
+            SEND FORESPØRGSEL:
+            <input type="submit" value="Submit">
 
+        </form>
+    </td>
 </div>
 </br>
 </div>

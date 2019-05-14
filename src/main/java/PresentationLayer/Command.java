@@ -20,6 +20,7 @@ abstract class Command {
         commands.put( "toolshedchoice", new ToolshedChoice() );
         commands.put( "makeRequestBack", new MakeRequest() );
         commands.put( "mypage", new MyPage() );
+        commands.put( "sendRequest" , new SendRequest());
     }
 
     static Command from( HttpServletRequest request ) {

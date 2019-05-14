@@ -26,8 +26,8 @@ public class ToolshedChoice extends Command {
     List<String> dimlist = new ArrayList<>();
     dimlist = (List<String>) session.getAttribute("list");
 
-    // carportLength dimlist.get(0)
-    // carportWidth dimlist.get(1)
+    int carportLength= Integer.valueOf(dimlist.get(1));
+    int carportWidth= Integer.valueOf(dimlist.get(0));
     System.out.println(dimlist.get(0) + " " + dimlist.get(1));
 
     List<String> shedWidthList = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ToolshedChoice extends Command {
 
     final int SHEDSTARTWIDTH = 120;
 
-    for (int i = SHEDSTARTWIDTH; i < Integer.parseInt(dimlist.get(0))-30 ; i = i+30) {
+    for (int i = SHEDSTARTWIDTH; i <carportWidth -30 ; i = i+30) {
         //System.out.println(i);
         shedWidthList.add(Integer.toString(i));
     }
@@ -50,7 +50,7 @@ public class ToolshedChoice extends Command {
 
     final int SHEDSTARTLENGTH = 120;
 
-    for (int i = SHEDSTARTLENGTH; i < Integer.parseInt(dimlist.get(1))-60 ; i = i+30) {
+    for (int i = SHEDSTARTLENGTH; i < carportLength-60 ; i = i+30) {
         //System.out.println(i);
         shedLengthList.add(Integer.toString(i));
     }

@@ -48,26 +48,26 @@
         %>
         </select>
         <label><b>Redskabsrum længde</b></label>
-        <select class="form-control" name="toolShedLenght">
+        <select class="form-control" name="toolShedLength">
             <option selected="selected" value="0">Ønsker ikke redskabsrum</option>
             <%
-                List<String> shedLenghtlist = new ArrayList<>();
-                shedLenghtlist = (List<String>) session.getAttribute("toolshedLengthList");
+                List<String> shedLengthlist = new ArrayList<>();
+                shedLengthlist = (List<String>) session.getAttribute("toolshedLengthList");
 
-                System.out.println(shedLenghtlist);
+                System.out.println(shedLengthlist);
 
-                String toolshedLenght;
+                String toolshedLength;
 
-                for (int i = 0; i < shedLenghtlist.size(); i++) {
-                    toolshedLenght = "<option value=\"_shedlenghtid_\">_shedlenghtdesc_</option>";
+                for (int i = 0; i < shedLengthlist.size(); i++) {
+                    toolshedLength = "<option value=\"_shedlengthid_\">_shedlengthdesc_</option>";
 
-                    String shedlenghtid = shedLenghtlist.get(i);
-                    String shedlenghtdesc = shedLenghtlist.get(i) + " cm";
+                    String shedlengthid = shedLengthlist.get(i);
+                    String shedlenghtdesc = shedLengthlist.get(i) + " cm";
 
-                    toolshedLenght = toolshedLenght.replace("_shedlenghtid_",shedlenghtid);
-                    toolshedLenght = toolshedLenght.replace("_shedlenghtdesc_",shedlenghtdesc);
+                    toolshedLength = toolshedLength.replace("_shedlengthid_",shedlengthid);
+                    toolshedLength = toolshedLength.replace("_shedlengthdesc_",shedlenghtdesc);
 
-                    out.print(toolshedLenght);
+                    out.print(toolshedLength);
                 }
 
             %>
