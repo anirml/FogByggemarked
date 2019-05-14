@@ -20,28 +20,6 @@
 
     <h1>Welcome to Sem 2</h1>
         
-        <table>
-<!--
-                <td>
-                    <form name="bestil" action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="choice">
-                        Bestil:
-                        <input type="submit" value="Submit">
-
-                    </form>
-                </td>
--->
-                <td>
-                    <form name="beregn" action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="calculate">
-                        Beregn:
-                        <input type="submit" value="Submit">
-
-                    </form>
-                </td>
-
-            </tr>
-        </table>
         <% String error = (String) request.getAttribute( "error");
            if ( error != null) { 
                out.println("<H2>Error!!</h2>");
