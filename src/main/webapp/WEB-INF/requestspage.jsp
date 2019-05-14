@@ -2,6 +2,7 @@
 <%@ page import="FunctionLayer.Wood" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="DBAccess.OrderMapper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -19,25 +20,17 @@
                     <th scope="col">woodLength</th>
                     <th scope="col">woodUnit</th>
                     <th scope="col">woodPrice</th>
-                    <th scope="col">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
-                    List<Wood> woodList = ItemMapper.readWoodList();
+                    List<String> requestList = OrderMapper.readOrders();
 
-                    for (int i = 0; i < woodList.size() ; i++) {
+                    for (int i = 0; i < requestList.size() ; i++) {
                 %>
 
                 <tr >
-                    <th scope = "row" > <%out.print(woodList.get(i).getWoodId()); %> </th >
-                    <td> <%out.print(woodList.get(i).getWoodDim1()); %> </td >
-                    <td> <%out.print(woodList.get(i).getWoodDim2()); %> </td >
-                    <td> <%out.print(woodList.get(i).getWoodDesc()); %></td >
-                    <td> <%out.print(woodList.get(i).getWoodLength()); %></td >
-                    <td> <%out.print(woodList.get(i).getWoodUnit());  %></td >
-                    <td> <%out.print(woodList.get(i).getWoodPrice());  %></td >
-                    <td><a class="btn btn-primary form-control" href="FrontController?command=nav&action=editwood&woodId=<%out.print(i+1);%>">Rediger</a></td>
+                    <th scope = "row" > <%out.print(requestList.get(i)); %> </th >
                 </tr >
                 <%
                     }

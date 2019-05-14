@@ -28,32 +28,39 @@
                 <li class="nav-item">
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
+                <%
+                    String userEmail = (String)session.getAttribute("email");
+                    String userType = (String)session.getAttribute("type");
+                    if (userType == null){
+                        userType = "";
+                    } else if(userType.equals("customer") || userType.equals("employee")){
+                %>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=quickbyg" class="nav-link ">Quick-Byg</a>
                 </li>
-                <li class="nav-item">
-                    <a href="FrontController?command=toolshedchoice" class="nav-link ">Testpage</a>
-                </li>
-                <li class="nav-item">
-                    <a href="FrontController?command=nav&action=itemlist" class="nav-link ">itemlist</a>
-                </li>
-                <li class="nav-item">
-                    <a href="FrontController?command=nav&action=virkerikke" class="nav-link ">Denne virker ikke med vilje</a>
-                </li>
+                <%
+                    } if (userType.equals("employee")){
+                %>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=woodmaterial" class="nav-link ">Wood list</a>
                 </li>
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=roofmaterial" class="nav-link ">Roof list</a>
                 </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=requests" class="nav-link ">Forespørgsler</a>
+                </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=editwood" class="nav-link ">edit wood</a>
+                </li>
+                <%
+                    }
+                %>
 
             </ul>
             <ul class="nav navbar-nav ml-auto">
                 <%
-                    String userEmail = (String)session.getAttribute("email");
-                    String userType = (String)session.getAttribute("type");
-                    if (userType == null) {
-                        userType = "";
+                    if (userType.equals("")) {
                 %>
 
                 <li class="nav-item"><a href="FrontController?command=nav&action=register" class="nav-link">

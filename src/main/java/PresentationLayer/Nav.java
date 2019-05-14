@@ -23,8 +23,8 @@ public class Nav extends Command {
                     case "pitchedroof":
                         destination = "roofstep1page";
                         break;
-                    case "itemlist":
-                        destination = "itemlistpage";
+                    case "requests":
+                        destination = "requestspage";
                         break;
                     case "register":
                         destination = "registerpage";
@@ -42,6 +42,9 @@ public class Nav extends Command {
 
                     case "employee":
                         destination = "employeepage";
+                        break;
+                    case "editwood":
+                        destination = "editwoodpage";
                         break;
 
 
