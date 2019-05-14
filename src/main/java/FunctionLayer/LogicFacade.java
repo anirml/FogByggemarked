@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import DBAccess.ItemMapper;
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
 
@@ -56,6 +57,22 @@ public class LogicFacade {
         Order order = new Order("0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
         User user = new User(list.get(7));
         OrderMapper.createRequest(order,user);
+    }
+
+    public static Wood createWood( int woodId ,int woodDim1, int woodDim2,
+                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws LoginSampleException {
+
+        Wood wood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
+        ItemMapper.createWood(wood);
+        return wood;
+    }
+
+    public static Wood editWood( int woodId ,int woodDim1, int woodDim2,
+                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws LoginSampleException {
+
+        Wood wood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
+        ItemMapper.editWood(wood);
+        return wood;
     }
 
     public static int[] rafter (int len, int wid){
@@ -171,6 +188,8 @@ public class LogicFacade {
 
         return arrayShed;
     }
+
+
 
 
 }

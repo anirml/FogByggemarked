@@ -35,16 +35,17 @@ public class Nav extends Command {
                     case "roofmaterial":
                         destination = "roofmaterialpage";
                         break;
-
                     case "customer":
                         destination = "customerpage";
                         break;
-
                     case "employee":
                         destination = "employeepage";
                         break;
                     case "editwood":
                         destination = "editwoodpage";
+                        break;
+                    case "makewood":
+                        destination = "makewoodpage";
                         break;
 
 
