@@ -125,7 +125,7 @@ public class ItemMapper {
             ResultSet resultSet = ps.executeQuery(sql);
 
             while (resultSet.next()) {
-                int woodId =resultSet.getInt("wood_id");
+                int woodId = resultSet.getInt("wood_id");
                 int woodDim1 = resultSet.getInt("wood_dim1");
                 int woodDim2 = resultSet.getInt("wood_dim2");
                 String woodDesc = resultSet.getString("wood_description");
@@ -200,3 +200,5 @@ public class ItemMapper {
     }
 
 }
+
+
