@@ -52,9 +52,10 @@ public class OrderMapper {
         }
     }
 
-   public  static List<String> readOrders() {
+    public  static List<String> readOrders() {
 
         List<String> orderList = new ArrayList<>();
+
 
         try {
             Connection con = Connector.connection();
@@ -70,8 +71,8 @@ public class OrderMapper {
                 String orderDate = resultSet.getString("order_date");
                 int orderStatus = resultSet.getInt("order_status");
                 String orderComment = resultSet.getString("order_comment");
-                int roofAngle = resultSet.getInt("order_roof_angle");
-                String roofMaterial = resultSet.getString("order_roof_material");
+                int orderRoofAngle = resultSet.getInt("order_roof_angle");
+                String orderRoofMaterial = resultSet.getString("order_roof_material");
                 int orderLength = resultSet.getInt("order_length");
                 int orderWidth = resultSet.getInt("order_width");
                 int orderShed = resultSet.getInt("order_shed");
@@ -85,27 +86,21 @@ public class OrderMapper {
                 String userZipcode = resultSet.getString("user_zipcode");
                 String userCity = resultSet.getString("user_city");
                 String userPhone = resultSet.getString("user_phone");
+                String userType = "0";
                 //userType so far its hidden
 
+                Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
+                        String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
+                        String.valueOf(orderWidth),String.valueOf(orderShed),
+                        String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
                 orderList.add(String.valueOf(orderId));
-                orderList.add(String.valueOf(userId));
-                orderList.add(orderDate);
-                orderList.add(String.valueOf(orderStatus));
-                orderList.add(orderComment);
-                orderList.add(String.valueOf(roofAngle));
-                orderList.add(roofMaterial);
-                orderList.add(String.valueOf(orderLength));
-                orderList.add(String.valueOf(orderWidth));
-                orderList.add(String.valueOf(orderShed));
-                orderList.add(String.valueOf(orderShedLength));
-                orderList.add(String.valueOf(orderShedWidth));
+                orderList.add(String.valueOf(tempOrder));
+                orderList.add(String.valueOf(orderDate));
                 orderList.add(String.valueOf(orderShipDate));
-                orderList.add(userName);
-                orderList.add(userEmail);
-                orderList.add(userAddress);
-                orderList.add(userZipcode);
-                orderList.add(userCity);
-                orderList.add(userPhone);
+
+                User tempUser = new User(userName,userEmail,"0",userAddress,
+                        userZipcode, userCity,userPhone,userType);
+                orderList.add(String.valueOf(tempUser));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -113,4 +108,40 @@ public class OrderMapper {
         }
         return orderList;
     }
+
+    public  static List<Order> readUserOrders(String userId) {
+        List<Order> userOrderList = new ArrayList<>();
+        try {
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog_byggemarked.orders WHERE (user_id = ?);";
+            PreparedStatement ps = con.prepareStatement( sql );
+            ps.setString( 1, userId );
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+
+                String orderStatus = resultSet.getString("order_status");
+                String orderComment = resultSet.getString("order_comment");
+                String orderRoofAngle = resultSet.getString("order_roof_angle");
+                String orderRoofMaterial = resultSet.getString("order_roof_material");
+                String orderLength = resultSet.getString("order_length");
+                String orderWidth = resultSet.getString("order_width");
+                String orderShed = resultSet.getString("order_shed");
+                String orderShedLength = resultSet.getString("order_shed_length");
+                String orderShedWidth = resultSet.getString("order_shed_width");
+
+                Order tempUserOrder = new Order(userId, orderStatus, orderComment,
+                        orderRoofAngle, orderRoofMaterial, orderLength,
+                        orderWidth, orderShed, orderShedLength, orderShedWidth);
+                userOrderList.add(tempUserOrder);
+                System.out.println(orderStatus);
+                System.out.println(orderComment);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return userOrderList;
+    }
 }
+
