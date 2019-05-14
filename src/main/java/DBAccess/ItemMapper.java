@@ -170,4 +170,33 @@ public class ItemMapper {
         return descMap;
     }
 
+    public static List<Wood> editWood() {
+        List<Wood> woodList = new ArrayList<>();
+        try {
+            Connection con = Connector.connection();
+            String sql = "INSERT INTO `fog_byggemarked`.`wood_material` (`wood_id`, `wood_dim1`, `wood_dim2`, `wood_description`, `wood_length`, `wood_unit`, `wood_price`) " +
+                    "VALUES ('', '50', '200', 'testwood', '8000', 'stk', '1');";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int woodId =resultSet.getInt("wood_id");
+                int woodDim1 = resultSet.getInt("wood_dim1");
+                int woodDim2 = resultSet.getInt("wood_dim2");
+                String woodDesc = resultSet.getString("wood_description");
+                int woodlength = resultSet.getInt("wood_length");
+                String woodUnit = resultSet.getString("wood_unit");
+                double woodPrice = resultSet.getDouble("wood_price");
+                Wood tempWood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodlength, woodUnit, woodPrice);
+                woodList.add(tempWood);
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return woodList;
+    }
+
 }
