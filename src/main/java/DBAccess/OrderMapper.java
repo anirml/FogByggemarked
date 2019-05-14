@@ -13,7 +13,7 @@ import java.util.List;
 
 public class OrderMapper {
 
-    public static void createRequest(Order order, User user) throws LoginSampleException {
+    public static void createRequest(Order order) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
 
@@ -29,8 +29,8 @@ public class OrderMapper {
             LocalDateTime orderTimeConverted = orderTime.toLocalDateTime();
 
             ps.setString(1,String.valueOf(orderTimeConverted));
-            ps.setString(2,user.getId());
-            ps.setString(3,order.isOrderStatus());
+            ps.setString(2,order.getUserId());
+            ps.setString(3,order.getOrderStatus());
             ps.setString(4,order.getOrderComment());
             ps.setString(5,order.getOrderRoofAngle());
             ps.setString(6,order.getRoofMaterial());
@@ -56,6 +56,7 @@ public class OrderMapper {
 
         List<String> orderList = new ArrayList<>();
 
+
         try {
             Connection con = Connector.connection();
             String sql = "SELECT * FROM orders\n" +
@@ -70,8 +71,8 @@ public class OrderMapper {
                 String orderDate = resultSet.getString("order_date");
                 int orderStatus = resultSet.getInt("order_status");
                 String orderComment = resultSet.getString("order_comment");
-                int roofAngle = resultSet.getInt("order_roof_angle");
-                String roofMaterial = resultSet.getString("order_roof_material");
+                int orderRoofAngle = resultSet.getInt("order_roof_angle");
+                String orderRoofMaterial = resultSet.getString("order_roof_material");
                 int orderLength = resultSet.getInt("order_length");
                 int orderWidth = resultSet.getInt("order_width");
                 int orderShed = resultSet.getInt("order_shed");
@@ -86,27 +87,21 @@ public class OrderMapper {
                 String userZipcode = resultSet.getString("user_zipcode");
                 String userCity = resultSet.getString("user_city");
                 String userPhone = resultSet.getString("user_phone");
+                String userType = "0";
                 //userType so far its hidden
 
+                Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
+                        String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
+                        String.valueOf(orderWidth),String.valueOf(orderShed),
+                        String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
                 orderList.add(String.valueOf(orderId));
-                orderList.add(String.valueOf(userId));
-                orderList.add(orderDate);
-                orderList.add(String.valueOf(orderStatus));
-                orderList.add(orderComment);
-                orderList.add(String.valueOf(roofAngle));
-                orderList.add(roofMaterial);
-                orderList.add(String.valueOf(orderLength));
-                orderList.add(String.valueOf(orderWidth));
-                orderList.add(String.valueOf(orderShed));
-                orderList.add(String.valueOf(orderShedLength));
-                orderList.add(String.valueOf(orderShedWidth));
+                orderList.add(String.valueOf(tempOrder));
+                orderList.add(String.valueOf(orderDate));
                 orderList.add(String.valueOf(orderShipDate));
-                orderList.add(userName);
-                orderList.add(userEmail);
-                orderList.add(userAddress);
-                orderList.add(userZipcode);
-                orderList.add(userCity);
-                orderList.add(userPhone);
+
+                User tempUser = new User(userName,userEmail,"0",userAddress,
+                        userZipcode, userCity,userPhone,userType);
+                orderList.add(String.valueOf(tempUser));
             }
 
         } catch (ClassNotFoundException | SQLException e) {

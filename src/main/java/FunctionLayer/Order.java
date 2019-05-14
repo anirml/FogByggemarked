@@ -5,6 +5,7 @@ import java.util.Date;
 public class Order {
 
     private int orderId;
+    private String userId;
     private String orderDate;
     //user_id
     private String orderStatus;
@@ -18,10 +19,11 @@ public class Order {
     private String orderShedWidth;
     private String orderShipDate;
 
-    public Order(String orderStatus, String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
+    public Order(String userId, String orderStatus,String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
                  String orderWidth, String orderShed, String orderShedLength, String orderShedWidth) {
         //this.orderId = orderId;
         //this.orderDate = orderDate;
+        this.userId = userId;
         this.orderStatus = orderStatus;
         this.orderComment = orderComment;
         this.orderRoofAngle = orderRoofAngle;
@@ -125,4 +127,8 @@ public class Order {
     public String getOrderShed() { return orderShed; }
 
     public void setOrderShed(String orderShed) { this.orderShed = orderShed; }
+
+    public String getUserId() { return userId; }
+
+    public String getOrderStatus() { return orderStatus; }
 }
