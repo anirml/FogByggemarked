@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 public class Register extends Command {
 
-
     @Override
     String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
         String name = request.getParameter( "name" );

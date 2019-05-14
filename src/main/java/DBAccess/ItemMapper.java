@@ -174,7 +174,8 @@ public class ItemMapper {
         List<Wood> woodList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
-            String sql = "INSERT INTO `fog_byggemarked`.`wood_material` (`wood_id`, `wood_dim1`, `wood_dim2`, `wood_description`, `wood_length`, `wood_unit`, `wood_price`) " +
+            String sql = "INSERT INTO `fog_byggemarked`.`wood_material` (`wood_id`, `wood_dim1`, `wood_dim2`," +
+                    "`wood_description`, `wood_length`, `wood_unit`, `wood_price`) " +
                     "VALUES ('', '50', '200', 'testwood', '8000', 'stk', '1');";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultSet = ps.executeQuery(sql);
@@ -198,7 +199,6 @@ public class ItemMapper {
         }
         return woodList;
     }
-
 }
 
 

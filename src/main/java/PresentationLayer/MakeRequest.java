@@ -37,14 +37,9 @@ public class MakeRequest extends Command {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
 
-
-
             String destination = "../index";
 
-
             HttpSession session = request.getSession();
-
-          //  String userId = (String) session.getAttribute("id");
 
             List<String> list;
 
@@ -69,8 +64,6 @@ public class MakeRequest extends Command {
                 list = (List<String>) session.getAttribute("list");
             }
 
-            //boolean roofPitch = (boolean) session.getAttribute("roofPitch");
-
             switch (request.getParameter("command")){
                 case "makeRequest":
                     switch (request.getParameter("action")){
@@ -87,7 +80,6 @@ public class MakeRequest extends Command {
                             }
                             list.set(0,width);
                             list.set(1,lenght);
-                            //System.out.println("B&L :" + width + " " + lenght);
                             destination = "roofstep2page";
                             break;
                         case "step3":
@@ -124,9 +116,6 @@ public class MakeRequest extends Command {
 
 
                             userId = (String) session.getAttribute("id");
-                           // User user = (String) session.getAttribute("id");
-                            //userId = String.valueOf(user.getId());
-
                             list.set(7,userId);
                             System.out.println("User ID: " + list.get(7));
 
@@ -155,7 +144,6 @@ public class MakeRequest extends Command {
                             System.out.println("step4");
                             destination = "roofstep4page";
                             break;
-
                     }
             }
 

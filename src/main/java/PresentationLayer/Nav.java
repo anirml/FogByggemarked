@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Nav extends Command {
 
-
-
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
@@ -47,12 +45,10 @@ public class Nav extends Command {
                         destination = "editwoodpage";
                         break;
 
-
                     default :
                         destination = "404page";
             }
         }
-
         return destination;
     }
 }

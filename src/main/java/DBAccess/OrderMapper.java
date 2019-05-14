@@ -81,7 +81,6 @@ public class OrderMapper {
 
                 String userName = resultSet.getString("user_name");
                 String userEmail = resultSet.getString("user_email");
-                //userPassword
                 String userAddress = resultSet.getString("user_address");
                 String userZipcode = resultSet.getString("user_zipcode");
                 String userCity = resultSet.getString("user_city");
@@ -114,5 +113,4 @@ public class OrderMapper {
         }
         return orderList;
     }
-
 }

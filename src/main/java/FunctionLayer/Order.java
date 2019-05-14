@@ -7,7 +7,6 @@ public class Order {
     private int orderId;
     private String userId;
     private String orderDate;
-    //user_id
     private String orderStatus;
     private String orderComment;
     private String orderRoofAngle;
@@ -21,8 +20,6 @@ public class Order {
 
     public Order(String userId, String orderStatus,String orderComment, String orderRoofAngle, String roofMaterial, String orderLength,
                  String orderWidth, String orderShed, String orderShedLength, String orderShedWidth) {
-        //this.orderId = orderId;
-        //this.orderDate = orderDate;
         this.userId = userId;
         this.orderStatus = orderStatus;
         this.orderComment = orderComment;
@@ -33,7 +30,6 @@ public class Order {
         this.orderShed = orderShed;
         this.orderShedLength = orderShedLength;
         this.orderShedWidth = orderShedWidth;
-        //this.orderShipDate = orderShipDate;
     }
 
     public int getOrderId() {
