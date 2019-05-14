@@ -14,6 +14,7 @@ public class MyPage extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        System.out.println("Er i MyPage");
         String email = user.getEmail();
         request.setAttribute("email", email);
         String userRole = request.getParameter("type");
