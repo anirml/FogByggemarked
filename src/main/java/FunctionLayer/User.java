@@ -22,11 +22,6 @@ public class User {
         this.type = type;
     }
 
-    public User(String id) {
-        this.id = Integer.parseInt(id);
-    }
-
-
     private int id; // just used to demo retrieval of autogen keys in UserMapper
     private String name;
     private String email;

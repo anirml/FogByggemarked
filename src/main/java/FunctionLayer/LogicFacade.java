@@ -56,7 +56,6 @@ public class LogicFacade {
         }
 
         Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
-       // User user = new User(list.get(7));
         OrderMapper.createRequest(order);
     }
 
