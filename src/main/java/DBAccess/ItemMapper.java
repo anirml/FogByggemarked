@@ -1,13 +1,11 @@
 package DBAccess;
 
 import FunctionLayer.Description;
+import FunctionLayer.LoginSampleException;
 import FunctionLayer.Roof;
 import FunctionLayer.Wood;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +166,44 @@ public class ItemMapper {
             e.printStackTrace();
         }
         return descMap;
+    }
+
+    public static void createWood( Wood wood ) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+
+            String SQL = "INSERT INTO wood_material (wood_dim1, wood_dim2, wood_description, wood_length, wood_unit, wood_price)" +
+                    " VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
+            ps.setString( 1, Integer.toString(wood.getWoodDim1()) );
+            ps.setString( 2, Integer.toString(wood.getWoodDim2()) );
+            ps.setString( 3, wood.getWoodDesc() );
+            ps.setString( 4, Integer.toString(wood.getWoodLength())  );
+            ps.setString( 5, wood.getWoodUnit() );
+            ps.setString( 6, Double.toString(wood.getWoodPrice()) );
+            ps.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LoginSampleException( ex.getMessage() );
+        }
+    }
+
+    public static void editWood( Wood wood ) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+
+            String SQL = "UPDATE wood_material SET wood_dim1=?, wood_dim2=?,wood_description=?,wood_length=?,wood_unit=?,wood_price=? WHERE (wood_id=?);\n";
+            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
+            ps.setString( 1, Integer.toString(wood.getWoodDim1()) );
+            ps.setString( 2, Integer.toString(wood.getWoodDim2()) );
+            ps.setString( 3, wood.getWoodDesc() );
+            ps.setString( 4, Integer.toString(wood.getWoodLength())  );
+            ps.setString( 5, wood.getWoodUnit() );
+            ps.setString( 6, Double.toString(wood.getWoodPrice()) );
+            ps.setString( 7, Integer.toString(wood.getWoodId()));
+            ps.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LoginSampleException( ex.getMessage() );
+        }
     }
 
 }
