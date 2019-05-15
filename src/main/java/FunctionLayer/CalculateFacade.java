@@ -225,7 +225,12 @@ public class CalculateFacade {
         return arrayPost;
     }
 
-    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) {
+    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid, String userType) {
+
+        boolean emp=false;
+        if (userType.equals("employee")){
+            emp=true;
+        }
 
         HttpSession session = request.getSession();
         System.out.println("Er i metode for stykliste genering");
@@ -351,9 +356,6 @@ public class CalculateFacade {
                              descMap.get("stolp").getUseDesc()));
 
         //Remme
-        //System.out.println("Antal stolper arrayPost[0] = "+arrayPost[0]);
-        //System.out.println("arrayPost[2] =" + arrayPost[2]);
-        //System.out.println("arrayPost[3] =" + arrayPost[3]);
 
         if (cl>=6901&&cl<=9000) {
            tempStykList.add(new OrderLine(rafterMap.get(((remShareX/300)+1)*300+300),Integer.toString(2),descMap.get("rem01").getUseDesc()));

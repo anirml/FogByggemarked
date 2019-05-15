@@ -119,6 +119,7 @@ public class MakeRequest extends Command {
 
                             User user = (User) session.getAttribute("user");
                             userId = String.valueOf(user.getId());
+                            String userType=user.getType();
 
                             list.set(7, userId);
                             System.out.println("User ID: " + list.get(7));
@@ -130,7 +131,7 @@ public class MakeRequest extends Command {
                             int shedWid = 10 * Integer.parseInt(list.get(4));
 
                             CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
-                            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid);
+                            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
 
                             session.setAttribute("list", list);
 
