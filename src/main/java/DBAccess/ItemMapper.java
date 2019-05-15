@@ -1,13 +1,11 @@
 package DBAccess;
 
 import FunctionLayer.Description;
+import FunctionLayer.LoginSampleException;
 import FunctionLayer.Roof;
 import FunctionLayer.Wood;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -170,35 +168,41 @@ public class ItemMapper {
         return descMap;
     }
 
-    public static List<Wood> editWood() {
-        List<Wood> woodList = new ArrayList<>();
+    public static void createWood( Wood wood ) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String sql = "INSERT INTO `fog_byggemarked`.`wood_material` (`wood_id`, `wood_dim1`, `wood_dim2`," +
-                    "`wood_description`, `wood_length`, `wood_unit`, `wood_price`) " +
-                    "VALUES ('', '50', '200', 'testwood', '8000', 'stk', '1');";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet resultSet = ps.executeQuery(sql);
 
-            while (resultSet.next()) {
-                int woodId =resultSet.getInt("wood_id");
-                int woodDim1 = resultSet.getInt("wood_dim1");
-                int woodDim2 = resultSet.getInt("wood_dim2");
-                String woodDesc = resultSet.getString("wood_description");
-                int woodlength = resultSet.getInt("wood_length");
-                String woodUnit = resultSet.getString("wood_unit");
-                double woodPrice = resultSet.getDouble("wood_price");
-                Wood tempWood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodlength, woodUnit, woodPrice);
-                woodList.add(tempWood);
-            }
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String SQL = "INSERT INTO wood_material (wood_dim1, wood_dim2, wood_description, wood_length, wood_unit, wood_price)" +
+                    " VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
+            ps.setString( 1, Integer.toString(wood.getWoodDim1()) );
+            ps.setString( 2, Integer.toString(wood.getWoodDim2()) );
+            ps.setString( 3, wood.getWoodDesc() );
+            ps.setString( 4, Integer.toString(wood.getWoodLength())  );
+            ps.setString( 5, wood.getWoodUnit() );
+            ps.setString( 6, Double.toString(wood.getWoodPrice()) );
+            ps.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LoginSampleException( ex.getMessage() );
         }
-        return woodList;
+    }
+
+    public static void editWood( Wood wood ) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+
+            String SQL = "UPDATE wood_material SET wood_dim1=?, wood_dim2=?,wood_description=?,wood_length=?,wood_unit=?,wood_price=? WHERE (wood_id=?);\n";
+            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
+            ps.setString( 1, Integer.toString(wood.getWoodDim1()) );
+            ps.setString( 2, Integer.toString(wood.getWoodDim2()) );
+            ps.setString( 3, wood.getWoodDesc() );
+            ps.setString( 4, Integer.toString(wood.getWoodLength())  );
+            ps.setString( 5, wood.getWoodUnit() );
+            ps.setString( 6, Double.toString(wood.getWoodPrice()) );
+            ps.setString( 7, Integer.toString(wood.getWoodId()));
+            ps.executeUpdate();
+        } catch ( SQLException | ClassNotFoundException ex ) {
+            throw new LoginSampleException( ex.getMessage() );
+        }
     }
 }
-
-

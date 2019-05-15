@@ -9,6 +9,9 @@
 <div class="container jumbotron">
     <div class="row">
         <div class="col">
+            <a class="btn btn-primary form-control" href="FrontController?command=nav&action=makewood">Indsæt nyt træ i tabel</a>
+            <br>
+            <br>
             <table class="table table-hover table-sm">
                 <thead>
                 <tr>
@@ -37,7 +40,7 @@
                     <td> <%out.print(woodList.get(i).getWoodLength()); %></td >
                     <td> <%out.print(woodList.get(i).getWoodUnit());  %></td >
                     <td> <%out.print(woodList.get(i).getWoodPrice());  %></td >
-                    <td><a class="btn btn-primary form-control" href="FrontController?command=nav&action=editwood&woodId=<%out.print(i+1);%>">Rediger</a></td>
+                    <td><a class="btn btn-primary form-control" href="FrontController?command=nav&action=editwood&woodListId=<%out.print(i+1);%>">Rediger</a></td>
                 </tr >
                 <%
                     }
