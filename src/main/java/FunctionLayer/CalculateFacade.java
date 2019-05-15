@@ -277,7 +277,7 @@ public class CalculateFacade {
 
                 tempItem = new ItemForList(tempDesc,
                         Integer.toString(woodList.get(i).getWoodLength()),
-                        woodList.get(i).getWoodUnit());
+                        woodList.get(i).getWoodUnit(),woodList.get(i).getWoodPrice());
                 rafterMap.put(woodList.get(i).getWoodLength(), tempItem);
             }
             //stolper
@@ -288,7 +288,7 @@ public class CalculateFacade {
 
                 tempItem = new ItemForList(tempDesc,
                         Integer.toString(woodList.get(i).getWoodLength()),
-                        woodList.get(i).getWoodUnit());
+                        woodList.get(i).getWoodUnit(),woodList.get(i).getWoodPrice());
                 postMap.put(woodList.get(i).getWoodLength(), tempItem);
             }
             //understernbrædder
@@ -299,7 +299,7 @@ public class CalculateFacade {
 
                 tempItem = new ItemForList(tempDesc,
                         Integer.toString(woodList.get(i).getWoodLength()),
-                        woodList.get(i).getWoodUnit());
+                        woodList.get(i).getWoodUnit(),woodList.get(i).getWoodPrice());
                 uSternMap.put(woodList.get(i).getWoodLength(), tempItem);
             }
             //oversternbrædder
@@ -310,7 +310,7 @@ public class CalculateFacade {
 
                 tempItem = new ItemForList(tempDesc,
                         Integer.toString(woodList.get(i).getWoodLength()),
-                        woodList.get(i).getWoodUnit());
+                        woodList.get(i).getWoodUnit(),woodList.get(i).getWoodPrice());
                 oSternMap.put(woodList.get(i).getWoodLength(), tempItem);
             }
 
@@ -322,7 +322,7 @@ public class CalculateFacade {
 
                 beklaedItem = new ItemForList(tempDesc,
                         Integer.toString(2100),
-                        woodList.get(i).getWoodUnit());
+                        woodList.get(i).getWoodUnit(),woodList.get(i).getWoodPrice());
             }
 
         }
@@ -335,14 +335,14 @@ public class CalculateFacade {
             if (roofList.get(i).getRoofDesc().equals(roofType)) {
                 tempDesc = roofList.get(i).getRoofDesc() + " " + roofList.get(i).getRoofColor();
                 tempItem = new ItemForList(tempDesc, Integer.toString(roofList.get(i).getRoofLength()),
-                        roofList.get(i).getRoofUnit());
+                        roofList.get(i).getRoofUnit(),roofList.get(i).getRoofPrice());
                 roofMap.put(roofList.get(i).getRoofLength(), tempItem);
             }
         }
 
 
-/* for (Integer i:rafterWood.keySet()) {
-             System.out.println("key: " + i + " value. " +rafterWood.get(i).toString());
+/* for (Integer i:rafterMap.keySet()) {
+             System.out.println("key: " + i + " value. " +rafterMap.get(i).toString());
         }
 */
 
@@ -351,48 +351,62 @@ public class CalculateFacade {
 
         ArrayList<OrderLine> tempStykList = new ArrayList();
 
-        //Stolper
-        tempStykList.add(new OrderLine(postMap.get(3000),Integer.toString(postArray[0][0].getX()),
-                             descMap.get("stolp").getUseDesc()));
+        if (emp) {
 
-        //Remme
+            System.out.println("er under Employee i stykliste");
+            //Stolper
+            tempStykList.add(new OrderLine(postMap.get(3000), Integer.toString(postArray[0][0].getX()),
+                    descMap.get("stolp").getUseDesc(), postArray[0][0].getX() * postMap.get(3000).getPrice()));
 
-        if (cl>=6901&&cl<=9000) {
-           tempStykList.add(new OrderLine(rafterMap.get(((remShareX/300)+1)*300+300),Integer.toString(2),descMap.get("rem01").getUseDesc()));
-           tempStykList.add(new OrderLine(rafterMap.get((((cl-remShareX)/300)+1)*300+300),Integer.toString(2),descMap.get("rem01").getUseDesc()));
+            //Remme
 
-        } else {
-            tempStykList.add(new OrderLine(rafterMap.get(cl + 300), Integer.toString(2), descMap.get("rem01").getUseDesc()));
-        }
+            if (cl >= 6901 && cl <= 9000) {
+                tempStykList.add(new OrderLine(rafterMap.get(((remShareX / 300) + 1) * 300 + 300), Integer.toString(2),
+                        descMap.get("rem01").getUseDesc(),2*rafterMap.get(((remShareX / 300) + 1) * 300 + 300).getPrice()));
+                tempStykList.add(new OrderLine(rafterMap.get((((cl - remShareX) / 300) + 1) * 300 + 300), Integer.toString(2),
+                        descMap.get("rem01").getUseDesc(),2*rafterMap.get((((cl - remShareX) / 300) + 1) * 300 + 300).getPrice()));
+
+            } else {
+                tempStykList.add(new OrderLine(rafterMap.get(cl + 300), Integer.toString(2),
+                        descMap.get("rem01").getUseDesc(),2*rafterMap.get(cl + 300).getPrice()));
+            }
 
 
-        //Spær
-        tempStykList.add(new OrderLine(rafterMap.get(arrayRafter[3]),Integer.toString(arrayRafter[0]),descMap.get("spaer").getUseDesc()));
+            //Spær
+            tempStykList.add(new OrderLine(rafterMap.get(arrayRafter[3]), Integer.toString(arrayRafter[0]),
+                    descMap.get("spaer").getUseDesc(),arrayRafter[0]*rafterMap.get(arrayRafter[3]).getPrice()));
 
 
-        //Stern (under)
-        tempStykList.add(new OrderLine(uSternMap.get(arrayStern[4]),Integer.toString(arrayStern[0]),descMap.get("usb_g").getUseDesc()));
-        if (cW>5700) {
-            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]), descMap.get("usb_g").getUseDesc()));
-        }
-        tempStykList.add(new OrderLine(uSternMap.get(arrayStern[6]),Integer.toString(arrayStern[2]),descMap.get("usb_s").getUseDesc()));
+            //Stern (under)
+            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[4]), Integer.toString(arrayStern[0]),
+                    descMap.get("usb_g").getUseDesc(),arrayStern[0]*uSternMap.get(arrayStern[4]).getPrice()));
+            if (cW > 5700) {
+                tempStykList.add(new OrderLine(uSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]),
+                        descMap.get("usb_g").getUseDesc(),arrayStern[1]*uSternMap.get(arrayStern[5]).getPrice()));
+            }
+            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[6]), Integer.toString(arrayStern[2]),
+                    descMap.get("usb_s").getUseDesc(),arrayStern[2]*uSternMap.get(arrayStern[6]).getPrice()));
 
-        if (cl>5700) {
-            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]), descMap.get("usb_s").getUseDesc()));
-        }
+            if (cl > 5700) {
+                tempStykList.add(new OrderLine(uSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]),
+                        descMap.get("usb_s").getUseDesc(),arrayStern[3]*uSternMap.get(arrayStern[7]).getPrice()));
+            }
 
-        //Stern (over)
+            //Stern (over)
 
-        tempStykList.add(new OrderLine(oSternMap.get(arrayStern[4]),Integer.toString(arrayStern[0]),descMap.get("osb_g").getUseDesc()));
-        if (cW>5700) {
-            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]), descMap.get("osb_g").getUseDesc()));
-        }
-        tempStykList.add(new OrderLine(oSternMap.get(arrayStern[6]),Integer.toString(arrayStern[2]),descMap.get("osb_s").getUseDesc()));
+            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[4]), Integer.toString(arrayStern[0]),
+                    descMap.get("osb_g").getUseDesc(),arrayStern[0]*oSternMap.get(arrayStern[4]).getPrice()));
+            if (cW > 5700) {
+                tempStykList.add(new OrderLine(oSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]),
+                        descMap.get("osb_g").getUseDesc(),arrayStern[1]*oSternMap.get(arrayStern[5]).getPrice()));
+            }
+            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[6]), Integer.toString(arrayStern[2]),
+                    descMap.get("osb_s").getUseDesc(),arrayStern[2]*oSternMap.get(arrayStern[6]).getPrice()));
 
-        if (cl>5700) {
-            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]), descMap.get("osb_s").getUseDesc()));
-        }
-
+            if (cl > 5700) {
+                tempStykList.add(new OrderLine(oSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]),
+                        descMap.get("osb_s").getUseDesc(),arrayStern[3]*oSternMap.get(arrayStern[7]).getPrice()));
+            }
 
 /*
         for (int i = 0; i <tempStykList.size() ; i++) {
@@ -402,15 +416,72 @@ public class CalculateFacade {
         }
 */
 
+            //Beklædningsbrædder
+            tempStykList.add(new OrderLine(beklaedItem, Integer.toString((int) (4 * (arrayShedL[0] + arrayShedW[0] + 1))),
+                    descMap.get("beklaed").getUseDesc(),(4 * (arrayShedL[0] + arrayShedW[0] + 1)*beklaedItem.getPrice())));
 
-        //Beklædningsbrædder
-        tempStykList.add(new OrderLine(beklaedItem, Integer.toString((int)(4*(arrayShedL[0]+arrayShedW[0]+1))),
-                descMap.get("beklaed").getUseDesc()));
+
+            //Tagplader Fladt
+            tempStykList.add(new OrderLine(roofMap.get(arrayRoof[0]), Integer.toString(arrayRoof[1] * arrayRoof[2]),
+                    descMap.get("tag_fl").getUseDesc(),(arrayRoof[1] * arrayRoof[2])*roofMap.get(arrayRoof[0]).getPrice()));
+
+        } else { // customer
+
+            System.out.println("er under Customer i stykliste");
+            //Stolper
+            tempStykList.add(new OrderLine(postMap.get(3000), Integer.toString(postArray[0][0].getX()),
+                    descMap.get("stolp").getUseDesc()));
+
+            //Remme
+
+            if (cl >= 6901 && cl <= 9000) {
+                tempStykList.add(new OrderLine(rafterMap.get(((remShareX / 300) + 1) * 300 + 300), Integer.toString(2),
+                        descMap.get("rem01").getUseDesc()));
+                tempStykList.add(new OrderLine(rafterMap.get((((cl - remShareX) / 300) + 1) * 300 + 300), Integer.toString(2), descMap.get("rem01").getUseDesc()));
+
+            } else {
+                tempStykList.add(new OrderLine(rafterMap.get(cl + 300), Integer.toString(2), descMap.get("rem01").getUseDesc()));
+            }
 
 
-        //Tagplader Fladt
-        tempStykList.add(new OrderLine(roofMap.get(arrayRoof[0]),Integer.toString(arrayRoof[1]*arrayRoof[2]),
-                descMap.get("tag_fl").getUseDesc()));
+            //Spær
+            tempStykList.add(new OrderLine(rafterMap.get(arrayRafter[3]), Integer.toString(arrayRafter[0]), descMap.get("spaer").getUseDesc()));
+
+
+            //Stern (under)
+            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[4]), Integer.toString(arrayStern[0]), descMap.get("usb_g").getUseDesc()));
+            if (cW > 5700) {
+                tempStykList.add(new OrderLine(uSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]), descMap.get("usb_g").getUseDesc()));
+            }
+            tempStykList.add(new OrderLine(uSternMap.get(arrayStern[6]), Integer.toString(arrayStern[2]), descMap.get("usb_s").getUseDesc()));
+
+            if (cl > 5700) {
+                tempStykList.add(new OrderLine(uSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]), descMap.get("usb_s").getUseDesc()));
+            }
+
+            //Stern (over)
+
+            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[4]), Integer.toString(arrayStern[0]), descMap.get("osb_g").getUseDesc()));
+            if (cW > 5700) {
+                tempStykList.add(new OrderLine(oSternMap.get(arrayStern[5]), Integer.toString(arrayStern[1]), descMap.get("osb_g").getUseDesc()));
+            }
+            tempStykList.add(new OrderLine(oSternMap.get(arrayStern[6]), Integer.toString(arrayStern[2]), descMap.get("osb_s").getUseDesc()));
+
+            if (cl > 5700) {
+                tempStykList.add(new OrderLine(oSternMap.get(arrayStern[7]), Integer.toString(arrayStern[3]), descMap.get("osb_s").getUseDesc()));
+            }
+
+            //Beklædningsbrædder
+            tempStykList.add(new OrderLine(beklaedItem, Integer.toString((int) (4 * (arrayShedL[0] + arrayShedW[0] + 1))),
+                    descMap.get("beklaed").getUseDesc()));
+
+
+            //Tagplader Fladt
+            tempStykList.add(new OrderLine(roofMap.get(arrayRoof[0]), Integer.toString(arrayRoof[1] * arrayRoof[2]),
+                    descMap.get("tag_fl").getUseDesc()));
+
+        }
+
 
         session.setAttribute("styklist",tempStykList);
     }

@@ -4,6 +4,14 @@ public class ItemForList {
     private String desc;
     private String length;
     private String unit;
+    private double price;
+
+    public ItemForList(String desc, String length, String unit, double price) {
+        this.desc = desc;
+        this.length = length;
+        this.unit = unit;
+        this.price = price;
+    }
 
     public ItemForList(String desc, String length, String unit) {
         this.desc = desc;
@@ -13,6 +21,10 @@ public class ItemForList {
 
     public ItemForList() {
     }
+
+    public double getPrice() { return price; }
+
+    public void setPrice(double price) { this.price = price; }
 
     public String getDesc() {
         return desc;
@@ -40,6 +52,6 @@ public class ItemForList {
 
     @Override
     public String toString() {
-        return  desc + " " + length + "  " + unit ;
+        return  desc + " " + length + " " + unit + " " + price;
     }
 }
