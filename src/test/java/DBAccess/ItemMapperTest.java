@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.Roof;
 import FunctionLayer.User;
 import java.sql.Connection;
@@ -59,21 +59,21 @@ public class ItemMapperTest {
         assertTrue( roofList != null );
     }
 
-    @Test( expected = LoginSampleException.class )
-    public void testLogin02() throws LoginSampleException {
+    @Test( expected = FogException.class )
+    public void testLogin02() throws FogException {
         // We should get an exception if we use the wrong password
         User user = UserMapper.login( "jens@somewhere.com", "larsen" );
     }
 
     @Test
-    public void testLogin03() throws LoginSampleException {
+    public void testLogin03() throws FogException {
         // Jens is supposed to be a customer
         User user = UserMapper.login( "jens@somewhere.com", "jensen" );
         assertEquals( "customer", user.getType() );
     }
 
     @Test
-    public void testCreateUser01() throws LoginSampleException {
+    public void testCreateUser01() throws FogException {
         // Can we create a new user - Notice, if login fails, this will fail
         // but so would login01, so this is OK
         User original = new User( "king@kong.com", "uhahvorhemmeligt", "konge" );

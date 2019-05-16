@@ -1,6 +1,6 @@
 package FunctionLayer;
 
-public class LoginSampleException extends Exception {
+public class FogException extends Exception {
 
     private String shortMessage;
 
@@ -8,13 +8,14 @@ public class LoginSampleException extends Exception {
         return shortMessage;
     }
 
-    public LoginSampleException(String msg, String shortMessage) {
+    public FogException(String msg, String shortMessage) {
         super(msg);
         this.shortMessage = shortMessage;
     }
 
-    public LoginSampleException(String msg) {
+    public FogException(String msg) {
         super(msg);
+        this.shortMessage = "";
     }
     
 

@@ -1,9 +1,8 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.Order;
 import FunctionLayer.User;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.Timestamp;
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class OrderMapper {
 
-    public static void createRequest(Order order) throws LoginSampleException {
+    public static void createRequest(Order order) throws FogException {
         try {
             Connection con = Connector.connection();
 
@@ -48,11 +47,11 @@ public class OrderMapper {
             order.setOrderId(idO);
 
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FogException(ex.getMessage(), "Fejl i createRequest");
         }
     }
 
-    public  static List<String> readOrders() {
+    public  static List<String> readOrders() throws FogException {
 
         List<String> orderList = new ArrayList<>();
 
@@ -103,8 +102,8 @@ public class OrderMapper {
                 orderList.add(String.valueOf(tempUser));
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i readOrders");
         }
         return orderList;
     }

@@ -1,6 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.Description;
+import FunctionLayer.FogException;
 import FunctionLayer.Roof;
 import FunctionLayer.Wood;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ItemMapper {
 
-    public  static List<Roof> readRoofList() {
+    public  static List<Roof> readRoofList() throws FogException {
 
         List<Roof> roofList = new ArrayList<>();
 
@@ -41,9 +42,9 @@ public class ItemMapper {
                 roofList.add(tempRoof);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException ex) {
+            throw new FogException(ex.toString(), "Fejl i readRoofList");
+        } catch (SQLException ex) {
             e.printStackTrace();
         }
         return roofList;

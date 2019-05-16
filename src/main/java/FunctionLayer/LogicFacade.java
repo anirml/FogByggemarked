@@ -6,19 +6,19 @@ import java.util.List;
 
 public class LogicFacade {
 
-    public static User login(String email, String password) throws LoginSampleException {
+    public static User login(String email, String password) throws FogException {
         return UserMapper.login( email, password );
     } 
 
     public static User createUser( String name ,String email, String password,
-                                    String address, String zipcode, String city, String phone  ) throws LoginSampleException {
+                                    String address, String zipcode, String city, String phone  ) throws FogException {
 
         User user = new User(name, email, password, address, zipcode, city, phone, "customer");
         UserMapper.createUser( user );
         return user;
     }
 
-    public static void createRequest(List<String> list) throws LoginSampleException {
+    public static void createRequest(List<String> list) throws FogException {
 
         String orderShed = "";
         String orderLength = "";

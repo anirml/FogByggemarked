@@ -1,7 +1,7 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 public class Register extends Command {
 
     @Override
-    String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
+    String execute( HttpServletRequest request, HttpServletResponse response ) throws FogException {
         String name = request.getParameter( "name" );
         String email = request.getParameter( "email" );
         String password1 = request.getParameter( "password1" );
@@ -26,7 +26,7 @@ public class Register extends Command {
             session.setAttribute( "role", user.getType() );
             return user.getType() + "page";
         } else {
-            throw new LoginSampleException( "the two passwords did not match" );
+            throw new FogException( "the two passwords did not match" );
         }
     }
 }

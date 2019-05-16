@@ -1,24 +1,18 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Order;
-import FunctionLayer.User;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import FunctionLayer.FogException;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MakeRequest extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
         try {
 
@@ -151,9 +145,10 @@ public class MakeRequest extends Command {
 
             return destination;
 
-        } catch (Exception e){
-            System.out.println("der var en fejl i MakeRequest");
+        } catch (Exception ex){
+            throw new FogException(ex.toString(), "Fejl i MakeRequest");
+
         }
-        return "404page";
+
     }
 }

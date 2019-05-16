@@ -12,7 +12,7 @@ import java.util.List;
 public class CalculateJ extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
         HttpSession session = request.getSession();
         System.out.println("Er i CalculateJ");
 

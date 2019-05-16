@@ -5,8 +5,11 @@
  */
 package PresentationLayer;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
 public class FrontController extends HttpServlet {
 
+
+
     /**
      Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      methods.
@@ -31,11 +36,23 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+
+        final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
+        FileHandler handler = new FileHandler("C:/Users/Epiko/Java/logs/Fog_logging.log");
+
+        LOGGER.setLevel(Level.FINEST);
+
+        LOGGER.addHandler(handler);
+        handler.setFormatter(new VerySimpleFormatter());
+
+
         try {
             Command action = Command.from( request );
             String view = action.execute( request, response );
             request.getRequestDispatcher( "/WEB-INF/" + view + ".jsp" ).forward( request, response );
-        } catch ( LoginSampleException ex ) {
+        } catch ( FogException ex ) {
+            LOGGER.log(Level.FINEST, ex.toString());
+
             request.setAttribute( "error", ex.getMessage() );
             request.getRequestDispatcher( "index.jsp" ).forward( request, response );
         }
