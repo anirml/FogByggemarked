@@ -3,7 +3,6 @@ package DBAccess;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
 import FunctionLayer.User;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.Timestamp;
 import java.sql.*;
@@ -33,7 +32,7 @@ public class OrderMapper {
             ps.setString(3,order.getOrderStatus());
             ps.setString(4,order.getOrderComment());
             ps.setString(5,order.getOrderRoofAngle());
-            ps.setString(6,order.getRoofMaterial());
+            ps.setString(6,order.getOrderRoofMaterial());
             ps.setString(7,order.getOrderLength());
             ps.setString(8,order.getOrderWidth());
             ps.setString(9,order.getOrderShed());
@@ -52,9 +51,9 @@ public class OrderMapper {
         }
     }
 
-    public  static List<String> readOrders() {
+    public  static List<Order> readOrders() {
 
-        List<String> orderList = new ArrayList<>();
+        List<Order> orderList = new ArrayList<>();
 
 
         try {
@@ -90,18 +89,20 @@ public class OrderMapper {
                 String userType = "0";
                 //userType so far its hidden
 
-                Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
-                        String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
-                        String.valueOf(orderWidth),String.valueOf(orderShed),
-                        String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
-                orderList.add(String.valueOf(orderId));
-                orderList.add(String.valueOf(tempOrder));
-                orderList.add(String.valueOf(orderDate));
-                orderList.add(String.valueOf(orderShipDate));
 
-                User tempUser = new User(userName,userEmail,"0",userAddress,
-                        userZipcode, userCity,userPhone,userType);
-                orderList.add(String.valueOf(tempUser));
+                Order tempOrder = new Order(orderId,String.valueOf(userId),orderDate,String.valueOf(orderStatus),orderComment,String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),String.valueOf(orderWidth),String.valueOf(orderShed),String.valueOf(orderShedLength),String.valueOf(orderShedWidth),String.valueOf(orderShipDate),userName,userEmail,userAddress,userZipcode,userCity,userPhone,userType);
+               // Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
+               //         String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
+               //         String.valueOf(orderWidth),String.valueOf(orderShed),
+               //         String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
+               // orderList.add(String.valueOf(orderId));
+               // orderList.add(String.valueOf(tempOrder));
+               // orderList.add(String.valueOf(orderDate));
+               // orderList.add(String.valueOf(orderShipDate));
+
+               // User tempUser = new User(userName,userEmail,"0",userAddress,
+               //         userZipcode, userCity,userPhone,userType);
+                orderList.add(tempOrder);
             }
 
         } catch (ClassNotFoundException | SQLException e) {

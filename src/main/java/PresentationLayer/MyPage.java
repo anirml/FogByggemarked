@@ -1,6 +1,7 @@
 package PresentationLayer;
 
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,10 @@ public class MyPage extends Command {
         request.setAttribute("email", email);
         String userRole = request.getParameter("type");
         if (userRole.equals("employee")) {
-            List<String> orderList = DBAccess.OrderMapper.readOrders();
-            session.setAttribute("orderList",orderList);
+
+          //  List<Order> orderList = DBAccess.OrderMapper.readOrders();
+          //  session.setAttribute("orderList",orderList);
+
             return "employee";
         } else {
             return "customer";

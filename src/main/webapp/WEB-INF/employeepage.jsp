@@ -1,65 +1,20 @@
-<%@ page import="FunctionLayer.Order" %>
+<%@ page import="DBAccess.OrderMapper" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
-    Document   : employeepage.jsp
-    Created on : Aug 24, 2017, 6:31:57 AM
-    Author     : kasper
---%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Employee home page</title>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
+<%@ page import="FunctionLayer.Roof" %>
+<%@ page import="FunctionLayer.Order" %>
+<%@ page import="FunctionLayer.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="DBAccess.ItemMapper" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!doctype html>
+<html lang="en">
+<jsp:include page="../include/header.jsp" />
 
-        </style>
-    </head>
-    <body>
-    <jsp:include page="../include/header.jsp" />
-        <h1>Hello <%=session.getAttribute( "email" )%> </h1>
-        You are now logged in as an EMPLOYEE of our wonderful site.
+<body>
+<h1>Hello <%=session.getAttribute( "email" )%> </h1>
 
-    <%
-        ArrayList<Order> tempOrderList = new ArrayList();
-        tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
-    %>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Beskrivelse</th>
-            <th>Længde</th>
-            <th>Antal</th>
-            <th>Enhed</th>
-            <th>Montering</th>
-        </tr>
-        </thead>
-
-    <%
-        for (int i = 0; i <tempOrderList.size() ; i++) {
-    %>
-
-    <tbody>
-    <tr>
-        <td><%out.print(tempOrderList.get(i).getOrderStatus());%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getRoofMaterial());%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getOrderComment());%> </td>
-        <td align="right"><%out.print(tempOrderList.get(i).getOrderLength());%></td>
-        <td><%out.print(tempOrderList.get(i).getOrderWidth());%></td>
-    </tr>
-        <%
-    }
-%>
-
-    </tbody>
-    </table>
-
-
-    </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>

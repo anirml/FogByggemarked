@@ -33,15 +33,6 @@ public class LogicFacade {
         String orderLength = "";
         String orderWidth = "";
 
-        System.out.println("\n\n");
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
-        System.out.println(list.get(3));
-        System.out.println(list.get(4));
-        System.out.println(list.get(5));
-        System.out.println(list.get(6));
-
         if(list.get(4).equals("0")||list.get(5).equals("0")){
             orderShed = null;
             orderLength = null;
