@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Nav extends Command {
 
-
-
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
@@ -35,24 +33,23 @@ public class Nav extends Command {
                     case "roofmaterial":
                         destination = "roofmaterialpage";
                         break;
-
                     case "customer":
                         destination = "customerpage";
                         break;
-
                     case "employee":
                         destination = "employeepage";
                         break;
                     case "editwood":
                         destination = "editwoodpage";
                         break;
-
+                    case "makewood":
+                        destination = "makewoodpage";
+                        break;
 
                     default :
                         destination = "404page";
             }
         }
-
         return destination;
     }
 }

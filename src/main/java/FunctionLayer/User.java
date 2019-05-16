@@ -1,9 +1,5 @@
 package FunctionLayer;
 
-/**
- * The purpose of User is to...
- * @author kasper
- */
 public class User {
     public User(String name, String email, String password, String address, String zipcode, String city, String phone, String type) {
         this.name = name;
@@ -21,11 +17,6 @@ public class User {
         this.password = password;
         this.type = type;
     }
-
-    public User(String id) {
-        this.id = Integer.parseInt(id);
-    }
-
 
     private int id; // just used to demo retrieval of autogen keys in UserMapper
     private String name;
@@ -108,5 +99,4 @@ public class User {
     public void setId( int id ) {
         this.id = id;
     }
-
 }

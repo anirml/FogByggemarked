@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <center><h5>Indtast e-mail og kodeord</h5></center>
-            <form name="register" action="FrontController" method="POST">
+            <form name="login" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="login">
                 <div class="input-group mb-2 mr-md-2">
                     <div class="input-group-prepend">
@@ -29,7 +29,7 @@
                     <input type="password" class="form-control" name="password" placeholder="kodeord">
                 </div>
                 <div class="input-group mb-2 mr-sm-2 justify-content-center">
-                    <input type="submit" name="opretknap" value="Log ind" class="btn btn-success btn-block"/>
+                    <input type="submit" name="loginknap" value="Log ind" class="btn btn-success btn-block"/>
                 </div>
             </form>
         </div>
@@ -84,7 +84,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-map-marker-alt"></i></div>
                     </div>
-                    <input type="text" class="form-control" name="zipcode" placeholder="postnummer">
+                    <input type="number" class="form-control" name="zipcode" placeholder="postnummer">
                 </div>
                 <div class="input-group mb-2 mr-md-2">
                     <div class="input-group-prepend">
@@ -96,7 +96,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-phone"></i></div>
                     </div>
-                    <input type="text" class="form-control" name="phone" placeholder="tefelon">
+                    <input type="number" class="form-control" name="phone" placeholder="tefelon">
                 </div>
                 <div class="input-group mb-2 mr-sm-2 justify-content-center">
                     <input type="submit" name="opretknap" value="Opret" class="btn btn-success btn-block"/>

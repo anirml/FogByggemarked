@@ -88,5 +88,4 @@ public class Wood {
                 ", woodPrice=" + woodPrice +
                 '}';
     }
-
 }
