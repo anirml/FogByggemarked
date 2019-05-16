@@ -53,7 +53,7 @@ public class ItemMapperTest {
     }
 
     @Test
-    public void testLogin01(){
+    public void testLogin01() throws FogException {
         // Can we get certain materials?
         List<Roof> roofList = ItemMapper.readRoofList();
         assertTrue( roofList != null );

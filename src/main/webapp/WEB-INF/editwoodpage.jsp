@@ -7,33 +7,39 @@
 <jsp:include page="../include/header.jsp" />
 <div class="container jumbotron">
     <div class="row">
+        <div class="col-2 align-self-start" style="margin-bottom: 20px">
+            <a class="btn btn-danger form-control" href="FrontController?command=nav&action=woodmaterial"><i class="fas fa-arrow-left"></i> Tilbage</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
             <div class="form-group">
                 <form action="FrontController" method="POST">
+                    <input type="hidden" name="command" value="makewood"/>
                 <%
-                    String woodId = request.getParameter("woodId");
+                    String woodId = request.getParameter("woodListId");
 
                     List<Wood> woodList = ItemMapper.readWoodList();
-                    Wood wood = woodList.get(Integer.valueOf(woodId)-1);
+                    Wood wood = woodList.get(Integer.valueOf(woodId));
 
-                    System.out.println(wood);
+                   // System.out.println(wood);
                 %>
                 <label for="woodId">Wood ID</label>
-                <input type="text" class="form-control" id="woodId" value="<%out.print(wood.getWoodId()); %>" readonly>
+                <input type="number" class="form-control" id="woodId" name="woodId" value="<%out.print(wood.getWoodId()); %>" readonly>
                 <label for="woodDim1">WoodDim1 i mm</label>
-                <input type="text" class="form-control" id="woodDim1" value="<%out.print(wood.getWoodDim1()); %>">
+                <input type="number" class="form-control" id="woodDim1" name="woodDim1" value="<%out.print(wood.getWoodDim1()); %>">
                 <label for="woodDim2">WoodDim2 i mm</label>
-                <input type="text" class="form-control" id="woodDim2" value="<%out.print(wood.getWoodDim2()); %>">
+                <input type="number" class="form-control" id="woodDim2" name="woodDim2" value="<%out.print(wood.getWoodDim2()); %>">
                 <label for="woodDesc">WoodDesc</label>
-                <input type="text" class="form-control" id="woodDesc" value="<%out.print(wood.getWoodDesc()); %>">
-                <label for="woodLength">WoodLength</label>
-                <input type="text" class="form-control" id="woodLength" value="<%out.print(wood.getWoodLength()); %>">
+                <input type="text" class="form-control" id="woodDesc" name="woodDesc" value="<%out.print(wood.getWoodDesc()); %>">
+                <label for="woodLength">WoodLength i mm</label>
+                <input type="number" class="form-control" id="woodLength" name="woodLength" value="<%out.print(wood.getWoodLength()); %>">
                 <label for="woodUnit">WoodUnit</label>
-                <input type="text" class="form-control" id="woodUnit" value="<%out.print(wood.getWoodUnit()); %>">
+                <input type="text" class="form-control" id="woodUnit" name="woodUnit" value="<%out.print(wood.getWoodUnit()); %>">
                 <label for="woodPrice">WoodPrice</label>
-                <input type="text" class="form-control" id="woodPrice" value="<%out.print(wood.getWoodPrice()); %>">
+                <input type="number" class="form-control" id="woodPrice" name="woodPrice" value="<%out.print(wood.getWoodPrice()); %>">
                     <br>
-                    <input type="hidden" name="action" value=""/>
+                    <input type="hidden" name="action" value="editwood"/>
                     <input type="submit" value="Rediger" class="btn btn-secondary form-control"/>
                 </form>
             </div>

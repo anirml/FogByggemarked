@@ -50,9 +50,6 @@
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=requests" class="nav-link ">Forespørgsler</a>
                 </li>
-                <li class="nav-item">
-                    <a href="FrontController?command=nav&action=editwood" class="nav-link ">edit wood</a>
-                </li>
                 <%
                     }
                 %>

@@ -28,26 +28,7 @@
             <div class="col-lg-4 col-md-6">
 
 
-    <%
-        ArrayList<Order> tempOrderList = new ArrayList();
-        tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
-    %>
 
-    <%
-        for (int i = 0; i <tempOrderList.size() ; i++) {
-    %>
-
-    <tbody>
-    <tr>
-        <td><%out.print(tempOrderList.get(i).;%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getLength());%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getNumber());%> </td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getUnit());%></td>
-        <td><%out.print(tempOrderList.get(i).getComments());%></td>
-    </tr>
-        <%
-    }
-%>
 
             </div>
         </div>

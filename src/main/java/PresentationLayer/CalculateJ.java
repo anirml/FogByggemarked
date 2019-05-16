@@ -549,7 +549,7 @@ public class CalculateJ extends Command {
     }
 
 
-    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) {
+    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) throws FogException {
 
         HttpSession session = request.getSession();
         System.out.println("Er i metode for stykliste genering");
