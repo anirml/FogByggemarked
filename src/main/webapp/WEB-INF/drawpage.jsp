@@ -14,8 +14,13 @@
     List<String> orderInput = new ArrayList<>();
     orderInput = (List<String>) session.getAttribute("list");
 
-    String carportWidS = orderInput.get(0);
-    String carportLenS = orderInput.get(1);
+
+    //List<String> orderInput = new ArrayList<>();
+    //orderInput = (List<String>) session.getAttribute("list");
+
+    String makeOrder= (String) session.getAttribute("makeOrder");
+    String carportWidS = (String) session.getAttribute("width");
+    String carportLenS = (String) session.getAttribute("lenght");
     double carportWid = Double.parseDouble(carportWidS)/100;
     double carportLen = Double.parseDouble(carportLenS)/100;
 
@@ -81,6 +86,10 @@
             </tbody>
         </table>
     </div>
+
+    <%
+    if (makeOrder.equals("1")){
+    %>
     <td>
         <form name="beregn" action="FrontController" method="POST">
             <input type="hidden" name="command" value="sendRequest">
@@ -89,6 +98,23 @@
 
         </form>
     </td>
+    <%
+        } else {
+    %>
+    <td>
+        <form name="beregn" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="login">
+            RETURN:
+            <input type="submit" value="Submit">
+
+        </form>
+    </td>
+    <%
+        }
+    %>
+
+
+
 </div>
 </br>
 </div>
