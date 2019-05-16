@@ -3,31 +3,23 @@ package FunctionLayer;
 import DBAccess.ItemMapper;
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
-
 import java.util.List;
 
-/**
- * The purpose of LogicFacade is to...
- * @author kasper
- */
 public class LogicFacade {
 
-    public static User login(String email, String password) throws LoginSampleException {
+    public static User login(String email, String password) throws FogException {
         return UserMapper.login( email, password );
     } 
 
     public static User createUser( String name ,String email, String password,
-                                    String address, String zipcode, String city, String phone  ) throws LoginSampleException {
+                                    String address, String zipcode, String city, String phone  ) throws FogException {
 
         User user = new User(name, email, password, address, zipcode, city, phone, "customer");
         UserMapper.createUser( user );
         return user;
     }
 
-  //  public static void createRequest(String comment, String lenght, String width, String roof, String angle, String toolShedWidth,
-  //                                   String toolShedLenght) throws LoginSampleException {
-
-    public static void createRequest(List<String> list) throws LoginSampleException {
+    public static void createRequest(List<String> list) throws FogException {
 
         String orderShed = "";
         String orderLength = "";
@@ -41,6 +33,7 @@ public class LogicFacade {
         System.out.println(list.get(4));
         System.out.println(list.get(5));
         System.out.println(list.get(6));
+        System.out.println(list.get(7));
 
         if(list.get(4).equals("0")||list.get(5).equals("0")){
             orderShed = null;
@@ -54,12 +47,13 @@ public class LogicFacade {
             orderWidth = list.get(4);
         }
 
-        Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),orderShed,orderLength,orderWidth);
+        Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),
+                orderShed,orderLength,orderWidth);
         OrderMapper.createRequest(order);
     }
 
     public static Wood createWood( int woodId ,int woodDim1, int woodDim2,
-                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws LoginSampleException {
+                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws FogException {
 
         Wood wood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
         ItemMapper.createWood(wood);
@@ -67,7 +61,7 @@ public class LogicFacade {
     }
 
     public static Wood editWood( int woodId ,int woodDim1, int woodDim2,
-                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws LoginSampleException {
+                                   String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws FogException {
 
         Wood wood = new Wood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
         ItemMapper.editWood(wood);

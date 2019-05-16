@@ -4,11 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- The purpose of Connector is to...
-
- @author kasper
- */
 public class Connector {
 
     private static final String URL = "jdbc:mysql://157.230.110.206:3306/fog_byggemarked?useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true&useSSL=false";

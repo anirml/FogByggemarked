@@ -1,6 +1,6 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- The purpose of UserMapper is to...
-
- @author kasper
- */
 public class UserMapper {
 
-    public static void createUser( User user ) throws LoginSampleException {
+    public static void createUser( User user ) throws FogException {
         try {
             Connection con = Connector.connection();
 
@@ -36,11 +31,11 @@ public class UserMapper {
             int id = ids.getInt( 1 );
             user.setId( id );
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new LoginSampleException( ex.getMessage() );
+            throw new FogException( ex.getMessage(), "Der skete en fejl i oprettelse af bruger" );
         }
     }
 
-    public static User login( String email, String password ) throws LoginSampleException {
+    public static User login( String email, String password ) throws FogException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT user_id, user_type FROM user "
@@ -56,11 +51,10 @@ public class UserMapper {
                 user.setId( id );
                 return user;
             } else {
-                throw new LoginSampleException( "Could not validate user" );
+                throw new FogException( "Denne bruger findes ikke" );
             }
         } catch ( ClassNotFoundException | SQLException ex ) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FogException(ex.getMessage(), "Der er ikke forbindelse til databasen");
         }
     }
-
 }

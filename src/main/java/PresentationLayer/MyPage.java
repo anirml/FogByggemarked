@@ -1,8 +1,7 @@
 package PresentationLayer;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.User;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,7 +10,7 @@ import java.util.List;
 public class MyPage extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String email = user.getEmail();
@@ -25,5 +24,4 @@ public class MyPage extends Command {
             return "customer";
         }
     }
-
 }

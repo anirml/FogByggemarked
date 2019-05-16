@@ -1,7 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.Description;
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.Roof;
 import FunctionLayer.Wood;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ItemMapper {
 
-    public  static List<Roof> readRoofList() {
+    public  static List<Roof> readRoofList() throws FogException {
 
         List<Roof> roofList = new ArrayList<>();
 
@@ -39,10 +39,10 @@ public class ItemMapper {
                 roofList.add(tempRoof);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            throw new FogException(ex.toString(), "Fejl i readRoofList");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return roofList;
     }
@@ -123,7 +123,7 @@ public class ItemMapper {
             ResultSet resultSet = ps.executeQuery(sql);
 
             while (resultSet.next()) {
-                int woodId =resultSet.getInt("wood_id");
+                int woodId = resultSet.getInt("wood_id");
                 int woodDim1 = resultSet.getInt("wood_dim1");
                 int woodDim2 = resultSet.getInt("wood_dim2");
                 String woodDesc = resultSet.getString("wood_description");
@@ -168,7 +168,7 @@ public class ItemMapper {
         return descMap;
     }
 
-    public static void createWood( Wood wood ) throws LoginSampleException {
+    public static void createWood( Wood wood ) throws FogException {
         try {
             Connection con = Connector.connection();
 
@@ -183,11 +183,11 @@ public class ItemMapper {
             ps.setString( 6, Double.toString(wood.getWoodPrice()) );
             ps.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new LoginSampleException( ex.getMessage() );
+            throw new FogException( ex.getMessage() );
         }
     }
 
-    public static void editWood( Wood wood ) throws LoginSampleException {
+    public static void editWood( Wood wood ) throws FogException {
         try {
             Connection con = Connector.connection();
 
@@ -202,8 +202,9 @@ public class ItemMapper {
             ps.setString( 7, Integer.toString(wood.getWoodId()));
             ps.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new LoginSampleException( ex.getMessage() );
+            throw new FogException( ex.getMessage() );
         }
     }
-
 }
+
+

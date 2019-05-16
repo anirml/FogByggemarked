@@ -18,7 +18,29 @@
     <jsp:include page="include/header.jsp" />
 
 
-    <h1>Welcome to Sem 2</h1>
+    <div class="container-jumbotron">
+
+        <div class="col text-center">
+            <h1>Welcome to Sem 2</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-3 text-center">
+            </div>
+            <div class="col-lg-4 col-md-6">
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
         
         <table>
 <!--

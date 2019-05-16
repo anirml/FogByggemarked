@@ -1,9 +1,8 @@
 package DBAccess;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 import FunctionLayer.Order;
 import FunctionLayer.User;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.Timestamp;
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class OrderMapper {
 
-    public static void createRequest(Order order) throws LoginSampleException {
+    public static void createRequest(Order order) throws FogException {
         try {
             Connection con = Connector.connection();
 
@@ -48,11 +47,11 @@ public class OrderMapper {
             order.setOrderId(idO);
 
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new FogException(ex.getMessage(), "Fejl i createRequest");
         }
     }
 
-    public  static List<String> readOrders() {
+    public  static List<String> readOrders() throws FogException {
 
         List<String> orderList = new ArrayList<>();
 
@@ -82,7 +81,6 @@ public class OrderMapper {
 
                 String userName = resultSet.getString("user_name");
                 String userEmail = resultSet.getString("user_email");
-                //userPassword
                 String userAddress = resultSet.getString("user_address");
                 String userZipcode = resultSet.getString("user_zipcode");
                 String userCity = resultSet.getString("user_city");
@@ -104,9 +102,45 @@ public class OrderMapper {
                 orderList.add(String.valueOf(tempUser));
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i readOrders");
         }
         return orderList;
     }
+
+    public  static List<Order> readUserOrders(String userId) {
+        List<Order> userOrderList = new ArrayList<>();
+        try {
+            Connection con = Connector.connection();
+            String sql = "SELECT * FROM fog_byggemarked.orders WHERE (user_id = ?);";
+            PreparedStatement ps = con.prepareStatement( sql );
+            ps.setString( 1, userId );
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+
+                String orderStatus = resultSet.getString("order_status");
+                String orderComment = resultSet.getString("order_comment");
+                String orderRoofAngle = resultSet.getString("order_roof_angle");
+                String orderRoofMaterial = resultSet.getString("order_roof_material");
+                String orderLength = resultSet.getString("order_length");
+                String orderWidth = resultSet.getString("order_width");
+                String orderShed = resultSet.getString("order_shed");
+                String orderShedLength = resultSet.getString("order_shed_length");
+                String orderShedWidth = resultSet.getString("order_shed_width");
+
+                Order tempUserOrder = new Order(userId, orderStatus, orderComment,
+                        orderRoofAngle, orderRoofMaterial, orderLength,
+                        orderWidth, orderShed, orderShedLength, orderShedWidth);
+                userOrderList.add(tempUserOrder);
+                System.out.println(orderStatus);
+                System.out.println(orderComment);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return userOrderList;
+    }
 }
+

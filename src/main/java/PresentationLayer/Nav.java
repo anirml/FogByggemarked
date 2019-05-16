@@ -1,16 +1,14 @@
 package PresentationLayer;
 
-import FunctionLayer.LoginSampleException;
+import FunctionLayer.FogException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Nav extends Command {
 
-
-
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
         String destination = "index";
 
@@ -48,12 +46,10 @@ public class Nav extends Command {
                         destination = "makewoodpage";
                         break;
 
-
                     default :
                         destination = "404page";
             }
         }
-
         return destination;
     }
 }

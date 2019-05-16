@@ -1,24 +1,18 @@
 package PresentationLayer;
 
 import FunctionLayer.LogicFacade;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Order;
-import FunctionLayer.User;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import FunctionLayer.FogException;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MakeRequest extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
         try {
 
@@ -37,14 +31,9 @@ public class MakeRequest extends Command {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
 
-
-
             String destination = "../index";
 
-
             HttpSession session = request.getSession();
-
-          //  String userId = (String) session.getAttribute("id");
 
             List<String> list;
 
@@ -69,8 +58,6 @@ public class MakeRequest extends Command {
                 list = (List<String>) session.getAttribute("list");
             }
 
-            //boolean roofPitch = (boolean) session.getAttribute("roofPitch");
-
             switch (request.getParameter("command")){
                 case "makeRequest":
                     switch (request.getParameter("action")){
@@ -87,7 +74,6 @@ public class MakeRequest extends Command {
                             }
                             list.set(0,width);
                             list.set(1,lenght);
-                            //System.out.println("B&L :" + width + " " + lenght);
                             destination = "roofstep2page";
                             break;
                         case "step3":
@@ -124,9 +110,6 @@ public class MakeRequest extends Command {
 
 
                             userId = (String) session.getAttribute("id");
-                           // User user = (String) session.getAttribute("id");
-                            //userId = String.valueOf(user.getId());
-
                             list.set(7,userId);
                             System.out.println("User ID: " + list.get(7));
 
@@ -155,7 +138,6 @@ public class MakeRequest extends Command {
                             System.out.println("step4");
                             destination = "roofstep4page";
                             break;
-
                     }
             }
 
@@ -163,9 +145,10 @@ public class MakeRequest extends Command {
 
             return destination;
 
-        } catch (Exception e){
-            System.out.println("der var en fejl i MakeRequest");
+        } catch (Exception ex){
+            throw new FogException(ex.toString(), "Fejl i MakeRequest");
+
         }
-        return "404page";
+
     }
 }
