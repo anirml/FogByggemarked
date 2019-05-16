@@ -18,26 +18,7 @@
         <h1>Hello <%=session.getAttribute( "email" )%> </h1>
         You are now logged in as an EMPLOYEE of our wonderful site.
 
-    <%
-        ArrayList<Order> tempOrderList = new ArrayList();
-        tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
-    %>
 
-    <%
-        for (int i = 0; i <tempOrderList.size() ; i++) {
-    %>
-
-    <tbody>
-    <tr>
-        <td><%out.print(tempOrderList.get(i).;%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getLength());%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getNumber());%> </td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getUnit());%></td>
-        <td><%out.print(tempOrderList.get(i).getComments());%></td>
-    </tr>
-        <%
-    }
-%>
 
 
     </body>

@@ -7,23 +7,29 @@
 <jsp:include page="../include/header.jsp" />
 <div class="container jumbotron">
     <div class="row">
+        <div class="col-2 align-self-start" style="margin-bottom: 20px">
+            <a class="btn btn-danger form-control" href="FrontController?command=nav&action=woodmaterial"><i class="fas fa-arrow-left"></i> Tilbage</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
             <div class="form-group">
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="makewood"/>
 
-                <label for="woodDim1">WoodDim1 i mm</label>
-                <input type="number" class="form-control" id="woodDim1" name="woodDim1">
-                <label for="woodDim2">WoodDim2 i mm</label>
-                <input type="number" class="form-control" id="woodDim2" name="woodDim2">
-                <label for="woodDesc">WoodDesc</label>
-                <input type="text" class="form-control" id="woodDesc" name="woodDesc">
-                <label for="woodLength">WoodLength</label>
-                <input type="number" class="form-control" id="woodLength" name="woodLength">
-                <label for="woodUnit">WoodUnit</label>
-                <input type="text" class="form-control" id="woodUnit" name="woodUnit">
-                <label for="woodPrice">WoodPrice</label>
-                <input type="number" class="form-control" id="woodPrice" name="woodPrice">
+                        <input type="hidden" class="form-control" name="woodId" value="0">
+                        <label for="woodDim1">WoodDim1 i mm</label>
+                        <input type="number" class="form-control" id="woodDim1" name="woodDim1">
+                        <label for="woodDim2">WoodDim2 i mm</label>
+                        <input type="number" class="form-control" id="woodDim2" name="woodDim2">
+                        <label for="woodDesc">WoodDesc</label>
+                        <input type="text" class="form-control" id="woodDesc" name="woodDesc">
+                        <label for="woodLength">WoodLength</label>
+                        <input type="number" class="form-control" id="woodLength" name="woodLength">
+                        <label for="woodUnit">WoodUnit</label>
+                        <input type="text" class="form-control" id="woodUnit" name="woodUnit">
+                        <label for="woodPrice">WoodPrice</label>
+                        <input type="number" class="form-control" id="woodPrice" name="woodPrice">
                     <br>
                     <input type="hidden" name="action" value="makewood"/>
                     <input type="submit" value="Indsæt" class="btn btn-secondary form-control"/>

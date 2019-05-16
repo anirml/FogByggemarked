@@ -7,15 +7,20 @@
 <jsp:include page="../include/header.jsp" />
 <div class="container jumbotron">
     <div class="row">
+        <div class="col-2 align-self-start" style="margin-bottom: 20px">
+            <a class="btn btn-danger form-control" href="FrontController?command=nav&action=woodmaterial"><i class="fas fa-arrow-left"></i> Tilbage</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
             <div class="form-group">
-                <form action="FrontController" method="post">
+                <form action="FrontController" method="POST">
                     <input type="hidden" name="command" value="makewood"/>
                 <%
                     String woodId = request.getParameter("woodListId");
 
                     List<Wood> woodList = ItemMapper.readWoodList();
-                    Wood wood = woodList.get(Integer.valueOf(woodId)-1);
+                    Wood wood = woodList.get(Integer.valueOf(woodId));
 
                    // System.out.println(wood);
                 %>
