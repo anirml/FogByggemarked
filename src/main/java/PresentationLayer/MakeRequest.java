@@ -147,8 +147,6 @@ public class MakeRequest extends Command {
 
         } catch (Exception ex){
             throw new FogException(ex.toString(), "Fejl i MakeRequest");
-
         }
-
     }
 }

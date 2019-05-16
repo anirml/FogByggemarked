@@ -26,7 +26,7 @@ public class Register extends Command {
             session.setAttribute( "role", user.getType() );
             return user.getType() + "page";
         } else {
-            throw new FogException( "the two passwords did not match" );
+            throw new FogException( "Alle fælter skal udfyldes." );
         }
     }
 }

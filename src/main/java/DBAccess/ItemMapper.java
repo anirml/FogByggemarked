@@ -43,9 +43,9 @@ public class ItemMapper {
             }
 
         } catch (ClassNotFoundException ex) {
-            throw new FogException(ex.toString(), "Fejl i readRoofList");
+            throw new FogException(ex.toString(), "Class not found fejl i readRoofList");
         } catch (SQLException ex) {
-            e.printStackTrace();
+            throw new FogException(ex.toString(), "SQL fejl i readRoofList");
         }
         return roofList;
     }
@@ -87,7 +87,7 @@ public class ItemMapper {
         return menuFlatList;
     }
 
-    public  static HashMap<Integer,Wood> readWoodMap() {
+    public  static HashMap<Integer,Wood> readWoodMap() throws FogException {
 
         HashMap<Integer,Wood> woodMap = new HashMap<>();
 
@@ -109,15 +109,15 @@ public class ItemMapper {
                 woodMap.put(woodId,tempWood);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            throw new FogException(ex.toString(), "Class not found fejl i readWoodMap");
+        } catch (SQLException ex) {
+            throw new FogException(ex.toString(), "SQL fejl i readWoodMap");
         }
         return woodMap;
     }
 
-    public static List<Wood> readWoodList() {
+    public static List<Wood> readWoodList() throws FogException{
         List<Wood> woodList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
@@ -137,15 +137,15 @@ public class ItemMapper {
                 woodList.add(tempWood);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            throw new FogException(ex.toString(), "Class not found fejl i readWoodList");
+        } catch (SQLException ex) {
+            throw new FogException(ex.toString(), "SQL fejl i readWoodList");
         }
         return woodList;
     }
 
-    public  static HashMap<String, Description> readDescMap() {
+    public  static HashMap<String, Description> readDescMap() throws FogException {
 
         HashMap<String, Description> descMap = new HashMap<>();
 
@@ -171,7 +171,7 @@ public class ItemMapper {
         return descMap;
     }
 
-    public static List<Wood> editWood() {
+    public static List<Wood> editWood() throws FogException{
         List<Wood> woodList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
@@ -201,5 +201,3 @@ public class ItemMapper {
         return woodList;
     }
 }
-
-
