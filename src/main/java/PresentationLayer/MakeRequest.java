@@ -1,7 +1,7 @@
 package PresentationLayer;
 
-import FunctionLayer.LogicFacade;
-import FunctionLayer.FogException;
+import FunctionLayer.*;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public class MakeRequest extends Command {
             String roof = "";
             String angle = "";
             String toolShedWidth = "";
-            String toolShedLenght = "";
+            String toolShedLength = "";
             String comment = "";
             String userId = "";
 
@@ -45,7 +45,7 @@ public class MakeRequest extends Command {
                 list.add(roof);
                 list.add(angle);
                 list.add(toolShedWidth);
-                list.add(toolShedLenght);
+                list.add(toolShedLength);
                 list.add(comment);
 
                 list.add(userId);
@@ -92,15 +92,15 @@ public class MakeRequest extends Command {
                             break;
                         case "step4":
                             toolShedWidth = request.getParameter("toolShedWidth");
-                            toolShedLenght = request.getParameter("toolShedLenght");
-                            if (toolShedWidth == null || toolShedLenght == null){
+                            toolShedLength = request.getParameter("toolShedLenght");
+                            if (toolShedWidth == null || toolShedLength == null){
                                 request.setAttribute("message","Du mangler at vælge Bredde eller Længde");
                                 destination = "roofstep2page";
                                 break;
                             }
-                            list.set(4,toolShedWidth);
-                            list.set(5,toolShedLenght);
-                            System.out.println("B&L Skur :" + toolShedWidth + " " + toolShedLenght);
+                            list.set(4, toolShedWidth);
+                            list.set(5, toolShedLength);
+                            System.out.println("B&L Skur :" + toolShedWidth + " " + toolShedLength);
                             destination = "roofstep4page";
                             break;
                         case "step5":
@@ -108,14 +108,26 @@ public class MakeRequest extends Command {
                             list.set(6,comment);
                             System.out.println("comment: " + comment);
 
+                            User user = (User) session.getAttribute("user");
+                            userId = String.valueOf(user.getId());
+                            String userType=user.getType();
 
                             userId = (String) session.getAttribute("id");
                             list.set(7,userId);
                             System.out.println("User ID: " + list.get(7));
 
-                            LogicFacade.createRequest(list);
+                            int cl = 10 * Integer.parseInt(list.get(1));
+                            int cW = 10 * Integer.parseInt(list.get(0));
 
-                            destination = "calculatepage";
+                            int shedLen = 10 * Integer.parseInt(list.get(5));
+                            int shedWid = 10 * Integer.parseInt(list.get(4));
+
+                            CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
+                            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
+
+                            session.setAttribute("list", list);
+
+                            destination = "draw" + "page";
                             break;
 
                         default :

@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="FunctionLayer.OrderLine" %>
+<%@ page import="FunctionLayer.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -28,6 +29,8 @@
     </div>
     <div class="row">
         <%
+            User user = (User) session.getAttribute("user");
+            String userType=user.getType();
             ArrayList<OrderLine> tempStykList = new ArrayList();
             tempStykList = (ArrayList<OrderLine>) session.getAttribute("styklist");
         %>
@@ -40,6 +43,14 @@
                 <th>Antal</th>
                 <th>Enhed</th>
                 <th>Montering</th>
+                <%
+                    if (userType.equals("employee")){
+                %>
+                    <th>EnhedsPris</th>
+                    <th>SamletPris</th>
+                <%
+                    }
+                %>
             </tr>
             </thead>
             <tbody>
@@ -54,6 +65,14 @@
                 <td><%out.print(tempStykList.get(i).getNumber());%> </td>
                 <td><%out.print(tempStykList.get(i).getItem().getUnit());%></td>
                 <td><%out.print(tempStykList.get(i).getComments());%></td>
+                <%
+                    if (userType.equals("employee")){
+                %>
+                    <td><%out.print(tempStykList.get(i).getItem().getPrice());%></td>
+                    <td><%out.print(tempStykList.get(i).getSumPrice());%></td>
+                <%
+                    }
+                %>
             </tr>
             <%
                 }
@@ -62,7 +81,14 @@
             </tbody>
         </table>
     </div>
+    <td>
+        <form name="beregn" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="sendRequest">
+            SEND FORESPØRGSEL:
+            <input type="submit" value="Submit">
 
+        </form>
+    </td>
 </div>
 </br>
 </div>

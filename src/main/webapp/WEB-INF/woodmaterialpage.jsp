@@ -9,7 +9,7 @@
 <div class="container jumbotron">
     <div class="row">
         <div class="col">
-            <a class="btn btn-success form-control" href="FrontController?command=nav&action=makewood">Indsæt nyt træ i tabel</a>
+            <a class="btn btn-primary form-control" href="FrontController?command=nav&action=makewood">Indsæt nyt træ i tabel</a>
             <br>
             <br>
             <table class="table table-hover table-sm">
@@ -40,14 +40,7 @@
                     <td> <%out.print(woodList.get(i).getWoodLength()); %></td >
                     <td> <%out.print(woodList.get(i).getWoodUnit());  %></td >
                     <td> <%out.print(woodList.get(i).getWoodPrice());  %></td >
-                    <td>
-                        <form action="FrontController" method="POST">
-                            <input type="hidden" name="command" value="nav"/>
-                            <input type="hidden" name="action" value="editwood"/>
-                            <input type="hidden" name="woodListId" value="<%out.print(i);%>"/>
-                            <input type="submit" value="Rediger" class="btn btn-primary form-control"/>
-                        </form>
-                    </td>
+                    <td><a class="btn btn-primary form-control" href="FrontController?command=nav&action=editwood&woodListId=<%out.print(i+1);%>">Rediger</a></td>
                 </tr >
                 <%
                     }

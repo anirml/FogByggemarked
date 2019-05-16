@@ -16,12 +16,13 @@ abstract class Command {
         commands.put( "nav", new Nav() );
         commands.put( "makeRequest" , new MakeRequest() );
         commands.put( "choice", new ChoiceJ() );
-        commands.put( "calculate", new CalculateJ() );
         commands.put( "toolshedchoice", new ToolshedChoice() );
         commands.put( "makeRequestBack", new MakeRequest() );
         commands.put( "mypage", new MyPage() );
         commands.put( "logout", new Logout() );
         commands.put( "makewood", new MakeWood());
+        commands.put( "sendRequest" , new SendRequest());
+        commands.put( "logout", new Logout());
     }
 
     static Command from( HttpServletRequest request ) {

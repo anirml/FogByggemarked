@@ -181,8 +181,4 @@ public class LogicFacade {
 
         return arrayShed;
     }
-
-
-
-
 }

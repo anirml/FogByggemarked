@@ -2,6 +2,7 @@ package DBAccess;
 
 import FunctionLayer.Description;
 import FunctionLayer.FogException;
+import FunctionLayer.FogException;
 import FunctionLayer.Roof;
 import FunctionLayer.Wood;
 
@@ -202,7 +203,7 @@ public class ItemMapper {
             ps.setString( 7, Integer.toString(wood.getWoodId()));
             ps.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new FogException( ex.toString(), "SQL eller Classnot found fejl i editWood" );
+            throw new FogException( ex.getMessage() );
         }
     }
 }
