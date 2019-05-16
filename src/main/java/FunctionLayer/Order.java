@@ -1,6 +1,6 @@
 package FunctionLayer;
 
-public class Order_oh {
+public class Order {
 
     private int orderId;
     private String orderDate;
@@ -16,7 +16,7 @@ public class Order_oh {
     private int orderShedWidth;
     private String orderShipDate;
 
-    public Order_oh(String orderDate, int userId, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
+    public Order(String orderDate, int userId, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
         this.orderDate = orderDate;
         this.userId = userId;
         this.orderStatus = orderStatus;
@@ -31,7 +31,7 @@ public class Order_oh {
         this.orderShipDate = orderShipDate;
     }
 
-    public Order_oh(int orderId, String orderDate, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
+    public Order(int orderId, String orderDate, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
