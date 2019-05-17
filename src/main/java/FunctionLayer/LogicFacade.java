@@ -47,9 +47,9 @@ public class LogicFacade {
             orderWidth = list.get(4);
         }
 
-        Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),
-                orderShed,orderLength,orderWidth);
-        OrderMapper.createRequest(order);
+        //Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),
+        //        orderShed,orderLength,orderWidth);
+        //OrderMapper.createRequest(order);
     }
 
     public static Wood createWood( int woodId ,int woodDim1, int woodDim2,
