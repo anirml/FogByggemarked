@@ -19,9 +19,9 @@ abstract class Command {
         commands.put( "toolshedchoice", new ToolshedChoice() );
         commands.put( "makeRequestBack", new MakeRequest() );
         commands.put( "mypage", new MyPage() );
-        commands.put( "logout", new Logout() );
         commands.put( "makewood", new MakeWood());
         commands.put( "sendRequest" , new SendRequest());
+        commands.put( "showOrder", new ShowOrder());
         commands.put( "logout", new Logout());
     }
 

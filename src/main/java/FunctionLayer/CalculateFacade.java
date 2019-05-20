@@ -225,7 +225,7 @@ public class CalculateFacade {
         return arrayPost;
     }
 
-    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid, String userType) {
+    public static void stykList (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid, String userType) throws FogException {
 
         boolean emp=false;
         if (userType.equals("employee")){

@@ -28,6 +28,10 @@
                 <li class="nav-item">
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
+                <li class="nav-item">
+                    <a >MODIFICERET</a>
+                </li>
+
                 <%
                     String userEmail = (String)session.getAttribute("email");
                     String userType = (String)session.getAttribute("type");
@@ -50,6 +54,11 @@
                 <li class="nav-item">
                     <a href="FrontController?command=nav&action=requests" class="nav-link ">Forespørgsler</a>
                 </li>
+                <li class="nav-item">
+                    <a href="FrontController?command=nav&action=editwood" class="nav-link ">edit wood</a>
+                </li>
+
+
                 <%
                     }
                 %>

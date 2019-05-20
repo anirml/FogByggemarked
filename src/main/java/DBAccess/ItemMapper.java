@@ -161,10 +161,10 @@ public class ItemMapper {
                 descMap.put(useCode, tempDesc);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            throw new FogException(ex.toString(), "CNF fejl i readDescMap");
+        } catch (SQLException ex) {
+            throw new FogException(ex.toString(), "SQL fejl i readDescMap");
         }
         return descMap;
     }

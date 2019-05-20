@@ -3,10 +3,13 @@ package PresentationLayer;
 import FunctionLayer.*;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MakeRequest extends Command {
@@ -16,47 +19,17 @@ public class MakeRequest extends Command {
 
         try {
 
+            String userId;
             String width = "";
             String lenght = "";
             String roof = "";
             String angle = "";
             String toolShedWidth = "";
             String toolShedLength = "";
-            String comment = "";
-            String userId = "";
-
-            String name = request.getParameter("name");
-            String address = request.getParameter("address");
-            String zipcode = request.getParameter("zipcode");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
 
             String destination = "../index";
 
             HttpSession session = request.getSession();
-
-            List<String> list;
-
-            if (session.getAttribute("list") == null) {
-                list = new ArrayList<>();
-
-                list.add(width);
-                list.add(lenght);
-                list.add(roof);
-                list.add(angle);
-                list.add(toolShedWidth);
-                list.add(toolShedLength);
-                list.add(comment);
-
-                list.add(userId);
-                list.add(name);
-                list.add(address);
-                list.add(zipcode);
-                list.add(phone);
-                list.add(email);
-            }else {
-                list = (List<String>) session.getAttribute("list");
-            }
 
             switch (request.getParameter("command")){
                 case "makeRequest":
@@ -65,6 +38,7 @@ public class MakeRequest extends Command {
                             destination = "roofstep1page";
                             break;
                         case "step2":
+                            System.out.println("Er i MakeRequest - step2");
                             width = request.getParameter("width");
                             lenght = request.getParameter("lenght");
                             if (width == null || lenght == null){
@@ -72,60 +46,54 @@ public class MakeRequest extends Command {
                                 destination = "roofstep1page";
                                 break;
                             }
-                            list.set(0,width);
-                            list.set(1,lenght);
+                            session.setAttribute("lenght",lenght);
+                            session.setAttribute("width",width);
                             destination = "roofstep2page";
                             break;
                         case "step3":
+                            System.out.println("Er i MakeRequest - step3");
                             roof = request.getParameter("roof");
                             angle = request.getParameter("angle");
-                            System.out.println("TAG & GRAD :" + roof + " " + angle);
                             if (roof == null || angle == null){
                                 request.setAttribute("message","Du mangler at vælge Tagtype eller Taghældning");
                                 destination = "roofstep2page";
                                 break;
                             }
                             ToolshedChoice.calcToolshedChoice(request);
-                            list.set(2,roof);
-                            list.set(3,angle);
+                            session.setAttribute("roof",roof);
+                            session.setAttribute("angle",angle);
                             destination = "roofstep3page";
                             break;
                         case "step4":
+                            System.out.println("Er i MakeRequest - step4");
                             toolShedWidth = request.getParameter("toolShedWidth");
-                            toolShedLength = request.getParameter("toolShedLenght");
+                            toolShedLength = request.getParameter("toolShedLength");
                             if (toolShedWidth == null || toolShedLength == null){
-                                request.setAttribute("message","Du mangler at vælge Bredde eller Længde");
+                                request.setAttribute("message","Du mangler at vælge SkurBredde eller SkurLængde");
                                 destination = "roofstep2page";
                                 break;
                             }
-                            list.set(4, toolShedWidth);
-                            list.set(5, toolShedLength);
-                            System.out.println("B&L Skur :" + toolShedWidth + " " + toolShedLength);
+                            session.setAttribute("toolShedLength",toolShedLength);
+                            session.setAttribute("toolShedWidth",toolShedWidth);
                             destination = "roofstep4page";
                             break;
                         case "step5":
-                            comment = request.getParameter("comment");
-                            list.set(6,comment);
-                            System.out.println("comment: " + comment);
 
-                            User user = (User) session.getAttribute("user");
-                            userId = String.valueOf(user.getId());
-                            String userType=user.getType();
+                            System.out.println("Er i MakeRequest - step5");
+                            session.setAttribute("comment",request.getParameter("comment"));
 
-                            userId = (String) session.getAttribute("id");
-                            list.set(7,userId);
-                            System.out.println("User ID: " + list.get(7));
+                            int cl = 10 * Integer.valueOf((String) session.getAttribute("lenght"));
+                            int cW = 10 * Integer.valueOf((String) session.getAttribute("width"));
+                            int shedLen = 10 * Integer.valueOf((String) session.getAttribute("toolShedLength"));
+                            int shedWid = 10 * Integer.valueOf((String) session.getAttribute("toolShedWidth"));
 
-                            int cl = 10 * Integer.parseInt(list.get(1));
-                            int cW = 10 * Integer.parseInt(list.get(0));
+                            String userType = (String) session.getAttribute("userType");
 
-                            int shedLen = 10 * Integer.parseInt(list.get(5));
-                            int shedWid = 10 * Integer.parseInt(list.get(4));
+                            String makeOrder = "1";
+                            session.setAttribute("makeOrder",makeOrder);
 
                             CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
                             CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
-
-                            session.setAttribute("list", list);
 
                             destination = "draw" + "page";
                             break;
@@ -153,12 +121,11 @@ public class MakeRequest extends Command {
                     }
             }
 
-            session.setAttribute("list",list);
-
             return destination;
 
-        } catch (Exception ex){
-            throw new FogException(ex.toString(), "Fejl i MakeRequest");
+        } catch (Exception e){
+            System.out.println("der var en fejl i MakeRequest");
         }
+        return "404page";
     }
 }

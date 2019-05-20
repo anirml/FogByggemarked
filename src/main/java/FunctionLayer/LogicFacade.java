@@ -18,40 +18,6 @@ public class LogicFacade {
         UserMapper.createUser( user );
         return user;
     }
-
-    public static void createRequest(List<String> list) throws FogException {
-
-        String orderShed = "";
-        String orderLength = "";
-        String orderWidth = "";
-
-        System.out.println("\n\n");
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
-        System.out.println(list.get(3));
-        System.out.println(list.get(4));
-        System.out.println(list.get(5));
-        System.out.println(list.get(6));
-        System.out.println(list.get(7));
-
-        if(list.get(4).equals("0")||list.get(5).equals("0")){
-            orderShed = null;
-            orderLength = null;
-            orderWidth = null;
-
-        }
-        if(!list.get(4).equals("0")||!list.get(5).equals("0")){
-            orderShed = "1";
-            orderLength = list.get(5);
-            orderWidth = list.get(4);
-        }
-
-        //Order order = new Order(list.get(7),"0",list.get(6),list.get(3),list.get(2),list.get(1),list.get(0),
-        //        orderShed,orderLength,orderWidth);
-        //OrderMapper.createRequest(order);
-    }
-
     public static Wood createWood( int woodId ,int woodDim1, int woodDim2,
                                    String woodDesc, int woodLength, String woodUnit, double woodPrice  ) throws FogException {
 
@@ -181,4 +147,6 @@ public class LogicFacade {
 
         return arrayShed;
     }
+
+
 }
