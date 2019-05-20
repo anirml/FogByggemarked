@@ -10,6 +10,8 @@ public class Nav extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
+        System.out.println("Er i Nav");
+
         String destination = "index";
 
         switch (request.getParameter("command")){
@@ -25,6 +27,7 @@ public class Nav extends Command {
                         destination = "requestspage";
                         break;
                     case "register":
+                        System.out.println("Er i Nav register");
                         destination = "registerpage";
                         break;
                     case "woodmaterial":

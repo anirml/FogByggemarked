@@ -1,16 +1,22 @@
 package PresentationLayer;
 
+import DBAccess.OrderMapper;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class Register extends Command {
 
     @Override
     String execute( HttpServletRequest request, HttpServletResponse response ) throws LoginSampleException {
+
+        System.out.println("Er i Register");
+
         String name = request.getParameter( "name" );
         String email = request.getParameter( "email" );
         String password1 = request.getParameter( "password1" );
@@ -23,7 +29,9 @@ public class Register extends Command {
             User user = LogicFacade.createUser( name, email, password1, address, zipcode, city, phone );
             HttpSession session = request.getSession();
             session.setAttribute( "user", user );
-            session.setAttribute( "role", user.getType() );
+            session.setAttribute( "type", user.getType() );
+            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            session.setAttribute("userOrderList",userOrderList);
             return user.getType() + "page";
         } else {
             throw new LoginSampleException( "the two passwords did not match" );

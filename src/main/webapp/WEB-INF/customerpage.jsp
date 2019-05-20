@@ -31,7 +31,9 @@
         </div>
 
         <%
-            List<Order> userOrderList = (List<Order>) session.getAttribute("orderList");
+
+            System.out.println("Er i customerpage.jsp");
+            List<Order> userOrderList = (List<Order>) session.getAttribute("userOrderList");
 
         %>
 

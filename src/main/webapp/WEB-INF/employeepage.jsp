@@ -12,6 +12,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee home page</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
     </head>
     <body>
     <jsp:include page="../include/header.jsp" />
@@ -22,35 +28,66 @@
             <h1>Hello <%=session.getAttribute( "email" )%> </h1>
         </div>
 
-        <div class="row">
-            <div class="col-lg-4 col-md-3 text-center">
-            </div>
-            <div class="col-lg-4 col-md-6">
 
-
-    <%
-        ArrayList<Order> tempOrderList = new ArrayList();
-        tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
-    %>
-
-    <%
-        for (int i = 0; i <tempOrderList.size() ; i++) {
-    %>
-
-    <tbody>
-    <tr>
-        <td><%out.print(tempOrderList.get(i).;%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getLength());%></td>
-        <td align="right"><%out.print(tempOrderList.get(i).getNumber());%> </td>
-        <td align="right"><%out.print(tempOrderList.get(i).getItem().getUnit());%></td>
-        <td><%out.print(tempOrderList.get(i).getComments());%></td>
-    </tr>
         <%
-    }
-%>
+            System.out.println("Er i employeepage.jsp");
+            ArrayList<Order> tempOrderList = new ArrayList();
+            tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
+        %>
 
-            </div>
-        </div>
+
+        <table style="width:70%" align="center">
+            <tr>
+                <th>OrderId</th>
+                <th>OrderDato</th>
+                <th>UserId</th>
+                <th>Status</th>
+                <th>Tagvinkel</th>
+                <th>TagMatr</th>
+                <th>Længde</th>
+                <th>Bredde</th>
+                <th>Skur ja/nej</th>
+                <th>SkurLængde</th>
+                <th>SkurBredde</th>
+                <th>Kommentar</th>
+            </tr>
+            <%
+                for (int i = 0; i <tempOrderList.size() ; i++) {
+            %>
+
+            <tr>
+                <td> <%out.print(tempOrderList.get(i).getOrderId()); %></td>
+                <td> <%out.print(tempOrderList.get(i).getOrderDate());%></td>
+                <td> <%out.print(tempOrderList.get(i).getUserId()); %></td>
+                <td> <%out.print(tempOrderList.get(i).getOrderStatus()); %> </td >
+                <td> <%out.print(tempOrderList.get(i).getOrderRoofAngle()); %> </td >
+                <td> <%out.print(tempOrderList.get(i).getOrderRoofMaterial()); %></td>
+                <td> <%out.print(tempOrderList.get(i).getOrderLength()); %></td >
+                <td> <%out.print(tempOrderList.get(i).getOrderWidth()); %></td >
+                <td> <%out.print(tempOrderList.get(i).getOrderShed());  %></td >
+                <td> <%out.print(tempOrderList.get(i).getOrderShedLength()); %></td >
+                <td> <%out.print(tempOrderList.get(i).getOrderShedWidth()); %></td >
+                <td> <%out.print(tempOrderList.get(i).getOrderComment());  %></td >
+
+                <td>
+                    <form action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="showOrder">
+                        <input type="hidden" name="orderId" value="<%out.print(i);%>">
+                        <input type="submit"  value="Vis" class="btn btn-primary form-control">
+                    </form>
+                </td>
+
+                <%
+                    }
+                %>
+
+            </tr>
+
+        </table>
+
+
+
+
     </div>
 
     </body>

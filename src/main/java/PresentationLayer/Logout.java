@@ -10,7 +10,7 @@ public class Logout extends Command{
         @Override
         String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
 
-            System.out.println("er i logout");
+            System.out.println("Er i logout");
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();

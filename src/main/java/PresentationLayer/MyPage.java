@@ -1,6 +1,8 @@
 package PresentationLayer;
 
+import DBAccess.OrderMapper;
 import FunctionLayer.LoginSampleException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,17 +13,22 @@ public class MyPage extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+
+        System.out.println("Er i MyPage");
+
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String email = user.getEmail();
         request.setAttribute("email", email);
-        String userRole = request.getParameter("type");
-        if (userRole.equals("employee")) {
-            List<String> orderList = DBAccess.OrderMapper.readOrders();
+        String userType = (String) session.getAttribute("type");
+        if (userType.equals("employee")) {
+            List<Order> orderList = DBAccess.OrderMapper.readOrders();
             session.setAttribute("orderList",orderList);
-            return "employee";
+            return "employeepage";
         } else {
-            return "customer";
+            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            session.setAttribute("userOrderList",userOrderList);
+            return "customerpage";
         }
     }
 }

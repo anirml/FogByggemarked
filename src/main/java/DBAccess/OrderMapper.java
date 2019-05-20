@@ -2,7 +2,6 @@ package DBAccess;
 
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
-import FunctionLayer.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,16 +40,20 @@ public class OrderMapper {
         }
     }
 
-    public  static List<String> readOrders() {
+    public  static List<Order> readOrders() {
 
-        List<String> orderList = new ArrayList<>();
+        List<Order> orderList = new ArrayList<>();
 
 
         try {
             Connection con = Connector.connection();
-            String sql = "SELECT * FROM orders_oh\n" +
+
+            String sql = "SELECT * FROM fog_byggemarked.orders_oh";
+
+            /*String sql = "SELECT * FROM orders_oh\n" +
                     "INNER JOIN user\n" +
-                    "ON orders.user_id = user.user_id;";
+                    "ON orders_oh.user_id = user.user_id;";*/
+
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultSet = ps.executeQuery(sql);
 
@@ -58,6 +61,7 @@ public class OrderMapper {
 
                 int orderId = resultSet.getInt("order_id");
                 String orderDate = resultSet.getString("order_date");
+                int userId = resultSet.getInt("user_id");
                 int orderStatus = resultSet.getInt("order_status");
                 String orderComment = resultSet.getString("order_comment");
                 int orderRoofAngle = resultSet.getInt("order_roof_angle");
@@ -70,13 +74,15 @@ public class OrderMapper {
                 String orderShipDate = resultSet.getString("order_ship_date");
 
 
-                String userName = resultSet.getString("user_name");
+                /*String userName = resultSet.getString("user_name");
                 String userEmail = resultSet.getString("user_email");
                 String userAddress = resultSet.getString("user_address");
                 String userZipcode = resultSet.getString("user_zipcode");
                 String userCity = resultSet.getString("user_city");
                 String userPhone = resultSet.getString("user_phone");
                 String userType = "0";
+                */
+
                 //userType so far its hidden
 
                 /*Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
@@ -85,14 +91,10 @@ public class OrderMapper {
                         String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
                 */
 
-                orderList.add(String.valueOf(orderId));
-                //orderList.add(String.valueOf(tempOrder));
-                orderList.add(String.valueOf(orderDate));
-                orderList.add(String.valueOf(orderShipDate));
-
-                User tempUser = new User(userName,userEmail,"0",userAddress,
-                        userZipcode, userCity,userPhone,userType);
-                orderList.add(String.valueOf(tempUser));
+                Order tempOrder = new Order(orderId, orderDate, userId, orderStatus, orderComment,
+                        orderRoofAngle, orderRoofMaterial, orderLength,
+                        orderWidth, orderShed, orderShedLength, orderShedWidth, orderShipDate);
+                orderList.add(tempOrder);
             }
 
         } catch (ClassNotFoundException | SQLException e) {

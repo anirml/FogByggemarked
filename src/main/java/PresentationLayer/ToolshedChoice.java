@@ -21,14 +21,7 @@ public class ToolshedChoice extends Command {
 
         HttpSession session = request.getSession();
 
-
-
-        //List<String> dimlist = new ArrayList<>();
-        //dimlist = (List<String>) session.getAttribute("list");
-
-
-        //System.out.println(session.getAttribute("lenght"));
-        //System.out.println(session.getAttribute("width"));
+        System.out.println("Er i ToolshedChoice");
 
         String len = (String) session.getAttribute("lenght");
         String wid = (String) session.getAttribute("width");

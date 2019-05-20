@@ -11,12 +11,10 @@
         <div class="col">
 
 <%
+    System.out.println("Er i drawpage.jsp");
+
     List<String> orderInput = new ArrayList<>();
     orderInput = (List<String>) session.getAttribute("list");
-
-
-    //List<String> orderInput = new ArrayList<>();
-    //orderInput = (List<String>) session.getAttribute("list");
 
     String makeOrder= (String) session.getAttribute("makeOrder");
     String carportWidS = (String) session.getAttribute("width");
@@ -102,8 +100,8 @@
         } else {
     %>
     <td>
-        <form name="beregn" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="login">
+        <form name="return" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="mypage">
             RETURN:
             <input type="submit" value="Submit">
 

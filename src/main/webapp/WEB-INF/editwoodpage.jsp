@@ -12,6 +12,7 @@
                 <form action="FrontController" method="post">
                     <input type="hidden" name="command" value="makewood"/>
                 <%
+                    System.out.println("Er i editwoodpage.jsp");
                     String woodId = request.getParameter("woodListId");
 
                     List<Wood> woodList = ItemMapper.readWoodList();

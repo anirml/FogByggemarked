@@ -7,6 +7,9 @@
         <div class="col">
             <center>
             <h2>Materiale liste</h2>
+
+            <% System.out.println("Er i itemlistpage.jsp"); %>
+
             </br>
                 <table class="table table-sm table-striped table-bordered">
                     <thead>
