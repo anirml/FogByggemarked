@@ -13,9 +13,6 @@
                 <h3>Step 2</h3>
                 <p>Vælg tagtype og hældning.</p><br>
             </div>
-            <div class="col-sm-2">
-                <img src="../img/quickmrejs.gif">
-            </div>
             </div>
     <form action="FrontController" method="POST">
         <input type="hidden" name="command" value="makeRequest"/>

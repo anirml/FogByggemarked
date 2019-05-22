@@ -13,9 +13,6 @@
                 <h3>Step 4</h3>
                 <p>Evt. bemærkninger</p><br>
             </div>
-            <div class="col-sm-2">
-                <img src="../img/quickmrejs.gif">
-            </div>
             </div>
     <form action="FrontController" method="POST">
         <input type="hidden" name="command" value="makeRequest"/>
