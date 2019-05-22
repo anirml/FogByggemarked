@@ -53,6 +53,9 @@ public class Nav extends Command {
                     case "editwood":
                         destination = "editwoodpage";
                         break;
+                    case "editorder":
+                        destination = "editorderpage";
+                        break;
                     case "makewood":
                         destination = "makewoodpage";
                         break;

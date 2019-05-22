@@ -3,6 +3,8 @@ package DBAccess;
 import FunctionLayer.FogException;
 import FunctionLayer.Order;
 
+
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -213,7 +215,7 @@ public class OrderMapper {
             ps.setString(3,order.getOrderStatus());
             ps.setString(4,order.getOrderComment());
             ps.setString(5,order.getOrderRoofAngle());
-            ps.setString(6,order.getRoofMaterial());
+            ps.setString(6,order.getOrderRoofMaterial());
             ps.setString(7,order.getOrderLength());
             ps.setString(8,order.getOrderWidth());
             ps.setString(9,order.getOrderShed());
@@ -232,6 +234,7 @@ public class OrderMapper {
         }
     }
 
+<<<<<<< HEAD
     public  static List<Order> readUserOrders(String userId) {
         List<Order> userOrderList = new ArrayList<>();
         try {
@@ -268,8 +271,11 @@ public class OrderMapper {
     }
 
     public  static List<String> readOrders() {
+=======
+    public  static List<Order> readOrders() {
+>>>>>>> cfab578d5b3e15a47f439d37aebfa5c62e8abc5e
 
-        List<String> orderList = new ArrayList<>();
+        List<Order> orderList = new ArrayList<>();
 
 
         try {
@@ -305,6 +311,7 @@ public class OrderMapper {
                 //userType so far its hidden
 
 
+<<<<<<< HEAD
                 orderList.add(String.valueOf(orderId));
                         //orderList.add(String.valueOf(tempOrder));
                         orderList.add(String.valueOf(orderDate));
@@ -314,6 +321,22 @@ public class OrderMapper {
                         userZipcode, userCity,userPhone,userType);
                         orderList.add(String.valueOf(tempUser));
                         }
+=======
+                Order tempOrder = new Order(orderId,String.valueOf(userId),orderDate,String.valueOf(orderStatus),orderComment,String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),String.valueOf(orderWidth),String.valueOf(orderShed),String.valueOf(orderShedLength),String.valueOf(orderShedWidth),String.valueOf(orderShipDate),userName,userEmail,userAddress,userZipcode,userCity,userPhone,userType);
+               // Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
+               //         String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
+               //         String.valueOf(orderWidth),String.valueOf(orderShed),
+               //         String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
+               // orderList.add(String.valueOf(orderId));
+               // orderList.add(String.valueOf(tempOrder));
+               // orderList.add(String.valueOf(orderDate));
+               // orderList.add(String.valueOf(orderShipDate));
+
+               // User tempUser = new User(userName,userEmail,"0",userAddress,
+               //         userZipcode, userCity,userPhone,userType);
+                orderList.add(tempOrder);
+            }
+>>>>>>> cfab578d5b3e15a47f439d37aebfa5c62e8abc5e
 
                         } catch (ClassNotFoundException | SQLException e) {
                         e.printStackTrace();
