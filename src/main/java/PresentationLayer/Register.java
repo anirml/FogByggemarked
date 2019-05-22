@@ -1,11 +1,14 @@
 package PresentationLayer;
 
+import DBAccess.OrderMapper;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.FogException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class Register extends Command {
 
@@ -24,6 +27,8 @@ public class Register extends Command {
             HttpSession session = request.getSession();
             session.setAttribute( "user", user );
             session.setAttribute( "role", user.getType() );
+            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            session.setAttribute("orderList",userOrderList);
             return user.getType() + "page";
         } else {
             throw new FogException( "Alle fælter skal udfyldes." );

@@ -1,6 +1,8 @@
 package PresentationLayer;
 
+import DBAccess.OrderMapper;
 import FunctionLayer.FogException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +21,11 @@ public class MyPage extends Command {
         if (userRole.equals("employee")) {
             List<String> orderList = DBAccess.OrderMapper.readOrders();
             session.setAttribute("orderList",orderList);
-            return "employee";
+            return "employeepage";
         } else {
-            return "customer";
+            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            session.setAttribute("orderList",userOrderList);
+            return "customerpage";
         }
     }
 }
