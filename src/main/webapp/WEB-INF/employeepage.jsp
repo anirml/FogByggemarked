@@ -32,7 +32,7 @@
         <%
             System.out.println("Er i employeepage.jsp");
             ArrayList<Order> tempOrderList = new ArrayList();
-            tempOrderList = (ArrayList<Order>) session.getAttribute("orderList");
+            tempOrderList = (ArrayList<Order>) session.getAttribute("order0List");
         %>
 
 
@@ -69,11 +69,26 @@
                 <td> <%out.print(tempOrderList.get(i).getOrderShedWidth()); %></td >
                 <td> <%out.print(tempOrderList.get(i).getOrderComment());  %></td >
 
+
+                <td><a class="btn btn-primary form-control"
+                       href="FrontController?command=showOrder&action=empOrder0&listNo=<%out.print(i);%>">Vis</a>
+                </td>
+
+                <!--
                 <td>
                     <form action="FrontController" method="POST">
                         <input type="hidden" name="command" value="showOrder">
-                        <input type="hidden" name="orderId" value="<%out.print(i);%>">
+                        <input type="hidden" name="listNo" value="<%out.print(i);%>">
                         <input type="submit"  value="Vis" class="btn btn-primary form-control">
+                    </form>
+                </td>
+                -->
+
+                <td>
+                    <form action="FrontController" method="POST">
+                        <input type="hidden" name="command" value="finishOrder">
+                        <input type="hidden" name="listNo" value="<%out.print(i);%>">
+                        <input type="submit"  value="Send Order" class="btn btn-primary form-control">
                     </form>
                 </td>
 

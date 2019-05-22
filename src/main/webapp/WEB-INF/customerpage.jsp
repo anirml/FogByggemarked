@@ -68,13 +68,19 @@
             <td> <%out.print(userOrderList.get(i).getOrderShedWidth()); %></td >
             <td> <%out.print(userOrderList.get(i).getOrderComment());  %></td >
 
+            <td><a class="btn btn-primary form-control"
+                  href="FrontController?command=showOrder&action=customer&listNo=<%out.print(i);%>">Vis</a>
+            </td>
+
+            <!--
             <td>
                 <form action="FrontController" method="POST">
                 <input type="hidden" name="command" value="showOrder">
-                <input type="hidden" name="orderId" value="<%out.print(i);%>">
+                <input type="hidden" name="listNo" value="<%out.print(i);%>">
                 <input type="submit"  value="Vis" class="btn btn-primary form-control">
                 </form>
             </td>
+            -->
 
             <%
                }

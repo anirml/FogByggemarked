@@ -19,18 +19,18 @@ public class OrderMapper {
 
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setString(1,order.getOrderDate());
-            ps.setInt(2,order.getUserId());
-            ps.setInt(3,order.getOrderStatus());
-            ps.setString(4,order.getOrderComment());
-            ps.setInt(5,order.getOrderRoofAngle());
-            ps.setInt(6,order.getOrderRoofMaterial());
-            ps.setInt(7,order.getOrderLength());
-            ps.setInt(8,order.getOrderWidth());
-            ps.setInt(9,order.getOrderShed());
-            ps.setInt(10,order.getOrderShedLength());
-            ps.setInt(11,order.getOrderShedWidth());
-            ps.setString(12,order.getOrderShipDate());
+            ps.setString(1, order.getOrderDate());
+            ps.setInt(2, order.getUserId());
+            ps.setInt(3, order.getOrderStatus());
+            ps.setString(4, order.getOrderComment());
+            ps.setInt(5, order.getOrderRoofAngle());
+            ps.setInt(6, order.getOrderRoofMaterial());
+            ps.setInt(7, order.getOrderLength());
+            ps.setInt(8, order.getOrderWidth());
+            ps.setInt(9, order.getOrderShed());
+            ps.setInt(10, order.getOrderShedLength());
+            ps.setInt(11, order.getOrderShedWidth());
+            ps.setString(12, order.getOrderShipDate());
 
             ps.executeUpdate();
 
@@ -40,19 +40,14 @@ public class OrderMapper {
         }
     }
 
-    public  static List<Order> readOrders() {
+    public static List<Order> readOrders0() {
 
         List<Order> orderList = new ArrayList<>();
-
 
         try {
             Connection con = Connector.connection();
 
-            String sql = "SELECT * FROM fog_byggemarked.orders_oh";
-
-            /*String sql = "SELECT * FROM orders_oh\n" +
-                    "INNER JOIN user\n" +
-                    "ON orders_oh.user_id = user.user_id;";*/
+            String sql = "SELECT * FROM fog_byggemarked.orders_oh WHERE (order_status = 0)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet resultSet = ps.executeQuery(sql);
@@ -74,22 +69,46 @@ public class OrderMapper {
                 String orderShipDate = resultSet.getString("order_ship_date");
 
 
-                /*String userName = resultSet.getString("user_name");
-                String userEmail = resultSet.getString("user_email");
-                String userAddress = resultSet.getString("user_address");
-                String userZipcode = resultSet.getString("user_zipcode");
-                String userCity = resultSet.getString("user_city");
-                String userPhone = resultSet.getString("user_phone");
-                String userType = "0";
-                */
+                Order tempOrder = new Order(orderId, orderDate, userId, orderStatus, orderComment,
+                        orderRoofAngle, orderRoofMaterial, orderLength,
+                        orderWidth, orderShed, orderShedLength, orderShedWidth, orderShipDate);
+                orderList.add(tempOrder);
+            }
 
-                //userType so far its hidden
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return orderList;
+    }
 
-                /*Order tempOrder = new Order(String.valueOf(userId),String.valueOf(orderStatus),orderComment,
-                        String.valueOf(orderRoofAngle),orderRoofMaterial,String.valueOf(orderLength),
-                        String.valueOf(orderWidth),String.valueOf(orderShed),
-                        String.valueOf(orderShedLength),String.valueOf(orderShedWidth));
-                */
+    public static List<Order> readOrders1() {
+
+        List<Order> orderList = new ArrayList<>();
+
+        try {
+            Connection con = Connector.connection();
+
+            String sql = "SELECT * FROM fog_byggemarked.orders_oh WHERE (order_status = 1)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+
+                int orderId = resultSet.getInt("order_id");
+                String orderDate = resultSet.getString("order_date");
+                int userId = resultSet.getInt("user_id");
+                int orderStatus = resultSet.getInt("order_status");
+                String orderComment = resultSet.getString("order_comment");
+                int orderRoofAngle = resultSet.getInt("order_roof_angle");
+                int orderRoofMaterial = resultSet.getInt("order_roof_material");
+                int orderLength = resultSet.getInt("order_length");
+                int orderWidth = resultSet.getInt("order_width");
+                int orderShed = resultSet.getInt("order_shed");
+                int orderShedLength = resultSet.getInt("order_shed_length");
+                int orderShedWidth = resultSet.getInt("order_shed_width");
+                String orderShipDate = resultSet.getString("order_ship_date");
+
 
                 Order tempOrder = new Order(orderId, orderDate, userId, orderStatus, orderComment,
                         orderRoofAngle, orderRoofMaterial, orderLength,
@@ -103,13 +122,15 @@ public class OrderMapper {
         return orderList;
     }
 
-    public  static List<Order> readUserOrders(int userId) {
+
+    public static List<Order> readUserOrders(int userId) {
         List<Order> userOrderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
-            String sql = "SELECT * FROM fog_byggemarked.orders_oh WHERE (user_id = ?);";
-            PreparedStatement ps = con.prepareStatement( sql );
-            ps.setInt( 1, userId );
+
+            String sql = "SELECT * FROM fog_byggemarked.orders_oh WHERE (user_id = ?) AND (order_status = 1)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userId);
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
@@ -140,6 +161,33 @@ public class OrderMapper {
         }
         return userOrderList;
     }
+
+
+    public static void markSendOrder(String date, int orderID) throws LoginSampleException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE fog_byggemarked.orders_oh" +
+                         " SET order_ship_date = ?, order_status = 1 WHERE (`order_id` = ?);";
+            ps = con.prepareStatement(SQL);
+            //ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
+            ps.setString(1, date);
+            ps.setInt(2, orderID);
+            ps.executeUpdate();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }
 
 //************************** disp kode*************************************************************

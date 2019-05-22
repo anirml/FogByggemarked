@@ -22,8 +22,8 @@ public class MyPage extends Command {
         request.setAttribute("email", email);
         String userType = (String) session.getAttribute("type");
         if (userType.equals("employee")) {
-            List<Order> orderList = DBAccess.OrderMapper.readOrders();
-            session.setAttribute("orderList",orderList);
+            List<Order> order0List = DBAccess.OrderMapper.readOrders0();
+            session.setAttribute("order0List",order0List);
             return "employeepage";
         } else {
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));

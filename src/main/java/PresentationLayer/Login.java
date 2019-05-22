@@ -33,8 +33,10 @@ public class Login extends Command {
             session.setAttribute("userOrderList",userOrderList);
 
         } else {
-            List<Order> orderList =OrderMapper.readOrders();
-            session.setAttribute("orderList",orderList);
+            List<Order> order0List =OrderMapper.readOrders0();
+            session.setAttribute("order0List",order0List);
+            List<Order> order1List =OrderMapper.readOrders1();
+            session.setAttribute("order1List",order1List);
 
         }
 

@@ -36,7 +36,7 @@ public class SendRequest extends Command {
         LocalDateTime tidspunkt = LocalDateTime.now();
         String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        int userId= Integer.valueOf((String) session.getAttribute("Id"));
+        int userId= Integer.valueOf((String) session.getAttribute("id"));
         String orderComment = (String) session.getAttribute("comment");
         int orderRoofAngle = Integer.valueOf((String) session.getAttribute("angle"));
         int orderRoofMaterial = Integer.valueOf((String) session.getAttribute("roof"));

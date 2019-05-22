@@ -52,11 +52,9 @@
                     <a href="FrontController?command=nav&action=roofmaterial" class="nav-link ">Roof list</a>
                 </li>
                 <li class="nav-item">
-                    <a href="FrontController?command=nav&action=requests" class="nav-link ">Forespørgsler</a>
+                    <a href="FrontController?command=nav&action=requests" class="nav-link ">Vis færdig ordre</a>
                 </li>
-                <li class="nav-item">
-                    <a href="FrontController?command=nav&action=editwood" class="nav-link ">edit wood</a>
-                </li>
+
 
 
                 <%
