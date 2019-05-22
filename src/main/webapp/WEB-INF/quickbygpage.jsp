@@ -2,6 +2,9 @@
 <!doctype html>
 <html lang="en">
 <jsp:include page="../include/header.jsp" />
+
+<% System.out.println("Er i quickbygpage.jsp"); %>
+
 <div class="container jumbotron">
     <div class="row">
         <div class="col">

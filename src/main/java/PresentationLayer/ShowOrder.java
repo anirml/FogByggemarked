@@ -1,8 +1,11 @@
 package PresentationLayer;
 
+import DBAccess.OrderMapper;
+import DBAccess.UserMapper;
 import FunctionLayer.CalculateFacade;
 import FunctionLayer.FogException;
 import FunctionLayer.Order;
+import FunctionLayer.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,33 +20,76 @@ public class ShowOrder extends Command {
 
         HttpSession session = request.getSession();
 
-        List<Order> userOrderList = (List<Order>) session.getAttribute("orderList");
+        User user = (User)session.getAttribute("user");
+        String userType= (String) session.getAttribute( "type");
 
-        int orderId = Integer.valueOf(request.getParameter("orderId"));
+        List<Order> orderList = null;
+
+
+        /*if (userType.equals("customer")) {
+
+            orderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            //session.setAttribute("orderList",orderList);
+
+        } else {
+            orderList =OrderMapper.readOrders0();
+            //session.setAttribute("orderList",orderList);
+
+        }
+*/
+        //(request.getParameter("command"))
+
+        switch (request.getParameter("action")){
+            case "customer":
+
+                orderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+
+                break;
+            case "empOrder0":
+                orderList =OrderMapper.readOrders0();
+
+                break;
+            case "empOrder1":
+                orderList =OrderMapper.readOrders1();
+
+                break;
+            default :
+                System.out.println("Er i ShowOrder i bund i switch");
+        }
+
+
+        int listNo = Integer.valueOf(request.getParameter("listNo"));
         Order tempOrder = null;
 
-        for (int i = 0; i <userOrderList.size() ; i++) {
-            if (orderId==i) {
-                tempOrder=userOrderList.get(i);
+        for (int i = 0; i <orderList.size() ; i++) {
+            if (listNo==i) {
+                tempOrder=orderList.get(i);
             }
         }
-        System.out.println(tempOrder.toString());
+        //System.out.println(tempOrder.toString());
         int cl = 10*tempOrder.getOrderLength();
         int cW = 10*tempOrder.getOrderWidth();
         int shedLen = 10*tempOrder.getOrderShedLength();
         int shedWid = 10*tempOrder.getOrderShedWidth();
 
-        String userType = (String) session.getAttribute("userType");
-
         String makeOrder = "0";
-        session.setAttribute("makeOrder",makeOrder);
 
         session.setAttribute("lenght",Integer.toString(cl/10));
         session.setAttribute("width",Integer.toString(cW/10));
 
         CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
-        CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
 
+        if (userType.equals("employee")) {
+            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
+        } else {
+            if (tempOrder.getOrderStatus()==1) {
+                CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
+            } else {
+                //makeOrder = "1";
+            }
+        }
+
+        session.setAttribute("makeOrder",makeOrder);
 
         return "draw" + "page";
     }

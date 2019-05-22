@@ -16,6 +16,22 @@ public class Order {
     private int orderShedWidth;
     private String orderShipDate;
 
+    public Order(int orderId, String orderDate, int userId, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.userId = userId;
+        this.orderStatus = orderStatus;
+        this.orderComment = orderComment;
+        this.orderRoofAngle = orderRoofAngle;
+        this.orderRoofMaterial = orderRoofMaterial;
+        this.orderLength = orderLength;
+        this.orderWidth = orderWidth;
+        this.orderShed = orderShed;
+        this.orderShedLength = orderShedLength;
+        this.orderShedWidth = orderShedWidth;
+        this.orderShipDate = orderShipDate;
+    }
+
     public Order(String orderDate, int userId, int orderStatus, String orderComment, int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth, String orderShipDate) {
         this.orderDate = orderDate;
         this.userId = userId;

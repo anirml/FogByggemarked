@@ -20,14 +20,26 @@ public class Login extends Command {
         String password = request.getParameter( "password" );
         User user = LogicFacade.login(email, password );
         HttpSession session = request.getSession();
-        System.out.println("Er i login trin 1");
-        session.setAttribute( "id", user.getId());
+        System.out.println("Er i login");
+        session.setAttribute("id",user.getId());
         session.setAttribute( "email", email);
         session.setAttribute( "user", user );
         session.setAttribute( "type", user.getType() );
-        System.out.println("Er i login trin 2");
-        List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
-        session.setAttribute("orderList",userOrderList);
+
+        if (user.getType().equals("customer")) {
+
+            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            session.setAttribute("userOrderList",userOrderList);
+
+        } else {
+            List<Order> order0List =OrderMapper.readOrders0();
+            session.setAttribute("order0List",order0List);
+            List<Order> order1List =OrderMapper.readOrders1();
+            session.setAttribute("order1List",order1List);
+
+        }
+
+
         return user.getType() + "page";
     }
 }

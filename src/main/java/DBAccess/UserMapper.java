@@ -1,12 +1,15 @@
 package DBAccess;
 
 import FunctionLayer.FogException;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
 
@@ -33,6 +36,42 @@ public class UserMapper {
         } catch ( SQLException | ClassNotFoundException ex ) {
             throw new FogException( ex.getMessage(), "Der skete en fejl i oprettelse af bruger" );
         }
+    }
+
+    public static List<User> readUsers() {
+
+        List<User> userList = new ArrayList<>();
+
+        try {
+            Connection con = Connector.connection();
+
+            String sql = "SELECT * FROM fog_byggemarked.user ";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
+
+            while (resultSet.next()) {
+
+                int id = resultSet.getInt("user_id");
+                String name = resultSet.getString("user_name");
+                String email = resultSet.getString("user_email");
+                String password = resultSet.getString("user_password");
+                String address = resultSet.getString("user_address");
+                String zipcode = resultSet.getString("user_zipcode");
+                String city = resultSet.getString("user_city");
+                String phone = resultSet.getString("user_phone");
+                String type = resultSet.getString("user_type");
+
+
+                User tempUser = new User(id,name,email,password,address,zipcode,city,phone,type);
+
+                userList.add(tempUser);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     public static User login( String email, String password ) throws FogException {

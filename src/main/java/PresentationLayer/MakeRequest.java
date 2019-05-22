@@ -87,7 +87,7 @@ public class MakeRequest extends Command {
                             int shedLen = 10 * Integer.valueOf((String) session.getAttribute("toolShedLength"));
                             int shedWid = 10 * Integer.valueOf((String) session.getAttribute("toolShedWidth"));
 
-                            String userType = (String) session.getAttribute("userType");
+                            String userType = (String) session.getAttribute("type");
 
                             String makeOrder = "1";
                             session.setAttribute("makeOrder",makeOrder);

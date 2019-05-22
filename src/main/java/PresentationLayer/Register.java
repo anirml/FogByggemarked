@@ -26,9 +26,9 @@ public class Register extends Command {
             User user = LogicFacade.createUser( name, email, password1, address, zipcode, city, phone );
             HttpSession session = request.getSession();
             session.setAttribute( "user", user );
-            session.setAttribute( "role", user.getType() );
+            session.setAttribute( "type", user.getType() );
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
-            session.setAttribute("orderList",userOrderList);
+            session.setAttribute("userOrderList",userOrderList);
             return user.getType() + "page";
         } else {
             throw new FogException( "Alle fælter skal udfyldes." );

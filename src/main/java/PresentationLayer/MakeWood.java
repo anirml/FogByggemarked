@@ -11,6 +11,8 @@ public class MakeWood extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
+        System.out.println("Er i MakeWood");
+
         String action = request.getParameter("action");
 
         int woodId = Integer.valueOf(request.getParameter("woodId"));

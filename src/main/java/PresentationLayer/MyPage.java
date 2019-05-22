@@ -17,14 +17,14 @@ public class MyPage extends Command {
         User user = (User)session.getAttribute("user");
         String email = user.getEmail();
         request.setAttribute("email", email);
-        String userRole = request.getParameter("type");
-        if (userRole.equals("employee")) {
-            List<String> orderList = DBAccess.OrderMapper.readOrders();
-            session.setAttribute("orderList",orderList);
+        String userType = (String) session.getAttribute("type");
+        if (userType.equals("employee")) {
+            List<Order> order0List = DBAccess.OrderMapper.readOrders0();
+            session.setAttribute("order0List",order0List);
             return "employeepage";
         } else {
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
-            session.setAttribute("orderList",userOrderList);
+            session.setAttribute("userOrderList",userOrderList);
             return "customerpage";
         }
     }

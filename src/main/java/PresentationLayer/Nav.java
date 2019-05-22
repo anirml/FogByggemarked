@@ -1,14 +1,22 @@
 package PresentationLayer;
 
 import FunctionLayer.FogException;
-
+import DBAccess.UserMapper;
+import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class Nav extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
+
+        System.out.println("Er i Nav");
+
+        HttpSession session = request.getSession();
+        List<User> userList = null;
 
         String destination = "index";
 
@@ -22,9 +30,12 @@ public class Nav extends Command {
                         destination = "roofstep1page";
                         break;
                     case "requests":
+                        userList = UserMapper.readUsers();
+                        session.setAttribute("userList",userList);
                         destination = "requestspage";
                         break;
                     case "register":
+                        System.out.println("Er i Nav register");
                         destination = "registerpage";
                         break;
                     case "woodmaterial":

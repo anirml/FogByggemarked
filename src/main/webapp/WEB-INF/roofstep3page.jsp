@@ -5,6 +5,9 @@
 <!doctype html>
 <html lang="en">
 <jsp:include page="../include/header.jsp" />
+
+<% System.out.println("Er i roofstep3page.jsp"); %>
+
 <div class="container jumbotron">
         <div class="row">
             <div class="col-sm-10">

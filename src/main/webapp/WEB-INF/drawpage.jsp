@@ -10,90 +10,94 @@
     <div class="row">
         <div class="col">
 
-<%
-    List<String> orderInput = new ArrayList<>();
-    orderInput = (List<String>) session.getAttribute("list");
+        <%
+        System.out.println("Er i drawpage.jsp");
 
+        List<String> orderInput = new ArrayList<>();
+        orderInput = (List<String>) session.getAttribute("list");
 
-    //List<String> orderInput = new ArrayList<>();
-    //orderInput = (List<String>) session.getAttribute("list");
+        String makeOrder= (String) session.getAttribute("makeOrder");
+        String carportWidS = (String) session.getAttribute("width");
+        String carportLenS = (String) session.getAttribute("lenght");
+        double carportWid = Double.parseDouble(carportWidS)/100;
+        double carportLen = Double.parseDouble(carportLenS)/100;
 
-    String makeOrder= (String) session.getAttribute("makeOrder");
-    String carportWidS = (String) session.getAttribute("width");
-    String carportLenS = (String) session.getAttribute("lenght");
-    double carportWid = Double.parseDouble(carportWidS)/100;
-    double carportLen = Double.parseDouble(carportLenS)/100;
+        %>
+        <h1> Carport Fladt tag <%out.print(carportLen+" m  x "+carportWid+" m");%>;</h1>
 
-%>
-            <h1> Carport Fladt tag <%out.print(carportLen+" m  x "+carportWid+" m");%>;</h1>
-
-            <%String svg_fil= (String) session.getAttribute("svg_drawing");
+        <%String svg_fil= (String) session.getAttribute("svg_drawing");
                 out.print(svg_fil);%>
 
         </div>
     </div>
-    <div class="row">
-        <%
-            User user = (User) session.getAttribute("user");
-            String userType=user.getType();
-            ArrayList<OrderLine> tempStykList = new ArrayList();
-            tempStykList = (ArrayList<OrderLine>) session.getAttribute("styklist");
-        %>
 
-        <table class="table table-sm table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Beskrivelse</th>
-                <th>Længde</th>
-                <th>Antal</th>
-                <th>Enhed</th>
-                <th>Montering</th>
-                <%
-                    if (userType.equals("employee")){
-                %>
-                    <th>EnhedsPris</th>
-                    <th>SamletPris</th>
-                <%
-                    }
-                %>
-            </tr>
-            </thead>
-            <tbody>
 
-            <%
-                for (int i = 0; i <tempStykList.size() ; i++) {
-            %>
-
-            <tr>
-                <td scope="row"><%out.print(tempStykList.get(i).getItem().getDesc());%></td>
-                <td><%out.print(tempStykList.get(i).getItem().getLength());%></td>
-                <td><%out.print(tempStykList.get(i).getNumber());%> </td>
-                <td><%out.print(tempStykList.get(i).getItem().getUnit());%></td>
-                <td><%out.print(tempStykList.get(i).getComments());%></td>
-                <%
-                    if (userType.equals("employee")){
-                %>
-                    <td><%out.print(tempStykList.get(i).getItem().getPrice());%></td>
-                    <td><%out.print(tempStykList.get(i).getSumPrice());%></td>
-                <%
-                    }
-                %>
-            </tr>
-            <%
-                }
-            %>
-
-            </tbody>
-        </table>
-    </div>
 
     <%
-    if (makeOrder.equals("1")){
+    if (makeOrder.equals("0")){
     %>
     <td>
+
+        <div class="row">
+            <%
+                User user = (User) session.getAttribute("user");
+                String userType=user.getType();
+                ArrayList<OrderLine> tempStykList = new ArrayList();
+                tempStykList = (ArrayList<OrderLine>) session.getAttribute("styklist");
+            %>
+
+            <table class="table table-sm table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Beskrivelse</th>
+                    <th>Længde</th>
+                    <th>Antal</th>
+                    <th>Enhed</th>
+                    <th>Montering</th>
+                    <%
+                        if (userType.equals("employee")){
+                    %>
+                    <th>EnhedsPris</th>
+                    <th>SamletPris</th>
+                    <%
+                        }
+                    %>
+                </tr>
+                </thead>
+                <tbody>
+
+                <%
+                    for (int i = 0; i <tempStykList.size() ; i++) {
+                %>
+
+                <tr>
+                    <td scope="row"><%out.print(tempStykList.get(i).getItem().getDesc());%></td>
+                    <td><%out.print(tempStykList.get(i).getItem().getLength());%></td>
+                    <td><%out.print(tempStykList.get(i).getNumber());%> </td>
+                    <td><%out.print(tempStykList.get(i).getItem().getUnit());%></td>
+                    <td><%out.print(tempStykList.get(i).getComments());%></td>
+                    <%
+                        if (userType.equals("employee")){
+                    %>
+                    <td><%out.print(tempStykList.get(i).getItem().getPrice());%></td>
+                    <td><%out.print(tempStykList.get(i).getSumPrice());%></td>
+                    <%
+                        }
+                    %>
+                </tr>
+                <%
+                    }
+                %>
+
+                </tbody>
+            </table>
+        </div>
+
+
+
         <form name="beregn" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="sendRequest">
-            SEND FORESPØRGSEL:
+            <input type="hidden" name="command" value="mypage">
+            RETURN:
             <input type="submit" value="Submit">
 
         </form>
@@ -102,9 +106,9 @@
         } else {
     %>
     <td>
-        <form name="beregn" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="login">
-            RETURN:
+        <form name="return" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="sendRequest">
+            SEND FORESPØRGSEL:
             <input type="submit" value="Submit">
 
         </form>

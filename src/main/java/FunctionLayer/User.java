@@ -12,6 +12,18 @@ public class User {
         this.type = type;
     }
 
+    public User(int id, String name, String email, String password, String address, String zipcode, String city, String phone, String type) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.phone = phone;
+        this.type = type;
+    }
+
     public User(String email, String password, String type) {
         this.email = email;
         this.password = password;
@@ -95,6 +107,8 @@ public class User {
     public String getId() {
         return String.valueOf(id);
     }
+
+    public int getIdInt() {return id;}
 
     public void setId( int id ) {
         this.id = id;
