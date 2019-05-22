@@ -15,8 +15,6 @@ public class MyPage extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
-        String email = user.getEmail();
-        request.setAttribute("email", email);
         String userType = (String) session.getAttribute("type");
         if (userType.equals("employee")) {
             List<Order> order0List = DBAccess.OrderMapper.readOrders0();
