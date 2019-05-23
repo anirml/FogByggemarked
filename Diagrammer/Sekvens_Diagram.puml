@@ -1,0 +1,37 @@
+@startuml
+
+scale 650 width
+skinparam monochrome true
+skinparam BoxPadding 30
+autonumber
+
+== Fog Byggemarked ==
+
+actor Customer as "Customer"
+box "Presentation Layer"
+boundary FrontController
+control Servlet
+end box
+
+box "Logic Layer"
+participant LF as "Facade"
+end box
+box "Storage Layer"
+participant DM as "Mappers"
+Database DB as "JDBC"
+end box
+
+Customer->FrontController: Input fra bruger
+FrontController->Servlet: Behandler POST
+Servlet->LF: Session Update
+LF->DM: Database Kald
+DM->DB: Prepared Statements,Con,SQL
+
+DB-->DM: SQL Exeption
+DM-->LF: FogExeption
+LF-->Servlet: FogExeption
+Servlet->Servlet: Catch FogExeption
+Servlet-->FrontController: Forward Error
+FrontController-->Customer: Error Besked
+
+@enduml
