@@ -364,7 +364,7 @@ public class CalculateFacade {
 
         if (emp) {
 
-            //System.out.println("er under Employee i stykliste");
+            System.out.println("er under Employee i stykliste");
 
             //Stolper
             tempStykList.add(new OrderLine(postMap.get(3000), Integer.toString(postArray[0][0].getX()),
@@ -502,8 +502,7 @@ public class CalculateFacade {
 
         }
 
-
-        session.setAttribute("styklist",tempStykList);
+        session.setAttribute("stykList",tempStykList);
     }
 
     public static void drawing (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) {

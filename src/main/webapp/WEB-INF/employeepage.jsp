@@ -1,6 +1,7 @@
 <%@ page import="FunctionLayer.Order" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="FunctionLayer.User" %><%--
     Document   : employeepage.jsp
     Created on : Aug 24, 2017, 6:31:57 AM
     Author     : kasper
@@ -33,6 +34,7 @@
             System.out.println("Er i employeepage.jsp");
             ArrayList<Order> tempOrderList = new ArrayList();
             tempOrderList = (ArrayList<Order>) session.getAttribute("order0List");
+            List<User> tempUserList = (List<User>) session.getAttribute("userList");
         %>
 
 
@@ -58,7 +60,14 @@
             <tr>
                 <td> <%out.print(tempOrderList.get(i).getOrderId()); %></td>
                 <td> <%out.print(tempOrderList.get(i).getOrderDate());%></td>
-                <td> <%out.print(tempOrderList.get(i).getUserId()); %></td>
+                <td> <%
+                    for (int j = 0; j <tempUserList.size() ; j++) {
+                        if (tempOrderList.get(i).getUserId()==tempUserList.get(j).getIdInt()){
+                            out.print(tempUserList.get(j).getEmail());
+                        }
+                    }
+                %>
+                </td>
                 <td> <%out.print(tempOrderList.get(i).getOrderStatus()); %> </td >
                 <td> <%out.print(tempOrderList.get(i).getOrderRoofAngle()); %> </td >
                 <td> <%out.print(tempOrderList.get(i).getOrderRoofMaterial()); %></td>
@@ -74,16 +83,8 @@
                        href="FrontController?command=showOrder&action=empOrder0&procent=0&listNo=<%out.print(i);%>">Vis</a>
                 </td>
 
-                <!--
-                <td>
-                    <form action="FrontController" method="POST">
-                        <input type="hidden" name="command" value="showOrder">
-                        <input type="hidden" name="listNo" value="<%out.print(i);%>">
-                        <input type="submit"  value="Vis" class="btn btn-primary form-control">
-                    </form>
-                </td>
-                -->
 
+                <!--
                 <td>
                     <form action="FrontController" method="POST">
                         <input type="hidden" name="command" value="finishOrder">
@@ -91,6 +92,7 @@
                         <input type="submit"  value="Send Order" class="btn btn-primary form-control">
                     </form>
                 </td>
+                -->
 
                 <%
                     }

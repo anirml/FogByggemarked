@@ -2,10 +2,7 @@ package PresentationLayer;
 
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
-import FunctionLayer.CalculateFacade;
-import FunctionLayer.FogException;
-import FunctionLayer.Order;
-import FunctionLayer.User;
+import FunctionLayer.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,11 +58,16 @@ public class ShowOrder extends Command {
                     tempOrder = orderList.get(i);
                 }
             }
-            //System.out.println(tempOrder.toString());
+
+            int orderId = tempOrder.getOrderId();
+            int customId = tempOrder.getUserId();
+
             int cl = 10 * tempOrder.getOrderLength();
             int cW = 10 * tempOrder.getOrderWidth();
             int shedLen = 10 * tempOrder.getOrderShedLength();
             int shedWid = 10 * tempOrder.getOrderShedWidth();
+
+            session.setAttribute("orderId", Integer.toString(orderId));
 
             session.setAttribute("lenght", Integer.toString(cl / 10));
             session.setAttribute("width", Integer.toString(cW / 10));
@@ -75,15 +77,27 @@ public class ShowOrder extends Command {
             CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
 
             if (userType.equals("employee")) {
+                List<User> tempUserList = (List<User>) session.getAttribute("userList");
+                User tempUser= null;
+                for (int i = 0; i <tempUserList.size() ; i++) {
+                    if (customId==tempUserList.get(i).getIdInt()){
+                        tempUser = new User(tempUserList.get(i).getName(),tempUserList.get(i).getEmail(),
+                                tempUserList.get(i).getAddress(),tempUserList.get(i).getZipcode(),
+                                tempUserList.get(i).getCity(),tempUserList.get(i).getPhone());
+                    }
+                }
+                session.setAttribute("customUser",tempUser);
+
                 CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
                 showStykList = "1";
 
                 String totalPriceS = (String) session.getAttribute("totalPrice");
                 totalPriceKorr = Double.valueOf(totalPriceS);
-                System.out.println("totalPriceKorr = "+totalPriceKorr);
+
                 session.setAttribute("totalPriceKorr",(Double.toString(totalPriceKorr)));
             } else {
                 if (tempOrder.getOrderStatus() == 1) {
+                    System.out.println("OrderStatus = 1");
                     CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
                     showStykList = "1";
 
@@ -104,8 +118,6 @@ public class ShowOrder extends Command {
             System.out.println("procent = "+procent);
             totalPriceKorr = CalculateFacade.afrund(Double.valueOf(totalPriceS)*(1+procent/100),2);
             session.setAttribute("totalPriceKorr",Double.toString(totalPriceKorr));
-
-
         }
 
         session.setAttribute("showStykList",showStykList);

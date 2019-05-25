@@ -17,6 +17,9 @@
         orderInput = (List<String>) session.getAttribute("list");
 
         String showStykList= (String) session.getAttribute("showStykList");
+            System.out.println("showStykList = "+showStykList);
+        String orderIdS = (String) session.getAttribute("orderId");
+        User customUser = (User) session.getAttribute("customUser");
         String carportWidS = (String) session.getAttribute("width");
         String carportLenS = (String) session.getAttribute("lenght");
         double carportWid = Double.parseDouble(carportWidS)/100;
@@ -33,23 +36,22 @@
 
 
     <%
-        if (showStykList.equals("1")) {
+    if (showStykList.equals("1")) {
     %>
     <td>
-
         <div class="row">
             <%
                 User user = (User) session.getAttribute("user");
                 String userType = user.getType();
                 ArrayList<OrderLine> tempStykList = new ArrayList();
-                tempStykList = (ArrayList<OrderLine>) session.getAttribute("styklist");
+                tempStykList = (ArrayList<OrderLine>) session.getAttribute("stykList");
                 String totalPrice = "";
                 String totalPriceKorr = "";
                 String procentS = (String) session.getAttribute("procent");
+                System.out.println("Er i drawpage under showStykList = 1");
                 if (userType.equals("employee")) {
                     totalPrice = (String) session.getAttribute("totalPrice");
                     totalPriceKorr = (String) session.getAttribute("totalPriceKorr");
-                    //if (totalPriceKorr.equals(null)) totalPriceKorr.equals(totalPrice);
                 }
             %>
 
@@ -62,16 +64,15 @@
                     <th>Enhed</th>
                     <th>Montering</th>
                     <%
-                        if (userType.equals("employee")) {
+                    if (userType.equals("employee")) {
                     %>
-                    <th>EnhedsPris</th>
-                    <th>SamletPris</th>
+                        <th>EnhedsPris</th>
+                        <th>SamletPris</th>
                     <%
-                        }
+                    }
                     %>
                 </tr>
                 </thead>
-                <tbody>
 
                 <%
                     for (int i = 0; i < tempStykList.size(); i++) {
@@ -95,32 +96,24 @@
                 <%
                     }
                 %>
-                <tr>
-                    <th>Samlet Pris</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <%
-                        if (userType.equals("employee")) {
-                    %>
-                    <th></th>
-                    <th><%out.print(totalPrice);%></th>
-                    <%
-                        }
-                    %>
-
-                </tr>
 
                 <%
-                    if (userType.equals("employee")) {
+                if (userType.equals("employee")) {
                 %>
-
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <td>
+                    <tr>
+                       <th>Samlet Pris</th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th><%out.print(totalPrice);%></th>
+                    </tr>
+                    <tr>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th>
                         <form name="beregn" action="FrontController" method="POST">
                             <input type="hidden" name="command" value="showOrder">
                             <input type="hidden" name="action" value="beregn">
@@ -129,37 +122,46 @@
                                    value="<%out.print(procentS); %>">
                             <input type="submit" value="beregn">
                         </form>
-                    </td>
-                </tr>
-
-
-
-                <tr>
-                    <th>Samlet korr. Pris</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th><%out.print(totalPriceKorr);%></th>
-
-                </tr>
-
+                       </th>
+                    </tr>
+                    <tr>
+                       <th>Samlet korr. Pris</th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th><%out.print(totalPriceKorr);%></th>
+                    </tr>
                 <%
-                    }
+                }
                 %>
-
                 </tbody>
             </table>
+
         </div>
 
 
         <form name="return" action="FrontController" method="POST">
             <input type="hidden" name="command" value="mypage">
             RETURN:
-            <input type="submit" value="Submit">
+            <input type="submit" value="Return">
 
         </form>
+        <%
+        if (userType.equals("employee")) {
+        %>
+            KUNDE:<%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());%>
+
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="finishOrder">
+                <input type="hidden" name="listNo" value="<%out.print(Integer.valueOf(orderIdS));%>">
+                <input type="submit"  value="Send Order" class="btn btn-primary form-control">
+            </form>
+        <%
+        }
+        %>
+
     </td>
     <%
     } else {
@@ -172,6 +174,7 @@
 
         </form>
     </td>
+
     <%
         }
     %>
