@@ -10,7 +10,7 @@ public class Logout extends Command{
         @Override
         String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
-            System.out.println("Er i logout");
+            System.out.println("Er i Logout");
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();

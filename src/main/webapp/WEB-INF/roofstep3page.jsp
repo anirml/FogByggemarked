@@ -29,7 +29,7 @@
             List<String> shedWidthlist = new ArrayList<>();
             shedWidthlist = (List<String>) session.getAttribute("toolshedWidthList");
 
-            System.out.println(shedWidthlist);
+            //System.out.println(shedWidthlist);
 
             String toolshedWidth;
 
@@ -54,7 +54,7 @@
                 List<String> shedLengthlist = new ArrayList<>();
                 shedLengthlist = (List<String>) session.getAttribute("toolshedLengthList");
 
-                System.out.println(shedLengthlist);
+                //System.out.println(shedLengthlist);
 
                 String toolshedLength;
 

@@ -29,7 +29,7 @@
             <div class="col">
 
             <%
-                System.out.println("Er i employeepage.jsp");
+
                 List<Order> tempOrderList = new ArrayList();
                 tempOrderList = (ArrayList<Order>) session.getAttribute("order1List");
                 List<User> tempUserList = (List<User>) session.getAttribute("userList");

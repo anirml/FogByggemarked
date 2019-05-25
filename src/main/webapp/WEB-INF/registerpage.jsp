@@ -99,7 +99,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-phone"></i></div>
                     </div>
-                    <input type="number" class="form-control" name="phone" placeholder="tefelon">
+                    <input type="number" class="form-control" name="phone" placeholder="telefon">
                 </div>
                 <div class="input-group mb-2 mr-sm-2 justify-content-center">
                     <input type="submit" name="opretknap" value="Opret" class="btn btn-success btn-block"/>

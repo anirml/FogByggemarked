@@ -28,9 +28,6 @@
                 <li class="nav-item">
                     <a href="index.jsp" class="nav-link navbar-custom">Forside</a>
                 </li>
-                <li class="nav-item">
-                    <a >MODIFICERET</a>
-                </li>
 
                 <%
                     String userEmail = (String)session.getAttribute("email");

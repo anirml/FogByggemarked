@@ -2,6 +2,7 @@ package FunctionLayer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,8 +102,8 @@ public class CalculateFacade {
         xPost = xPost.replace("_wid_",Integer.toString(wid/10));
         xPost = xPost.replace("_h_",Integer.toString(height/10));
         return xPost;
-
     }
+
 
     public static String dimHor (int x1, int y1, int x2, int y2, int xText, int yText, int dim) {
 
@@ -147,6 +148,14 @@ public class CalculateFacade {
             tempTal = -1 * tal;
         }
         return tempTal;
+    }
+
+    public  static double afrund (double tal, int n) {
+
+        int tital = (int) Math.pow(10, n);
+        double juster = 5/Math.pow(10, n+1);
+        double result = ((tal+juster)*tital-((tal+juster)*tital)%1)/tital;
+        return result;
     }
 
     public static Koordinat[][] stolpXY(int l, int b, int sl, int sb) {
@@ -351,9 +360,12 @@ public class CalculateFacade {
 
         ArrayList<OrderLine> tempStykList = new ArrayList();
 
+        double totalPrice=0;
+
         if (emp) {
 
-            System.out.println("er under Employee i stykliste");
+            //System.out.println("er under Employee i stykliste");
+
             //Stolper
             tempStykList.add(new OrderLine(postMap.get(3000), Integer.toString(postArray[0][0].getX()),
                     descMap.get("stolp").getUseDesc(), postArray[0][0].getX() * postMap.get(3000).getPrice()));
@@ -424,6 +436,14 @@ public class CalculateFacade {
             //Tagplader Fladt
             tempStykList.add(new OrderLine(roofMap.get(arrayRoof[0]), Integer.toString(arrayRoof[1] * arrayRoof[2]),
                     descMap.get("tag_fl").getUseDesc(),(arrayRoof[1] * arrayRoof[2])*roofMap.get(arrayRoof[0]).getPrice()));
+
+            //Beregne totalpris
+            for (int i = 0; i <tempStykList.size() ; i++) {
+                totalPrice=totalPrice+tempStykList.get(i).getSumPrice();
+            }
+
+            session.setAttribute("totalPrice",Double.toString(totalPrice));
+
 
         } else { // customer
 
@@ -671,6 +691,9 @@ public class CalculateFacade {
         remFlatSvg = remFlatSvg.replace("_len_", Double.toString(cl / 10));
         remFlatSvg = remFlatSvg.replace("_yRem2_", Double.toString(cW / 10 - 34.5));
 
+        //remFlatSvg = remFlatSvg + rectDraw(0,30,cl/10,45/10);
+        //remFlatSvg = remFlatSvg + rectDraw(0,(cW-345)/10,cl/10,45/10);
+
         // Remsamling
 
         if (cl>=6901&&cl<=9000) {
@@ -757,7 +780,6 @@ public class CalculateFacade {
         xDim = xDim.replace("_xDimPlac_", Double.toString(70-40 +(cl-45)/10));
         xDim = xDim.replace("_yDimText_", Integer.toString(arrayRafter[2]));
         dim4FlatSvg = dim4FlatSvg + xDim;
-
 
 
         //ViewBox med kommentarer
@@ -863,7 +885,7 @@ public class CalculateFacade {
                     if (diff < min) {
                         min = diff;
                         remShareX = postArray[i][p].getX();
-                        System.out.println("remShareX = " + remShareX);
+                        //System.out.println("remShareX = " + remShareX);
                     }
                 }
             }

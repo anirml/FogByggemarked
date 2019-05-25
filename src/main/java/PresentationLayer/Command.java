@@ -15,7 +15,7 @@ abstract class Command {
         commands.put( "register", new Register() );
         commands.put( "nav", new Nav() );
         commands.put( "makeRequest" , new MakeRequest() );
-        commands.put( "choice", new ChoiceJ() );
+        commands.put( "choice", new Choice() );
         commands.put( "toolshedchoice", new ToolshedChoice() );
         commands.put( "makeRequestBack", new MakeRequest() );
         commands.put( "mypage", new MyPage() );

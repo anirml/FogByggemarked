@@ -14,6 +14,11 @@ public class Register extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
+
+        HttpSession session = request.getSession();
+        System.out.println("Er i Register");
+
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");
@@ -28,18 +33,19 @@ public class Register extends Command {
         if (name.equalsIgnoreCase("") || email.equalsIgnoreCase("") || password1.equalsIgnoreCase("")
                 || password2.equalsIgnoreCase("") || address.equalsIgnoreCase("") || zipcode.equalsIgnoreCase("")
                 || city.equalsIgnoreCase("") || phone.equalsIgnoreCase("")) {
-            throw new FogException("Alle fælter skal udfyldes.");
+            throw new FogException("Alle felter skal udfyldes.");
         }
         if (password1.equals(password2)) {
             User user = LogicFacade.createUser(name, email, password1, address, zipcode, city, phone);
-            HttpSession session = request.getSession();
+            session.setAttribute("id",user.getId());
+            session.setAttribute("email",email);
             session.setAttribute( "user", user );
             session.setAttribute( "type", user.getType() );
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
             session.setAttribute("userOrderList",userOrderList);
             return user.getType() + "page";
         } else {
-            throw new FogException( "Alle fælter skal udfyldes." );
+            throw new FogException( "Alle felter skal udfyldes." );
         }
     }
 }

@@ -17,6 +17,5 @@ public class FogException extends Exception {
         super(msg);
         this.shortMessage = "";
     }
-    
 
 }

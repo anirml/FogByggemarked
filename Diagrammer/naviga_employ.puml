@@ -1,0 +1,46 @@
+@startuml
+scale 350 width
+
+[*] --> index.jsp
+
+index.jsp-->index.jsp :forside
+
+
+index.jsp : header.jsp
+index.jsp : forside-login
+employeepage-->index.jsp:forside
+index.jsp --> Nav:FC register
+Nav --> registerpage:FC registerpage
+registerpage : login-opret
+registerpage-->Login:FC login
+Login-->employeepage:FC employeepage
+
+employeepage : forside-quickbyg-woodlist-rooflist-vis ordre-email-logout
+employeepage-->ShowOrder:FC showOrder
+ShowOrder-->ShowOrder:CalculateFacade(draw-styk)
+ShowOrder-->drawpage:FC drawpage
+drawpage-->MyPage:FC mypage
+MyPage-->employeepage:FC employeepage
+employeepage-->FinishOrder:FC finishOrder
+FinishOrder-->employeepage:FC employeepage
+employeepage-->Nav:FC woodmatr
+Nav-->woodmaterialpage:FC woodmaterialpage
+woodmaterialpage-->Nav:FC editwood
+Nav-->editwoodpage:FC editwoodpage
+editwoodpage-->MakeWood:FC makewood
+MakeWood-->woodmaterialpage:FC woodmaterialpage
+employeepage-->Nav:FC email
+Nav-->employeepage:FC employeepage (email)
+employeepage-->Nav:FC request
+Nav-->requestpage:FC requestpage
+requestpage-->ShowOrder:FC showOrder order1
+
+employeepage-->Logout:FC logout
+Logout-->registerpage:FC register
+
+note "FC FrontController" as N1
+note "quickbyg: Se custom-diagram" as N2
+note "rooflist: Som woodlist" as N3
+
+
+@enduml
