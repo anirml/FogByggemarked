@@ -89,8 +89,8 @@ public class MakeRequest extends Command {
 
                             String userType = (String) session.getAttribute("type");
 
-                            String makeOrder = "1";
-                            session.setAttribute("makeOrder",makeOrder);
+                            String showStykList = "0";
+                            session.setAttribute("showStykList",showStykList);
 
                             CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
                             CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);

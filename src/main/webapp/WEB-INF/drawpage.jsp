@@ -13,11 +13,7 @@
         <%
         System.out.println("Er i drawpage.jsp");
 
-        List<String> orderInput = new ArrayList<>();
-        orderInput = (List<String>) session.getAttribute("list");
-
         String showStykList= (String) session.getAttribute("showStykList");
-            System.out.println("showStykList = "+showStykList);
         String orderIdS = (String) session.getAttribute("orderId");
         User customUser = (User) session.getAttribute("customUser");
         String carportWidS = (String) session.getAttribute("width");
@@ -47,12 +43,17 @@
                 tempStykList = (ArrayList<OrderLine>) session.getAttribute("stykList");
                 String totalPrice = "";
                 String totalPriceKorr = "";
+                String orderPrice = "";
+                String finishOrder = "";
                 String procentS = (String) session.getAttribute("procent");
                 System.out.println("Er i drawpage under showStykList = 1");
                 if (userType.equals("employee")) {
                     totalPrice = (String) session.getAttribute("totalPrice");
                     totalPriceKorr = (String) session.getAttribute("totalPriceKorr");
+                    orderPrice = (String) session.getAttribute("orderPrice");
+                    finishOrder = (String) session.getAttribute("finishOrder");
                 }
+
             %>
 
             <table class="table table-sm table-striped table-bordered">
@@ -114,6 +115,7 @@
                        <th></th>
                        <th></th>
                        <th>
+                        <% if (finishOrder.equals("0")) { %>
                         <form name="beregn" action="FrontController" method="POST">
                             <input type="hidden" name="command" value="showOrder">
                             <input type="hidden" name="action" value="beregn">
@@ -122,6 +124,9 @@
                                    value="<%out.print(procentS); %>">
                             <input type="submit" value="beregn">
                         </form>
+                        <%
+                            }
+                        %>
                        </th>
                     </tr>
                     <tr>
@@ -131,7 +136,13 @@
                        <th></th>
                        <th></th>
                        <th></th>
-                       <th><%out.print(totalPriceKorr);%></th>
+                        <% if (finishOrder.equals("1")) { %>
+                              <th><%out.print(orderPrice);%></th>
+                        <% } else { %>
+                              <th><%out.print(totalPriceKorr);%></th>
+                        <%
+                            }
+                        %>
                     </tr>
                 <%
                 }
@@ -151,7 +162,9 @@
         <%
         if (userType.equals("employee")) {
         %>
-            KUNDE:<%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());%>
+            KUNDE:<%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());
+            if (finishOrder.equals("0")) {
+            %>
 
             <form action="FrontController" method="POST">
                 <input type="hidden" name="command" value="finishOrder">
@@ -159,6 +172,7 @@
                 <input type="submit"  value="Send Order" class="btn btn-primary form-control">
             </form>
         <%
+                }
         }
         %>
 

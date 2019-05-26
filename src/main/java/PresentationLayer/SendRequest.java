@@ -57,8 +57,8 @@ public class SendRequest extends Command {
         OrderMapper.createRequest(order);
 
         User user = (User) session.getAttribute("user");
-        List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
-        session.setAttribute("orderList",userOrderList);
+        //List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+        //session.setAttribute("orderList",userOrderList);
 
 
 

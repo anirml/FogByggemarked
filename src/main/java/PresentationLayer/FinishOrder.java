@@ -26,16 +26,11 @@ public class FinishOrder extends Command {
         String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         int listNo = Integer.valueOf(request.getParameter("listNo"));
-        int orderId = -1;
 
-        for (int i = 0; i <order0List.size() ; i++) {
-            if (listNo==i) {
-                orderId = order0List.get(i).getOrderId();
-            }
-        }
+        int orderId = listNo;
 
-        System.out.println("orderId = "+orderId);
-        if (orderId>=0) OrderMapper.markSendOrder(timeNow, orderId);
+        String totalPriceKorrS = (String) session.getAttribute("totalPriceKorr");
+        if (orderId>=0) OrderMapper.markSendOrder(timeNow, orderId, Double.valueOf(totalPriceKorrS));
 
         order0List = DBAccess.OrderMapper.readOrders0();
         session.setAttribute("order0List",order0List);

@@ -89,7 +89,6 @@ public class CalculateFacade {
         arrayShed[0] = ((dim-300)-(dim-300)%150)/150+1;
         arrayShed[1] = (dim-100)/arrayShed[0]-100;
         arrayShed[2] = 50 + arrayShed[1]/2;
-
         return arrayShed;
     }
 
@@ -160,7 +159,7 @@ public class CalculateFacade {
 
     public static Koordinat[][] stolpXY(int l, int b, int sl, int sb) {
         Koordinat[][] arrayPost = new Koordinat[9][2];
-        for (int j = 0; j <2 ; j++) {
+        for (int j = 0; j <2 ; j++) {  //initialisere array med nuller
             for (int i = 0; i < 9; i++) {
                 arrayPost[i][j] = new Koordinat(0, 0);
             }
@@ -172,13 +171,13 @@ public class CalculateFacade {
         int stSh_Xafst = 0;                  //stolpeafstand indenfor skur
         int antalS=0;
         for (int p = 0; p < 2; p++) {
-            if (sl == 0) {
+            if (sl == 0) { // uden skur
                 for (int i = 0; i < n_Xafst + 1; i++) {
                     arrayPost[i+1][p] = new Koordinat(600 + st_Xafst * i, 300 + (b - 700) * p);
                 }
-            } else {
-                if (sl > 3000) {
-                    if (l - 900 - sl > 0) {
+            } else { // med skur
+                if (sl > 3000) { //skur større end 3000, kræver mellemstolpe
+                    if (l - 900 - sl > 0) { // der er carport uden for skur
                         n_Xafst = ((l - 900 - sl) / 3000) + 1;
                         st_Xafst = (l - 900 - sl) / n_Xafst;
                         int i = 0;
@@ -190,15 +189,14 @@ public class CalculateFacade {
                         for (int j = 0; j < nSh_Xafst + 1; j++) {
                             arrayPost[i + j][p] = new Koordinat(arrayPost[i][p].getX() + stSh_Xafst * j, 300 + (b - 700) * p);
                         }
-                    } else {
+                    } else { // skur samme længde som carport
                         nSh_Xafst = sl / 3000 + 1;
                         stSh_Xafst = sl / nSh_Xafst;
                         for (int j = 0; j < nSh_Xafst + 1; j++) {
                             arrayPost[j+1][p] = new Koordinat(600 + stSh_Xafst * j, 300 + (b - 700) * p);
                         }
                     }
-
-                } else {
+                } else { // skur mindre end 3000, ingen ekstra stolper i skurdel
                     n_Xafst = ((l - 900 - sl) / 3000) + 1;
                     st_Xafst = (l - 900 - sl) / n_Xafst;
                     for (int i = 0; i < n_Xafst; i++) {
@@ -207,15 +205,12 @@ public class CalculateFacade {
                     arrayPost[n_Xafst+1][p] = new Koordinat(arrayPost[n_Xafst ][p].getX() + st_Xafst, 300 + (b - 700) * p);
                     arrayPost[n_Xafst + 2][p] = new Koordinat(arrayPost[n_Xafst+1][p].getX() + sl, 300 + (b - 700) * p);
                 }
-
-
             }
-
         }
 
         //stolper indv. i skur øverst
         if (sl!=0) {
-            if (sb < b - 600) {
+            if (sb < b - 600) { // der er carport uden for skur
                 arrayPost[7][0] = new Koordinat(l - sl - 300, b - sb - 300);
                 arrayPost[8][0] = new Koordinat(l - 300, b - sb - 300);
             }
@@ -229,7 +224,7 @@ public class CalculateFacade {
                 }
             }
         }
-        arrayPost[0][0].setX(antalS);
+        arrayPost[0][0].setX(antalS); // antal stolper i første element af array
 
         return arrayPost;
     }
@@ -864,13 +859,11 @@ public class CalculateFacade {
                 rafterFlatSvg + crossFlatSvg + vBox2FlatSvg + end1FlatSvg + arrowFlatSvg + dim1FlatSvg +
                 dim2FlatSvg + dim3FlatSvg + dim4FlatSvg + dim5FlatSvg + end0FlatSvg;
 
-        //System.out.println(sumFlatSvg);
-
         session.setAttribute("svg_drawing", sumFlatSvg);
+    }
 
 //******GENERING AF TEGNING **** SLUT ***********************************************************************
 
-    }
 
     public static int remShare(int cl, Koordinat[][] postArray) {
 
@@ -884,7 +877,6 @@ public class CalculateFacade {
                     if (diff < min) {
                         min = diff;
                         remShareX = postArray[i][p].getX();
-                        //System.out.println("remShareX = " + remShareX);
                     }
                 }
             }

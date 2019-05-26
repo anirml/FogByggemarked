@@ -27,6 +27,7 @@ public class ShowOrder extends Command {
         String procentS = "0";
         session.setAttribute("procent",procentS);
         double totalPriceKorr = 0;
+        String finishOrder = "0";
 
 
         if (!action.equals("beregn")) {
@@ -42,6 +43,8 @@ public class ShowOrder extends Command {
 
                     break;
                 case "empOrder1":
+                    finishOrder = "1";
+
                     orderList = OrderMapper.readOrders1();
 
                     break;
@@ -49,6 +52,7 @@ public class ShowOrder extends Command {
                     System.out.println("Er i ShowOrder i bund i switch");
             }
 
+            session.setAttribute("finishOrder", finishOrder);
 
             int listNo = Integer.valueOf(request.getParameter("listNo"));
             Order tempOrder = null;
@@ -67,6 +71,10 @@ public class ShowOrder extends Command {
             int shedLen = 10 * tempOrder.getOrderShedLength();
             int shedWid = 10 * tempOrder.getOrderShedWidth();
 
+            if (action.equals("empOrder1")) {
+                double orderPrice = tempOrder.getOrderPrice();
+                session.setAttribute("orderPrice", Double.toString(orderPrice));
+            }
             session.setAttribute("orderId", Integer.toString(orderId));
 
             session.setAttribute("lenght", Integer.toString(cl / 10));
