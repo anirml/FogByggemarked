@@ -33,6 +33,8 @@ public class Register extends Command {
         if (password1.equals(password2)) {
             User user = LogicFacade.createUser(name, email, password1, address, zipcode, city, phone);
             HttpSession session = request.getSession();
+            session.setAttribute("id",user.getId());
+            session.setAttribute( "email", email);
             session.setAttribute( "user", user );
             session.setAttribute( "type", user.getType() );
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
