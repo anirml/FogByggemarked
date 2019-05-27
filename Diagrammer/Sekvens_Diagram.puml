@@ -27,10 +27,10 @@ Servlet->LF: Session Update
 LF->DM: Database Kald
 DM->DB: Prepared Statements,Con,SQL
 
-DB-->DM: SQL Exeption
-DM-->LF: FogExeption
-LF-->Servlet: FogExeption
-Servlet->Servlet: Catch FogExeption
+DB-->o DM: SQL Exception
+DM-->o LF: FogException
+LF-->o Servlet: FogException
+Servlet->Servlet: Catch FogException
 Servlet-->FrontController: Forward Error
 FrontController-->Customer: Error Besked
 
