@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -63,6 +64,15 @@ public class ItemMapperTest {
     public void testLogin02() throws FogException {
         // We should get an exception if we use the wrong password
         User user = UserMapper.login( "jens@somewhere.com", "larsen" );
+    }
+
+    @Test
+    public void ConstructorTest()
+    {
+        // ConstructorTest på Roof
+        Roof roof = new Roof();
+        // Assert
+        Assert.assertNotNull(roof);
     }
 
     @Test

@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+actor Kunde
+actor Admin
+rectangle Fog_Byggemarked {
+   Kunde -- (Login)
+   Kunde -- (Quickbyg)
+   (Quickbyg) -- Admin
+   (Vis Carport Tegning) <. (Quickbyg)
+   (Send Forespørgsel) <. (Vis Carport Tegning)
+   Kunde . (Send Forespørgsel)
+   (Login) -- Admin
+   Kunde -- (Vis Ordre)
+   Admin -- (Vis_Alle_Ordrer)
+   Admin -- (Vis_Alle_Forespørgsler)
+   (Vis Carport Tegning + Stykliste) -- Admin
+}
+@enduml
