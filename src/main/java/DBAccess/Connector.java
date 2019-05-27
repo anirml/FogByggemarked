@@ -23,5 +23,4 @@ public class Connector {
         }
         return singleton;
     }
-
 }
