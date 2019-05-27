@@ -1,0 +1,28 @@
+@startuml
+|Kunde|
+start
+:Log ind;
+:Indtast valg;
+while (Ser det godt ud?)
+  :Indtast nye valg;
+endwhile
+:Lav forespørgsel;
+|#AntiqueWhite|Sælger|
+:Se forespørgsel på admin panel;
+:Skriv mail til kunden med pris;
+|Kunde|
+while (Er vi enige?)
+  :Skriv til sælger;
+  |Sælger|
+  :Skriv til kunde;
+endwhile
+|Kunde|
+:Betal;
+|Sælger|
+:Ændre status fra
+“forespørgsel” til “ordre”;
+|Kunde|
+:Log ind og se ordre;
+
+stop
+@enduml

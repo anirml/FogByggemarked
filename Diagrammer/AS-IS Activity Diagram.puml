@@ -1,0 +1,24 @@
+@startuml
+|Kunde|
+start
+:Lav forespørgsel;
+|#AntiqueWhite|Sælger|
+:Modtag mail;
+:Indtast kundens valg i internt program;
+:Skriv mail til kunden
+med pris og tegning;
+|Kunde|
+while (Er vi enige?)
+  :Skriv til sælger;
+  |Sælger|
+  :Skriv til kunde;
+endwhile
+|Kunde|
+:Betal;
+|Sælger|
+:Send ordre;
+|Kunde|
+:Modtag ordre via mail;
+
+stop
+@enduml

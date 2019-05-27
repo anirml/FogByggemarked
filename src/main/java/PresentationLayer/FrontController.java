@@ -38,7 +38,8 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
 
         final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
-        FileHandler handler = new FileHandler("C:/Users/Epiko/Java/logs/Fog_logging.log");
+        FileHandler handler = new FileHandler("C:/Users/Ulrik/Desktop/logs/Fog_logging.log");
+
 
         LOGGER.setLevel(Level.FINEST);
 
