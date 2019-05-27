@@ -41,7 +41,7 @@
                 <tr>
                     <th>OrderId</th>
                     <th>OrderDato</th>
-                    <th>UserId</th>
+                    <th>UserEmail</th>
                     <th>Status</th>
                     <th>Tagvinkel</th>
                     <th>TagMatr</th>
