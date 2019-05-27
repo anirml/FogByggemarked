@@ -502,8 +502,6 @@ public class CalculateFacade {
 
     public static void drawing (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) {
 
-
-
         HttpSession session = request.getSession();
         System.out.println("Er i metode for tegning genering");
 
