@@ -39,34 +39,32 @@
 
         <table style="width:70%" align="center">
             <tr>
-                <th>OrderId</th>
                 <th>OrderDato</th>
-                <th>Status</th>
                 <th>Tagvinkel</th>
                 <th>TagMatr</th>
                 <th>Længde</th>
                 <th>Bredde</th>
-                <th>Skur ja/nej</th>
                 <th>SkurLængde</th>
                 <th>SkurBredde</th>
                 <th>Kommentar</th>
+                <th>Ship Dato</th>
+                <th>Order Pris</th>
             </tr>
             <%
                 for (int i = 0; i <userOrderList.size() ; i++) {
             %>
 
             <tr>
-            <td> <%out.print(userOrderList.get(i).getOrderId()); %></td>
             <td> <%out.print(userOrderList.get(i).getOrderDate());%></td>
-            <td> <%out.print(userOrderList.get(i).getOrderStatus()); %> </td >
             <td> <%out.print(userOrderList.get(i).getOrderRoofAngle()); %> </td >
             <td> <%out.print(userOrderList.get(i).getOrderRoofMaterial()); %></td>
             <td> <%out.print(userOrderList.get(i).getOrderLength()); %></td >
             <td> <%out.print(userOrderList.get(i).getOrderWidth()); %></td >
-            <td> <%out.print(userOrderList.get(i).getOrderShed());  %></td >
             <td> <%out.print(userOrderList.get(i).getOrderShedLength()); %></td >
             <td> <%out.print(userOrderList.get(i).getOrderShedWidth()); %></td >
             <td> <%out.print(userOrderList.get(i).getOrderComment());  %></td >
+            <td> <%out.print(userOrderList.get(i).getOrderShipDate()); %></td>
+            <td> <%out.print(userOrderList.get(i).getOrderPrice()); %></td>
 
             <td><a class="btn btn-primary form-control"
                   href="FrontController?command=showOrder&action=customer&listNo=<%out.print(i);%>">Vis</a>

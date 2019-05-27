@@ -29,7 +29,7 @@
             <div class="col">
 
             <%
-                System.out.println("Er i employeepage.jsp");
+
                 List<Order> tempOrderList = new ArrayList();
                 tempOrderList = (ArrayList<Order>) session.getAttribute("order1List");
                 List<User> tempUserList = (List<User>) session.getAttribute("userList");
@@ -47,11 +47,11 @@
                     <th>TagMatr</th>
                     <th>Længde</th>
                     <th>Bredde</th>
-                    <th>Skur ja/nej</th>
                     <th>SkurLængde</th>
                     <th>SkurBredde</th>
                     <th>Kommentar</th>
                     <th>Ship Dato</th>
+                    <th>Order Pris</th>
                 </tr>
                 <%
                     for (int i = 0; i <tempOrderList.size() ; i++) {
@@ -73,11 +73,11 @@
                     <td> <%out.print(tempOrderList.get(i).getOrderRoofMaterial()); %></td>
                     <td> <%out.print(tempOrderList.get(i).getOrderLength()); %></td >
                     <td> <%out.print(tempOrderList.get(i).getOrderWidth()); %></td >
-                    <td> <%out.print(tempOrderList.get(i).getOrderShed());  %></td >
                     <td> <%out.print(tempOrderList.get(i).getOrderShedLength()); %></td >
                     <td> <%out.print(tempOrderList.get(i).getOrderShedWidth()); %></td >
                     <td> <%out.print(tempOrderList.get(i).getOrderComment());  %></td >
                     <td> <%out.print(tempOrderList.get(i).getOrderShipDate()); %></td>
+                    <td> <%out.print(tempOrderList.get(i).getOrderPrice()); %></td>
 
                     <td><a class="btn btn-primary form-control"
                            href="FrontController?command=showOrder&action=empOrder1&listNo=<%out.print(i);%>">Vis</a>

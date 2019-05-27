@@ -1,6 +1,7 @@
 package PresentationLayer;
 
 import DBAccess.OrderMapper;
+import DBAccess.UserMapper;
 import FunctionLayer.FogException;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.Order;
@@ -20,7 +21,7 @@ public class Login extends Command {
         String password = request.getParameter( "password" );
         User user = LogicFacade.login(email, password );
         HttpSession session = request.getSession();
-        System.out.println("Er i login");
+        System.out.println("Er i Login");
         session.setAttribute("id",user.getId());
         session.setAttribute( "email", email);
         session.setAttribute( "user", user );
@@ -36,6 +37,7 @@ public class Login extends Command {
             session.setAttribute("order0List",order0List);
             List<Order> order1List =OrderMapper.readOrders1();
             session.setAttribute("order1List",order1List);
+            session.setAttribute("userList", UserMapper.readUsers());
 
         }
 

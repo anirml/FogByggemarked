@@ -2,6 +2,7 @@ package FunctionLayer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +89,6 @@ public class CalculateFacade {
         arrayShed[0] = ((dim-300)-(dim-300)%150)/150+1;
         arrayShed[1] = (dim-100)/arrayShed[0]-100;
         arrayShed[2] = 50 + arrayShed[1]/2;
-
         return arrayShed;
     }
 
@@ -101,8 +101,8 @@ public class CalculateFacade {
         xPost = xPost.replace("_wid_",Integer.toString(wid/10));
         xPost = xPost.replace("_h_",Integer.toString(height/10));
         return xPost;
-
     }
+
 
     public static String dimHor (int x1, int y1, int x2, int y2, int xText, int yText, int dim) {
 
@@ -149,9 +149,17 @@ public class CalculateFacade {
         return tempTal;
     }
 
+    public  static double afrund (double tal, int n) {
+
+        int tital = (int) Math.pow(10, n);
+        double juster = 5/Math.pow(10, n+1);
+        double result = ((tal+juster)*tital-((tal+juster)*tital)%1)/tital;
+        return result;
+    }
+
     public static Koordinat[][] stolpXY(int l, int b, int sl, int sb) {
         Koordinat[][] arrayPost = new Koordinat[9][2];
-        for (int j = 0; j <2 ; j++) {
+        for (int j = 0; j <2 ; j++) {  //initialisere array med nuller
             for (int i = 0; i < 9; i++) {
                 arrayPost[i][j] = new Koordinat(0, 0);
             }
@@ -163,13 +171,13 @@ public class CalculateFacade {
         int stSh_Xafst = 0;                  //stolpeafstand indenfor skur
         int antalS=0;
         for (int p = 0; p < 2; p++) {
-            if (sl == 0) {
+            if (sl == 0) { // uden skur
                 for (int i = 0; i < n_Xafst + 1; i++) {
                     arrayPost[i+1][p] = new Koordinat(600 + st_Xafst * i, 300 + (b - 700) * p);
                 }
-            } else {
-                if (sl > 3000) {
-                    if (l - 900 - sl > 0) {
+            } else { // med skur
+                if (sl > 3000) { //skur større end 3000, kræver mellemstolpe
+                    if (l - 900 - sl > 0) { // der er carport uden for skur
                         n_Xafst = ((l - 900 - sl) / 3000) + 1;
                         st_Xafst = (l - 900 - sl) / n_Xafst;
                         int i = 0;
@@ -181,15 +189,14 @@ public class CalculateFacade {
                         for (int j = 0; j < nSh_Xafst + 1; j++) {
                             arrayPost[i + j][p] = new Koordinat(arrayPost[i][p].getX() + stSh_Xafst * j, 300 + (b - 700) * p);
                         }
-                    } else {
+                    } else { // skur samme længde som carport
                         nSh_Xafst = sl / 3000 + 1;
                         stSh_Xafst = sl / nSh_Xafst;
                         for (int j = 0; j < nSh_Xafst + 1; j++) {
                             arrayPost[j+1][p] = new Koordinat(600 + stSh_Xafst * j, 300 + (b - 700) * p);
                         }
                     }
-
-                } else {
+                } else { // skur mindre end 3000, ingen ekstra stolper i skurdel
                     n_Xafst = ((l - 900 - sl) / 3000) + 1;
                     st_Xafst = (l - 900 - sl) / n_Xafst;
                     for (int i = 0; i < n_Xafst; i++) {
@@ -198,15 +205,12 @@ public class CalculateFacade {
                     arrayPost[n_Xafst+1][p] = new Koordinat(arrayPost[n_Xafst ][p].getX() + st_Xafst, 300 + (b - 700) * p);
                     arrayPost[n_Xafst + 2][p] = new Koordinat(arrayPost[n_Xafst+1][p].getX() + sl, 300 + (b - 700) * p);
                 }
-
-
             }
-
         }
 
         //stolper indv. i skur øverst
         if (sl!=0) {
-            if (sb < b - 600) {
+            if (sb < b - 600) { // der er carport uden for skur
                 arrayPost[7][0] = new Koordinat(l - sl - 300, b - sb - 300);
                 arrayPost[8][0] = new Koordinat(l - 300, b - sb - 300);
             }
@@ -220,7 +224,7 @@ public class CalculateFacade {
                 }
             }
         }
-        arrayPost[0][0].setX(antalS);
+        arrayPost[0][0].setX(antalS); // antal stolper i første element af array
 
         return arrayPost;
     }
@@ -351,9 +355,12 @@ public class CalculateFacade {
 
         ArrayList<OrderLine> tempStykList = new ArrayList();
 
+        double totalPrice=0;
+
         if (emp) {
 
             System.out.println("er under Employee i stykliste");
+
             //Stolper
             tempStykList.add(new OrderLine(postMap.get(3000), Integer.toString(postArray[0][0].getX()),
                     descMap.get("stolp").getUseDesc(), postArray[0][0].getX() * postMap.get(3000).getPrice()));
@@ -425,6 +432,14 @@ public class CalculateFacade {
             tempStykList.add(new OrderLine(roofMap.get(arrayRoof[0]), Integer.toString(arrayRoof[1] * arrayRoof[2]),
                     descMap.get("tag_fl").getUseDesc(),(arrayRoof[1] * arrayRoof[2])*roofMap.get(arrayRoof[0]).getPrice()));
 
+            //Beregne totalpris
+            for (int i = 0; i <tempStykList.size() ; i++) {
+                totalPrice=totalPrice+tempStykList.get(i).getSumPrice();
+            }
+
+            session.setAttribute("totalPrice",Double.toString(totalPrice));
+
+
         } else { // customer
 
             System.out.println("er under Customer i stykliste");
@@ -482,13 +497,10 @@ public class CalculateFacade {
 
         }
 
-
-        session.setAttribute("styklist",tempStykList);
+        session.setAttribute("stykList",tempStykList);
     }
 
     public static void drawing (HttpServletRequest request, int cl, int cW, int shedLen, int shedWid) {
-
-
 
         HttpSession session = request.getSession();
         System.out.println("Er i metode for tegning genering");
@@ -671,6 +683,9 @@ public class CalculateFacade {
         remFlatSvg = remFlatSvg.replace("_len_", Double.toString(cl / 10));
         remFlatSvg = remFlatSvg.replace("_yRem2_", Double.toString(cW / 10 - 34.5));
 
+        //remFlatSvg = remFlatSvg + rectDraw(0,30,cl/10,45/10);
+        //remFlatSvg = remFlatSvg + rectDraw(0,(cW-345)/10,cl/10,45/10);
+
         // Remsamling
 
         if (cl>=6901&&cl<=9000) {
@@ -759,7 +774,6 @@ public class CalculateFacade {
         dim4FlatSvg = dim4FlatSvg + xDim;
 
 
-
         //ViewBox med kommentarer
         String vBox2FlatSvg ="<svg width=\"200\" height=\"150\"" +
                 "x = \"20\"\n" +
@@ -843,13 +857,11 @@ public class CalculateFacade {
                 rafterFlatSvg + crossFlatSvg + vBox2FlatSvg + end1FlatSvg + arrowFlatSvg + dim1FlatSvg +
                 dim2FlatSvg + dim3FlatSvg + dim4FlatSvg + dim5FlatSvg + end0FlatSvg;
 
-        //System.out.println(sumFlatSvg);
-
         session.setAttribute("svg_drawing", sumFlatSvg);
+    }
 
 //******GENERING AF TEGNING **** SLUT ***********************************************************************
 
-    }
 
     public static int remShare(int cl, Koordinat[][] postArray) {
 
@@ -863,7 +875,6 @@ public class CalculateFacade {
                     if (diff < min) {
                         min = diff;
                         remShareX = postArray[i][p].getX();
-                        System.out.println("remShareX = " + remShareX);
                     }
                 }
             }

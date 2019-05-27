@@ -2,6 +2,7 @@ package PresentationLayer;
 
 import FunctionLayer.FogException;
 import DBAccess.UserMapper;
+import FunctionLayer.Order;
 import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,8 @@ public class Nav extends Command {
         System.out.println("Er i Nav");
 
         HttpSession session = request.getSession();
-        List<User> userList = null;
+
+
 
         String destination = "index";
 
@@ -30,8 +32,8 @@ public class Nav extends Command {
                         destination = "roofstep1page";
                         break;
                     case "requests":
-                        userList = UserMapper.readUsers();
-                        session.setAttribute("userList",userList);
+                        List<Order> order1List = DBAccess.OrderMapper.readOrders1();
+                        session.setAttribute("order1List",order1List);
                         destination = "requestspage";
                         break;
                     case "register":

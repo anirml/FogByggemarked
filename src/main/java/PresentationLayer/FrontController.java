@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
 
+    private final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
+    private FileHandler handler;
 
     /**
      Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,14 +39,14 @@ public class FrontController extends HttpServlet {
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
-        FileHandler handler = new FileHandler("C:/Users/Ulrik/Desktop/logs/Fog_logging.log");
+        if (handler==null) {
+            handler = new FileHandler("C:/Users/slamr/Documents/Datamatiker/SEMESTER_02/dagligdag/uge_21/fog_master_19-05-22/exception_message/error.log");
 
+            LOGGER.setLevel(Level.FINEST);
 
-        LOGGER.setLevel(Level.FINEST);
-
-        LOGGER.addHandler(handler);
-        handler.setFormatter(new VerySimpleFormatter());
+            LOGGER.addHandler(handler);
+            handler.setFormatter(new VerySimpleFormatter());
+        }
 
 
         try {

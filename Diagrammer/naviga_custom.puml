@@ -1,0 +1,45 @@
+@startuml
+scale 350 width
+[*] --> index.jsp
+
+index.jsp-->index.jsp :forside
+
+
+index.jsp : header.jsp
+index.jsp : forside-login
+
+index.jsp --> Nav:FC register
+Nav --> registerpage:FC registerpage
+registerpage : login-opret
+registerpage-->Login:FC login
+Login-->customerpage:FC customerpage
+
+registerpage-->Register:FC register
+Register-->customerpage:FC customerpage
+customerpage : forside-quickbyg-email-logout
+
+customerpage-->index.jsp:forside
+customerpage-->Nav:FC quickbyg
+Nav-->quickbygpage:FC quickbygpage
+
+quickbygpage-->Choice:FC choice
+Choice-->roofstep1page:FC roofstep1page
+roofstep1page-->MakeRequest:FC makeRequest step2
+MakeRequest-->roofstep2page:FC roofstep2page
+roofstep2page-->MakeRequest:FC makeRequest step3
+MakeRequest-->MakeRequest:ToolshedChoice
+MakeRequest-->roofstep3page:FC roofstep3page
+roofstep3page-->MakeRequest:FC makeRequest step4
+MakeRequest-->roofstep4page:FC roofstep4page
+roofstep4page-->MakeRequest:FC makeRequest step5
+MakeRequest-->MakeRequest:CalculateFacade(draw-styk)
+MakeRequest-->drawpage:FC drawpage
+drawpage-->SendRequest:FC sendRequest
+SendRequest-->customerpage:FC customerpage
+customerpage-->Nav:FC customer
+Nav-->customerpage:FC customerpage
+customerpage-->Logout:FC logout
+Logout-->registerpage:FC registerpage
+note "FC FrontController" as N1
+
+@enduml

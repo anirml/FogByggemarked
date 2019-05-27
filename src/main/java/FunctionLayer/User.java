@@ -24,6 +24,15 @@ public class User {
         this.type = type;
     }
 
+    public User(String name, String email, String address, String zipcode, String city, String phone) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.phone = phone;
+    }
+
     public User(String email, String password, String type) {
         this.email = email;
         this.password = password;

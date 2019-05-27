@@ -13,10 +13,9 @@
         <%
         System.out.println("Er i drawpage.jsp");
 
-        List<String> orderInput = new ArrayList<>();
-        orderInput = (List<String>) session.getAttribute("list");
-
-        String makeOrder= (String) session.getAttribute("makeOrder");
+        String showStykList= (String) session.getAttribute("showStykList");
+        String orderIdS = (String) session.getAttribute("orderId");
+        User customUser = (User) session.getAttribute("customUser");
         String carportWidS = (String) session.getAttribute("width");
         String carportLenS = (String) session.getAttribute("lenght");
         double carportWid = Double.parseDouble(carportWidS)/100;
@@ -32,18 +31,29 @@
     </div>
 
 
-
     <%
-    if (makeOrder.equals("0")){
+    if (showStykList.equals("1")) {
     %>
     <td>
-
         <div class="row">
             <%
                 User user = (User) session.getAttribute("user");
-                String userType=user.getType();
+                String userType = user.getType();
                 ArrayList<OrderLine> tempStykList = new ArrayList();
-                tempStykList = (ArrayList<OrderLine>) session.getAttribute("styklist");
+                tempStykList = (ArrayList<OrderLine>) session.getAttribute("stykList");
+                String totalPrice = "";
+                String totalPriceKorr = "";
+                String orderPrice = "";
+                String finishOrder = "";
+                String procentS = (String) session.getAttribute("procent");
+                System.out.println("Er i drawpage under showStykList = 1");
+                if (userType.equals("employee")) {
+                    totalPrice = (String) session.getAttribute("totalPrice");
+                    totalPriceKorr = (String) session.getAttribute("totalPriceKorr");
+                    orderPrice = (String) session.getAttribute("orderPrice");
+                    finishOrder = (String) session.getAttribute("finishOrder");
+                }
+
             %>
 
             <table class="table table-sm table-striped table-bordered">
@@ -55,29 +65,28 @@
                     <th>Enhed</th>
                     <th>Montering</th>
                     <%
-                        if (userType.equals("employee")){
+                    if (userType.equals("employee")) {
                     %>
-                    <th>EnhedsPris</th>
-                    <th>SamletPris</th>
+                        <th>EnhedsPris</th>
+                        <th>SamletPris</th>
                     <%
-                        }
+                    }
                     %>
                 </tr>
                 </thead>
-                <tbody>
 
                 <%
-                    for (int i = 0; i <tempStykList.size() ; i++) {
+                    for (int i = 0; i < tempStykList.size(); i++) {
                 %>
 
                 <tr>
                     <td scope="row"><%out.print(tempStykList.get(i).getItem().getDesc());%></td>
                     <td><%out.print(tempStykList.get(i).getItem().getLength());%></td>
-                    <td><%out.print(tempStykList.get(i).getNumber());%> </td>
+                    <td><%out.print(tempStykList.get(i).getNumber());%></td>
                     <td><%out.print(tempStykList.get(i).getItem().getUnit());%></td>
                     <td><%out.print(tempStykList.get(i).getComments());%></td>
                     <%
-                        if (userType.equals("employee")){
+                        if (userType.equals("employee")) {
                     %>
                     <td><%out.print(tempStykList.get(i).getItem().getPrice());%></td>
                     <td><%out.print(tempStykList.get(i).getSumPrice());%></td>
@@ -89,21 +98,87 @@
                     }
                 %>
 
+                <%
+                if (userType.equals("employee")) {
+                %>
+                    <tr>
+                       <th>Samlet Pris</th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th><%out.print(totalPrice);%></th>
+                    </tr>
+                    <tr>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th>
+                        <% if (finishOrder.equals("0")) { %>
+                        <form name="beregn" action="FrontController" method="POST">
+                            <input type="hidden" name="command" value="showOrder">
+                            <input type="hidden" name="action" value="beregn">
+                            <label for="procent">procent +/-</label>
+                            <input type="number" class="form-control" id="procent" name="procent"
+                                   value="<%out.print(procentS); %>">
+                            <input type="submit" value="beregn">
+                        </form>
+                        <%
+                            }
+                        %>
+                       </th>
+                    </tr>
+                    <tr>
+                       <th>Samlet korr. Pris</th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                        <% if (finishOrder.equals("1")) { %>
+                              <th><%out.print(orderPrice);%></th>
+                        <% } else { %>
+                              <th><%out.print(totalPriceKorr);%></th>
+                        <%
+                            }
+                        %>
+                    </tr>
+                <%
+                }
+                %>
                 </tbody>
             </table>
+
         </div>
 
 
-
-        <form name="beregn" action="FrontController" method="POST">
+        <form name="return" action="FrontController" method="POST">
             <input type="hidden" name="command" value="mypage">
             RETURN:
-            <input type="submit" value="Submit">
+            <input type="submit" value="Return">
 
         </form>
+        <%
+        if (userType.equals("employee")) {
+        %>
+            KUNDE:<%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());
+            if (finishOrder.equals("0")) {
+            %>
+
+            <form action="FrontController" method="POST">
+                <input type="hidden" name="command" value="finishOrder">
+                <input type="hidden" name="listNo" value="<%out.print(Integer.valueOf(orderIdS));%>">
+                <input type="submit"  value="Send Order" class="btn btn-primary form-control">
+            </form>
+        <%
+                }
+        }
+        %>
+
     </td>
     <%
-        } else {
+    } else {
     %>
     <td>
         <form name="return" action="FrontController" method="POST">
@@ -113,6 +188,7 @@
 
         </form>
     </td>
+
     <%
         }
     %>
