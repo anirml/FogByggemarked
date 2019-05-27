@@ -40,7 +40,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
 
         if (handler==null) {
-            handler = new FileHandler("C:/Users/slamr/Documents/Datamatiker/SEMESTER_02/dagligdag/uge_21/fog_master_19-05-22/exception_message/error.log");
+            handler = new FileHandler(System.getenv("LOG_PATH"));
 
             LOGGER.setLevel(Level.FINEST);
 
