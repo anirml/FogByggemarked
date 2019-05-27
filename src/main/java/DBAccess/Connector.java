@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class Connector {
 
-    private static final String URL = "jdbc:mysql://157.230.110.206:3306/fog_byggemarked?useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true&useSSL=false";
-    private static final String USERNAME = "testuser";
-    private static final String PASSWORD = "password123";
+    private static final String URL = System.getenv("JDBC_CONNECTION_STRING");
+    private static final String USERNAME = System.getenv("JDBC_USER");
+    private static final String PASSWORD = System.getenv("JDBC_PASSWORD");
 
     private static Connection singleton;
 
