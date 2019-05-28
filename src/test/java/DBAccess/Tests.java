@@ -57,20 +57,14 @@ public class Tests {
     }
 
     @Test
-    public void testLogin01() throws FogException {
+    public void testRooflist() throws FogException {
         // Can we get certain materials?
         List<Roof> roofList = ItemMapper.readRoofList();
         assertNotNull(roofList);
     }
 
-    @Test( expected = FogException.class )
-    public void testLogin02() throws FogException {
-        // We should get an exception if we use the wrong password
-        User user = UserMapper.login( "jens@somewhere.com", "larsen" );
-    }
-
     @Test
-    public void ConstructorTest()
+    public void testConstructor()
     {
         // ConstructorTest på Roof
         Roof roof = new Roof();
@@ -79,7 +73,7 @@ public class Tests {
     }
 
     @Test
-    public void testLogin03() throws FogException {
+    public void testLoginType() throws FogException {
         // Jens is supposed to be a customer
         User user = UserMapper.login( "jens@dr.dk", "1234" );
         assertEquals( "customer", user.getType() );
