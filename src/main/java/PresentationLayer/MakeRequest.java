@@ -80,7 +80,8 @@ public class MakeRequest extends Command {
                         case "step5":
 
                             System.out.println("Er i MakeRequest - step5");
-                            session.setAttribute("comment",request.getParameter("comment"));
+                            String comment = request.getParameter("comment").toString();
+                            session.setAttribute("comment",comment);
 
                             int cl = 10 * Integer.valueOf((String) session.getAttribute("lenght"));
                             int cW = 10 * Integer.valueOf((String) session.getAttribute("width"));

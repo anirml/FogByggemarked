@@ -61,6 +61,12 @@ public class SendRequest extends Command {
         //session.setAttribute("orderList",userOrderList);
         String userType = user.getType();
 
+        List<Order> order0List = DBAccess.OrderMapper.readOrders0();
+        session.setAttribute("order0List",order0List);
+        List<Order> order1List = DBAccess.OrderMapper.readOrders1();
+        session.setAttribute("order1List",order1List);
+
+
         if (userType.equalsIgnoreCase("employee")){
             return "employeepage";
         } else {
