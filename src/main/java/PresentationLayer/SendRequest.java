@@ -59,9 +59,13 @@ public class SendRequest extends Command {
         User user = (User) session.getAttribute("user");
         //List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
         //session.setAttribute("orderList",userOrderList);
+        String userType = user.getType();
 
+        if (userType.equalsIgnoreCase("employee")){
+            return "employeepage";
+        } else {
 
-
-        return "customerpage";
+            return "customerpage";
+        }
     }
 }
