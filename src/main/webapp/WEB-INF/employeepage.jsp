@@ -42,7 +42,7 @@
             <tr>
                 <th>OrderId</th>
                 <th>OrderDato</th>
-                <th>UserId</th>
+                <th>UserEmail</th>
                 <th>Status</th>
                 <th>Tagvinkel</th>
                 <th>TagMatr</th>
@@ -80,9 +80,13 @@
 
 
                 <td><a class="btn btn-primary form-control"
-                       href="FrontController?command=showOrder&action=empOrder0&procent=0&listNo=<%out.print(i);%>">Vis</a>
+                       href="FrontController?command=showOrder&action=empOrder0&listNo=<%out.print(i);%>">Vis</a>
                 </td>
 
+
+                <td><a class="btn btn-primary form-control"
+                       href="FrontController?command=showOrder&action=delete&listNo=<%out.print(i);%>">Fjern</a>
+                </td>
 
                 <!--
                 <td>

@@ -177,7 +177,7 @@ public class OrderMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "UPDATE fog_byggemarked.orders_oh" +
-                         " SET order_ship_date = ?, order_status = 1, order_price = ? WHERE (`order_id` = ?);";
+                    " SET order_ship_date = ?, order_status = 1, order_price = ? WHERE (`order_id` = ?);";
             ps = con.prepareStatement(SQL);
             //ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
             ps.setString(1, date);
@@ -191,5 +191,22 @@ public class OrderMapper {
             throw new FogException(ex.toString(), "SQL fejl i markSendOrder");
         }
     }
-}
 
+    public static void deleteOrder(int orderId) throws FogException {
+        try {
+            Connection con = Connector.connection();
+
+            String SQL = "DELETE FROM fog_byggemarked.orders_oh WHERE order_id = ?;";
+
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, orderId);
+
+            ps.executeUpdate();
+
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i createRequest");
+        }
+    }
+}
