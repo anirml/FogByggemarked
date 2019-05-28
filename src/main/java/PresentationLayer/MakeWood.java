@@ -11,31 +11,35 @@ public class MakeWood extends Command{
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
-        //System.out.println("Er i MakeWood");
-
         String action = request.getParameter("action");
-        int woodId = 0;
-        if (request.getParameter("woodId") != null){
-            woodId = Integer.valueOf(request.getParameter("woodId"));
-        }
-        int woodDim1 = Integer.valueOf(request.getParameter("woodDim1"));
-        int woodDim2 = Integer.valueOf(request.getParameter("woodDim2"));
-        String woodDesc = request.getParameter("woodDesc");
-        int woodLength = Integer.valueOf(request.getParameter("woodLength"));
-        String woodUnit = request.getParameter("woodUnit");
-        double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
 
-        if (action.equals("editwood")){
+        try {
 
-            FunctionLayer.Wood wood = LogicFacade.editWood(woodId,woodDim1,woodDim2,woodDesc,woodLength,woodUnit,woodPrice);
-            return "woodmaterial" + "page";
+            int woodId = Integer.valueOf(request.getParameter("woodId"));
+            int woodDim1 = Integer.valueOf(request.getParameter("woodDim1"));
+            int woodDim2 = Integer.valueOf(request.getParameter("woodDim2"));
+            String woodDesc = request.getParameter("woodDesc");
+            int woodLength = Integer.valueOf(request.getParameter("woodLength"));
+            String woodUnit = request.getParameter("woodUnit");
+            double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
 
-        }
 
-        if (action.equals("makewood")){
+            System.out.println(woodId + " " + woodDim1 + " " + woodDim2 + " " + woodDesc + " " + woodLength + " " + woodUnit + " " + woodPrice);
 
-            FunctionLayer.Wood wood = LogicFacade.createWood(woodId,woodDim1,woodDim2,woodDesc,woodLength,woodUnit,woodPrice);
-            return "woodmaterial" + "page";
+            if (action.equals("editwood")) {
+
+                FunctionLayer.Wood wood = LogicFacade.editWood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
+                return "woodmaterial" + "page";
+
+            }
+
+            if (action.equals("makewood")) {
+
+                FunctionLayer.Wood wood = LogicFacade.createWood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
+                return "woodmaterial" + "page";
+            }
+        } catch (Exception e){
+            throw new FogException("Du mangler at udfylde en af felterne.");
         }
 
         return null;

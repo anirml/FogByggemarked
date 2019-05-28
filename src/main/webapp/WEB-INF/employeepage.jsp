@@ -84,7 +84,7 @@
                 </td>
 
 
-                <td><a class="btn btn-primary form-control"
+                <td><a class="btn btn-danger form-control"
                        href="FrontController?command=showOrder&action=delete&listNo=<%out.print(i);%>">Fjern</a>
                 </td>
 

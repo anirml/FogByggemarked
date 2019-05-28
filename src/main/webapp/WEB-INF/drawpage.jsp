@@ -111,23 +111,30 @@
                        <th><%out.print(totalPrice);%></th>
                     </tr>
                     <tr>
-                       <th></th>
-                       <th></th>
-                       <th></th>
-                       <th>
                         <% if (finishOrder.equals("0")) { %>
                         <form name="beregn" action="FrontController" method="POST">
                             <input type="hidden" name="command" value="showOrder">
                             <input type="hidden" name="action" value="beregn">
-                            <label class="align-left" for="procent">procent +/-</label>
-                            <input class="align-left" type="number" class="form-control" id="procent" name="procent"
+                        <th>
+                            <label for="procent">procent +/-</label>
+                        </th>
+                        <th>
+                            <input type="number" class="form-control" id="procent" name="procent"
                                    value="<%out.print(procentS); %>">
-                            <input class="align-left" type="submit" value="Beregn">
+                        </th>
+                        <th>
+                            <input type="submit" value="beregn" class="btn btn-secondary">
+                        </th>
                         </form>
                         <%
                             }
                         %>
-                       </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+
                     </tr>
                     <tr>
                        <th>Samlet korr. Pris</th>
@@ -153,24 +160,29 @@
         </div>
 
 
-        <form name="return" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="mypage">
-            RETURN:
-            <input type="submit" value="Return">
-
-        </form>
         <%
         if (userType.equals("employee")) {
         %>
-            KUNDE:<%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());
+            KUNDE: <%out.print(customUser.getName()+" "+customUser.getEmail()+" "+customUser.getPhone());
             if (finishOrder.equals("0")) {
             %>
-
+        <div class="row" style="margin-top: 15px">
+        <div class="col-2">
+            <form name="return" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="mypage">
+                <input type="submit" value="Return" class="btn btn-danger form-control">
+            </form>
+        </div>
+        <div class="col-8">
+        </div>
+        <div class="col-2">
             <form action="FrontController" method="POST">
                 <input type="hidden" name="command" value="finishOrder">
                 <input type="hidden" name="listNo" value="<%out.print(Integer.valueOf(orderIdS));%>">
                 <input type="submit"  value="Send Order" class="btn btn-primary form-control">
             </form>
+        </div>
+        </div>
         <%
                 }
         }
