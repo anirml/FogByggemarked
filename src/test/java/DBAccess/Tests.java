@@ -14,11 +14,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
-public class ItemMapperTest {
+public class Tests {
 
     private static Connection testConnection;
-    private static String USER = "testinguser";
-    private static String USERPW = "try1try2tryAgain";
+    private static String USER = "testuser";
+    private static String USERPW = "password123";
     private static String DBNAME = "fog_byggemarked_test?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
     private static String HOST = "157.230.110.206";
 
@@ -39,6 +39,9 @@ public class ItemMapperTest {
                 stmt.execute( "drop table if exists roof_material" );
                 stmt.execute( "create table roof_material like roof_material_test" );
                 stmt.execute( "insert into roof_material select * from roof_material_test" );
+                stmt.execute( "drop table if exists user" );
+                stmt.execute( "create table user like user_test" );
+                stmt.execute( "insert into user select * from user_test" );
             }
 
         } catch ( ClassNotFoundException | SQLException ex ) {
@@ -54,20 +57,14 @@ public class ItemMapperTest {
     }
 
     @Test
-    public void testLogin01() throws FogException {
+    public void testRooflist() throws FogException {
         // Can we get certain materials?
         List<Roof> roofList = ItemMapper.readRoofList();
-        assertTrue( roofList != null );
-    }
-
-    @Test( expected = FogException.class )
-    public void testLogin02() throws FogException {
-        // We should get an exception if we use the wrong password
-        User user = UserMapper.login( "jens@somewhere.com", "larsen" );
+        assertNotNull(roofList);
     }
 
     @Test
-    public void ConstructorTest()
+    public void testConstructor()
     {
         // ConstructorTest på Roof
         Roof roof = new Roof();
@@ -76,19 +73,9 @@ public class ItemMapperTest {
     }
 
     @Test
-    public void testLogin03() throws FogException {
+    public void testLoginType() throws FogException {
         // Jens is supposed to be a customer
-        User user = UserMapper.login( "jens@somewhere.com", "jensen" );
+        User user = UserMapper.login( "jens@dr.dk", "1234" );
         assertEquals( "customer", user.getType() );
-    }
-
-    @Test
-    public void testCreateUser01() throws FogException {
-        // Can we create a new user - Notice, if login fails, this will fail
-        // but so would login01, so this is OK
-        User original = new User( "king@kong.com", "uhahvorhemmeligt", "konge" );
-        UserMapper.createUser( original );
-        User retrieved = UserMapper.login( "king@kong.com", "uhahvorhemmeligt" );
-        assertEquals( "konge", retrieved.getType() );
     }
 }
