@@ -119,10 +119,10 @@
                         <form name="beregn" action="FrontController" method="POST">
                             <input type="hidden" name="command" value="showOrder">
                             <input type="hidden" name="action" value="beregn">
-                            <label for="procent">procent +/-</label>
-                            <input type="number" class="form-control" id="procent" name="procent"
+                            <label class="align-left" for="procent">procent +/-</label>
+                            <input class="align-left" type="number" class="form-control" id="procent" name="procent"
                                    value="<%out.print(procentS); %>">
-                            <input type="submit" value="beregn">
+                            <input class="align-left" type="submit" value="Beregn">
                         </form>
                         <%
                             }

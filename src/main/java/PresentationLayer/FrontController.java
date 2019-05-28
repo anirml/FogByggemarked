@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
 
-    private final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
-    private FileHandler handler;
+    /*private final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
+    private FileHandler handler;*/
 
     /**
      Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,14 +39,14 @@ public class FrontController extends HttpServlet {
     protected void processRequest( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        if (handler==null) {
+        /*if (handler==null) {
             handler = new FileHandler(System.getenv("LOG_PATH"));
 
             LOGGER.setLevel(Level.FINEST);
 
             LOGGER.addHandler(handler);
             handler.setFormatter(new VerySimpleFormatter());
-        }
+        }*/
 
 
         try {
@@ -54,7 +54,7 @@ public class FrontController extends HttpServlet {
             String view = action.execute( request, response );
             request.getRequestDispatcher( "/WEB-INF/" + view + ".jsp" ).forward( request, response );
         } catch ( FogException ex ) {
-            LOGGER.log(Level.FINEST, ex.toString());
+            //LOGGER.log(Level.FINEST, ex.toString());
 
             request.setAttribute( "error", ex.getMessage() );
             request.getRequestDispatcher( "index.jsp" ).forward( request, response );
