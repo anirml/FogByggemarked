@@ -27,6 +27,9 @@ public class Login extends Command {
         session.setAttribute( "user", user );
         session.setAttribute( "type", user.getType() );
 
+        String sendKvit = "";
+        session.setAttribute("sendKvit",sendKvit);
+
         if (user.getType().equals("customer")) {
 
             List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));

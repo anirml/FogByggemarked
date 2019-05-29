@@ -19,20 +19,7 @@ public class SendRequest extends Command {
 
         HttpSession session = request.getSession();
         System.out.println("Er i SendRequest");
-/*
 
-        System.out.println(session.getAttribute("lenght"));
-        System.out.println(session.getAttribute("width"));
-        System.out.println(session.getAttribute("roof"));
-        System.out.println(session.getAttribute("angle"));
-
-        System.out.println(session.getAttribute("toolShedLength"));
-        System.out.println(session.getAttribute("toolShedWidth"));
-
-        System.out.println(session.getAttribute("comment"));
-        System.out.println(session.getAttribute("userId"));
-
-*/
         LocalDateTime tidspunkt = LocalDateTime.now();
         String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
@@ -56,6 +43,11 @@ public class SendRequest extends Command {
 
         OrderMapper.createRequest(order);
 
+        String sendKvit = timeNow+" Der er sendt en forespørgsel på carport med l="+session.getAttribute("lenght")+
+                " og b="+session.getAttribute("width")+", skur-len="+session.getAttribute("toolShedLength")+
+                " og skur-wid="+session.getAttribute("toolShedWidth");
+        session.setAttribute("sendKvit",sendKvit);
+
         User user = (User) session.getAttribute("user");
         //List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
         //session.setAttribute("orderList",userOrderList);
@@ -70,7 +62,6 @@ public class SendRequest extends Command {
         if (userType.equalsIgnoreCase("employee")){
             return "employeepage";
         } else {
-
             return "customerpage";
         }
     }

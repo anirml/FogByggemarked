@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="FogByggemarked" options="-endorseddirs D:\JavaProgrammer\IntelliJ$\FogByggemarked\target/endorsed" />
+      <module name="FogByggemarked" options="" />
       <module name="KasperWebProjekt" options="-endorseddirs &quot;/Users/jobe/Google Drive/CBA/Kurser/2_Sem_Spring_2019/KodeGitHub/KaspersWebProjekt/target/endorsed&quot;" />
     </option>
   </component>

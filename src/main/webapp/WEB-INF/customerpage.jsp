@@ -35,7 +35,20 @@
             System.out.println("Er i customerpage.jsp");
             List<Order> userOrderList = (List<Order>) session.getAttribute("userOrderList");
 
+            String sendKvit = (String) session.getAttribute("sendKvit");
+
+            if (!sendKvit.equals("")){
+            %>
+                <div class="col text-center">
+                <%
+                out.print(sendKvit);
+                %>
+                </div>
+            <%
+            }
         %>
+
+
 
         <table style="width:70%" align="center">
             <tr>

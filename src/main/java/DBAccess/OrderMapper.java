@@ -4,22 +4,32 @@ import FunctionLayer.FogException;
 import FunctionLayer.Order;
 
 
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
 
+
+
     public static void createRequest(Order order) throws FogException {
+
+        //HttpSession session = request.getSession();
+        //int orderId=0;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
         try {
+
             Connection con = Connector.connection();
 
             String SQL = "INSERT INTO orders_oh (order_date,user_id,order_status,order_comment,order_roof_angle,order_roof_material," +
                     "order_length,order_width,order_shed,order_shed_length,order_shed_width,order_ship_date,order_price)" +
                     " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+
 
             ps.setString(1, order.getOrderDate());
             ps.setInt(2, order.getUserId());
@@ -36,7 +46,14 @@ public class OrderMapper {
             ps.setDouble(13, order.getOrderPrice());
 
             ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
 
+/*
+            if (resultSet.next()) {
+                orderId = resultSet.getInt(1);
+                session.setAttribute("orderId",Integer.toString(orderId));
+            }
+*/
 
         } catch (SQLException | ClassNotFoundException ex) {
             throw new FogException(ex.getMessage(), "Fejl i createRequest");
