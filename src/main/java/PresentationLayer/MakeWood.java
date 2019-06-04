@@ -13,20 +13,21 @@ public class MakeWood extends Command{
 
         String action = request.getParameter("action");
 
-        int woodId = 0;
-        if (request.getParameter("woodId") != null){
-            woodId = Integer.valueOf(request.getParameter("woodId"));
-        }
-        int woodDim1 = Integer.valueOf(request.getParameter("woodDim1"));
-        int woodDim2 = Integer.valueOf(request.getParameter("woodDim2"));
-        String woodDesc = request.getParameter("woodDesc");
-        int woodLength = Integer.valueOf(request.getParameter("woodLength"));
-        String woodUnit = request.getParameter("woodUnit");
-        double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
-
-        System.out.println(woodId + " " + woodDim1 + " " + woodDim2 + " " + woodDesc + " " + woodLength + " " + woodUnit + " " + woodPrice);
 
         try {
+
+            int woodId = 0;
+            if (request.getParameter("woodId") != null){
+                woodId = Integer.valueOf(request.getParameter("woodId"));
+            }
+            int woodDim1 = Integer.valueOf(request.getParameter("woodDim1"));
+            int woodDim2 = Integer.valueOf(request.getParameter("woodDim2"));
+            String woodDesc = request.getParameter("woodDesc");
+            int woodLength = Integer.valueOf(request.getParameter("woodLength"));
+            String woodUnit = request.getParameter("woodUnit");
+            double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
+
+            System.out.println(woodId + " " + woodDim1 + " " + woodDim2 + " " + woodDesc + " " + woodLength + " " + woodUnit + " " + woodPrice);
 
 
             if (action.equals("editwood")) {
