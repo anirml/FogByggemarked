@@ -23,7 +23,7 @@ public class MakeRequest extends Command {
             String width = "";
             String lenght = "";
             String roof = "";
-            String angle = "";
+            String angleS = "";
             String toolShedWidth = "";
             String toolShedLength = "";
 
@@ -53,15 +53,16 @@ public class MakeRequest extends Command {
                         case "step3":
                             System.out.println("Er i MakeRequest - step3");
                             roof = request.getParameter("roof");
-                            angle = request.getParameter("angle");
-                            if (roof == null || angle == null){
+                            angleS = request.getParameter("angle");
+                            if (roof == null || angleS == null){
                                 request.setAttribute("message","Du mangler at vælge Tagtype eller Taghældning");
                                 destination = "roofstep2page";
                                 break;
                             }
                             ToolshedChoice.calcToolshedChoice(request);
                             session.setAttribute("roof",roof);
-                            session.setAttribute("angle",angle);
+                            session.setAttribute("angle",angleS);
+
                             destination = "roofstep3page";
                             break;
                         case "step4":
@@ -80,8 +81,6 @@ public class MakeRequest extends Command {
                         case "step5":
 
                             System.out.println("Er i MakeRequest - step5");
-                            //String comment = request.getParameter("comment").toString();
-                            //session.setAttribute("comment",comment);
 
                             session.setAttribute("comment",request.getParameter("comment"));
 
@@ -90,12 +89,22 @@ public class MakeRequest extends Command {
                             int shedLen = 10 * Integer.valueOf((String) session.getAttribute("toolShedLength"));
                             int shedWid = 10 * Integer.valueOf((String) session.getAttribute("toolShedWidth"));
 
+                            int angle = Integer.valueOf((String) session.getAttribute("angle"));
+
                             String userType = (String) session.getAttribute("type");
 
                             String showStykList = "0";
                             session.setAttribute("showStykList",showStykList);
 
+                            Boolean roofPitch = Boolean.valueOf((Boolean) session.getAttribute("roofPitch"));
+
                             CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
+                            if (roofPitch) {
+                                CalculateFacade.drawPitch(request, cW, shedWid, angle);
+                            } else {
+                                CalculateFacade.drawFlat(request, cW, shedWid, angle);
+                            }
+
                             CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
 
                             destination = "draw" + "page";

@@ -30,10 +30,10 @@ public class Choice extends Command {
                 boolean roofPitch =true;
                 List<Roof> menuPitchList = DBAccess.ItemMapper.makePitchRoofMenu(roofList);
 
-                for (int i = 0; i <menuPitchList.size() ; i++) {
-                    System.out.print(menuPitchList.get(i).getRoofId()+"  "+menuPitchList.get(i).getRoofDesc());
-                    System.out.println();
-                }
+                //for (int i = 0; i <menuPitchList.size() ; i++) {
+                  //  System.out.print(menuPitchList.get(i).getRoofId()+"  "+menuPitchList.get(i).getRoofDesc());
+                  //  System.out.println();
+                //}
                 session.setAttribute("roofPitchMenu",menuPitchList);
                 session.setAttribute("roofPitch",roofPitch);
                 destination = "roofstep1";
@@ -44,10 +44,10 @@ public class Choice extends Command {
                 List<Roof> menuFlatList = DBAccess.ItemMapper.makeFlatRoofMenu(roofList);
 
                 System.out.println();
-                for (int i = 0; i <menuFlatList.size() ; i++) {
-                    System.out.print(menuFlatList.get(i).getRoofId()+"  "+menuFlatList.get(i).getRoofDesc());
-                    System.out.println();
-                }
+                //for (int i = 0; i <menuFlatList.size() ; i++) {
+                  //  System.out.print(menuFlatList.get(i).getRoofId()+"  "+menuFlatList.get(i).getRoofDesc());
+                  //  System.out.println();
+                //}
                 session.setAttribute("roofFlatMenu",menuFlatList);
                 session.setAttribute("roofPitch",roofPitch);
                 destination = "roofstep1";

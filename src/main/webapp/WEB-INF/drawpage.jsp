@@ -29,7 +29,14 @@
 
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <%String svg_fil1= (String) session.getAttribute("svg_drawing1");
+                out.print(svg_fil1);%>
 
+
+        </div>
+    </div>
 
     <%
     if (showStykList.equals("1")) {
