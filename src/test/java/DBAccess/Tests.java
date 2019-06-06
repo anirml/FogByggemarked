@@ -50,6 +50,7 @@ public class Tests {
         }
     }
 
+
     @Test
     public void testSetUpOK() {
         // Just check that we have a connection.
