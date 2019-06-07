@@ -29,6 +29,7 @@ public class MakeRequest extends Command {
 
             String destination = "../index";
 
+
             HttpSession session = request.getSession();
 
             switch (request.getParameter("command")){

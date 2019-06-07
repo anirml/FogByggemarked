@@ -24,19 +24,18 @@
         %>
         <h1> Carport Fladt tag <%out.print(carportLen+" m  x "+carportWid+" m");%>;</h1>
 
-        <%String svg_fil= (String) session.getAttribute("svg_drawing");
+            <%String svg_fil= (String) session.getAttribute("svg_drawing");
                 out.print(svg_fil);%>
-
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             <%String svg_fil1= (String) session.getAttribute("svg_drawing1");
                 out.print(svg_fil1);%>
-
-
         </div>
     </div>
+
 
     <%
     if (showStykList.equals("1")) {
@@ -174,24 +173,23 @@
             if (finishOrder.equals("0")) {
             %>
         <div class="row" style="margin-top: 15px">
-        <div class="col-2">
-            <form name="return" action="FrontController" method="POST">
-                <input type="hidden" name="command" value="mypage">
-                <input type="submit" value="Return" class="btn btn-danger form-control">
-            </form>
-        </div>
-        <div class="col-8">
-        </div>
-        <div class="col-2">
-            <form action="FrontController" method="POST">
-                <input type="hidden" name="command" value="finishOrder">
-                <input type="hidden" name="listNo" value="<%out.print(Integer.valueOf(orderIdS));%>">
-                <input type="submit"  value="Send Order" class="btn btn-primary form-control">
-            </form>
-        </div>
+            <div class="col-2">
+                <form name="return" action="FrontController" method="POST">
+                    <input type="hidden" name="command" value="mypage">
+                    <input type="submit" value="Return" class="btn btn-danger form-control">
+                </form>
+            </div>
+
+            <div class="col-2">
+                <form action="FrontController" method="POST">
+                    <input type="hidden" name="command" value="finishOrder">
+                    <input type="hidden" name="listNo" value="<%out.print(Integer.valueOf(orderIdS));%>">
+                    <input type="submit"  value="Send Order" class="btn btn-primary form-control">
+                </form>
+            </div>
         </div>
         <%
-                }
+            }
         }
         %>
 
@@ -215,8 +213,7 @@
 
 
 </div>
-</br>
-</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

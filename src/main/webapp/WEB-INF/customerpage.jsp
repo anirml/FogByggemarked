@@ -35,7 +35,10 @@
             System.out.println("Er i customerpage.jsp");
             List<Order> userOrderList = (List<Order>) session.getAttribute("userOrderList");
 
-            String sendKvit = (String) session.getAttribute("sendKvit");
+            String sendKvit ="";
+            if (session.getAttribute("sendKvit")!=null){
+                sendKvit = (String) session.getAttribute("sendKvit");
+            }
 
             if (!sendKvit.equals("")){
             %>

@@ -1016,7 +1016,6 @@ public class CalculateFacade {
 
         //Stolper
         postPitchSvg = postPitchSvg+rectDraw(centerX-(cW-600)/2,centerY-2100,100,2100);
-        //System.out.println("stolpe værdi ="+postPitchSvg);
         postPitchSvg = postPitchSvg+rectDraw(centerX+(cW-600)/2-100,centerY-2100,100,2100);
 
 
@@ -1051,23 +1050,18 @@ public class CalculateFacade {
         HttpSession session = request.getSession();
         System.out.println("Er i metode for drawFlat genering");
 
-        int hmax = (int) Math.round(2100 + 0.5*(cW-600)*Math.tan(Math.toRadians(angle)) + 200/ Math.cos(Math.toRadians(angle)));
-        //System.out.println("hmax = "+hmax);
+        int hmax = 3000;
 
-        //bræddebeklædning gavltrekant
-        double[] arrayShedG = shedWall(cW-600);
+        angle=angle+3;
 
         //bræddebeklædning skur
         double[] arrayShed = shedWall(shedWid);
 
-        String postPitchSvg = "";
-        String centerPitchSvg = "";
-        String sternPitchSvg = "";
-
-        String gavlPitchSvg = "";
-        String shedPitchSvg = "";
+        String postFlatSvg = "";
+        String sternFlatSvg = "";
+        String shedFlatSvg = "";
         String remFlatSvg = "";
-        String dim1PitchSvg = "";
+        String dim1FlatSvg = "";
 
 
         int centerX = (cW+2000)/2;
@@ -1093,88 +1087,72 @@ public class CalculateFacade {
         //Def. af ramme i indv. viewBox
         String frameFlatSvg = rectDraw(0, 0, cW+2000, hmax);
 
-        //CenterLinie
-        centerPitchSvg = linDraw(centerX,0,centerX,hmax);
-
-        //Gavltrekant beklædning
-        int yStart = 0; // y start for det enkelte brædt
-        int brædtH = 0; // højden af det enkelte brædt
-
-        for (int i = 0; i <arrayShedG[0]/2 ; i++) {
-            yStart = (int) Math.round( hmax-2100-(((arrayShedG[2]+i*(100+arrayShedG[1]))+100)*Math.tan(Math.toRadians(angle))));
-            //System.out.println("yStart = "+yStart);
-            brædtH = (int) Math.round(((arrayShedG[2]+i*(100+arrayShedG[1]))+100)*Math.tan(Math.toRadians(angle)));
-            //System.out.println("brædtH = "+brædtH);
-            gavlPitchSvg = gavlPitchSvg+rectDraw((int) (1300+arrayShedG[2]+i*(100+arrayShedG[1])), yStart, 100, brædtH);
-            gavlPitchSvg = gavlPitchSvg+rectDraw((int) (1300+cW-600-100-(arrayShedG[2]+i*(100+arrayShedG[1]))), yStart, 100, brædtH);
-        }
-        //vandret linie under gavlbekædning
-        gavlPitchSvg = gavlPitchSvg + linDraw(1300,hmax-2100,1300+cW-600,hmax-2100);
-
-
         //Skur bekædning
         if (shedWid > 0) {
             int xStart = (int) Math.round(1300 + cW - 600 - shedWid);
-            shedPitchSvg = shedPitchSvg + linDraw(xStart, hmax - 2100, xStart, hmax);
+
+            int shedHigh = 0;
+
             for (int i = 0; i < arrayShed[0]; i++) {
-                shedPitchSvg = shedPitchSvg + rectDraw((int) (xStart+arrayShed[2] + i * (100 + arrayShed[1])), hmax - 2100, 100, 2100);
+                shedHigh = (int) Math.round(2100+(1300+cW-600-
+                           (xStart+arrayShed[2] + i * (100 + arrayShed[1])))*Math.tan(Math.toRadians(angle)));
+                if (i==0) shedFlatSvg = shedFlatSvg + linDraw(xStart, hmax - shedHigh-20, xStart, hmax);
+                shedFlatSvg = shedFlatSvg + rectDraw((int) (xStart+arrayShed[2] + i * (100 + arrayShed[1])),
+                              hmax - shedHigh, 100, shedHigh);
             }
+            //shedFlatSvg = shedFlatSvg + linDraw(xStart, hmax - shedHigh-20, xStart, shedHigh+20);
         }
+
+
+        //Stolper
+        int postHigh = (int) Math.round(2100+(cW-600-100)*Math.tan(Math.toRadians(angle)));
+        postFlatSvg = postFlatSvg+rectDraw(centerX-(cW-600)/2,centerY-postHigh,100,postHigh);
+        //System.out.println("stolpe værdi ="+postFlatSvg);
+        postFlatSvg = postFlatSvg+rectDraw(centerX+(cW-600)/2-100,centerY-2100,100,2100);
+
+        //remme ender
+        remFlatSvg = remFlatSvg+rectDraw(1350,hmax-postHigh,50,200);
+        remFlatSvg = remFlatSvg+rectDraw(1300+cW-600-100,hmax-2100,50,200);
 
         //Sternbrædder
 
         Koordinat [] arrayStern = new Koordinat [6];
         int startY = (int) Math.round((hmax-2100+300*Math.tan(Math.toRadians(angle)))/10);
         System.out.println("startY = "+startY);
-        int lodStern = (int) Math.round((200/10)/ Math.cos(Math.toRadians(angle)));
-        //System.out.println("lodStern = "+lodStern);
-        arrayStern[0]=new Koordinat(100,startY);
-        arrayStern[1]=new Koordinat(100,startY-lodStern);
-        arrayStern[2]=new Koordinat((int) (100+0.5*cW/10), 0);
-        arrayStern[3]=new Koordinat((int) (100+0.5*cW/10), lodStern);
-        arrayStern[4]=new Koordinat(100+cW/10,startY);
-        arrayStern[5]=new Koordinat(100+cW/10,startY-lodStern);
+        int lodStern = (int) Math.round((250/10)/ Math.cos(Math.toRadians(angle)));
+        System.out.println("lodStern = "+lodStern);
+        int lodRoof = (int) Math.round(cW/10*Math.tan(Math.toRadians(angle)));
+        System.out.println("lodRoof = "+lodRoof);
+        arrayStern[0]=new Koordinat((1000+cW)/10,startY);
+        arrayStern[1]=new Koordinat((1000+cW)/10,startY-lodStern);
+        arrayStern[2]=new Koordinat(100, startY-lodStern-lodRoof);
+        arrayStern[3]=new Koordinat(100, startY-lodRoof);
 
         String koorS ="";
-        //venstre sternbrædt
         koorS = "";
         for (int i = 0; i <4 ; i++) {
             koorS = koorS + arrayStern[i].getX()+","+arrayStern[i].getY()+" ";
         }
-        sternPitchSvg ="<polygon points=\""+koorS+"\" style=\"stroke: black; fill: white; \"/>\n";
+        sternFlatSvg ="<polygon points=\""+koorS+"\" style=\"stroke: black; fill: white; \"/>\n";
+        sternFlatSvg = sternFlatSvg+linDraw(1000,(startY-lodRoof-lodStern/2)*10,1000+cW,(startY-lodStern/2)*10);
 
-        //højre sternbrædt
-        koorS = "";
-        for (int i = 2; i <6 ; i++) {
-            koorS = koorS + arrayStern[i].getX()+","+arrayStern[i].getY()+" ";
-        }
-        sternPitchSvg = sternPitchSvg + "<polygon points=\""+koorS+"\" style=\"stroke: black; fill: white; \"/>\n";
 
-        //Stolper
-        postPitchSvg = postPitchSvg+rectDraw(centerX-(cW-600)/2,centerY-2100,100,2100);
-        //System.out.println("stolpe værdi ="+postPitchSvg);
-        postPitchSvg = postPitchSvg+rectDraw(centerX+(cW-600)/2-100,centerY-2100,100,2100);
-
-        //remme ender
-        remFlatSvg = remFlatSvg+rectDraw(1350,hmax-2100,50,200);
-        remFlatSvg = remFlatSvg+rectDraw(1300+cW-600-100,hmax-2100,50,200);
 
         //Målsætning
-        dim1PitchSvg = dim1PitchSvg + dimVer(500,0,500,hmax,500,hmax/2+100,hmax);
-        dim1PitchSvg = dim1PitchSvg + dimVer(700,hmax-2100,700,hmax,700,hmax-1000,2100);
+        dim1FlatSvg = dim1FlatSvg + dimVer(500,hmax-postHigh,500,hmax,500,hmax-postHigh/2+100,postHigh);
+        dim1FlatSvg = dim1FlatSvg + dimVer(1000+cW+300,hmax-2100,1000+cW+300,hmax,1000+cW+300,hmax-1000,2100);
         if (hmax>3500) {
-            dim1PitchSvg = dim1PitchSvg +"<text x=\"_x_\" y=\"_y_\" fill=\"red\" transform=\"rotate(-90 _x_,_y_)\">RET HØJT</text>/>\n";
-            dim1PitchSvg = dim1PitchSvg.replace("_x_", Integer.toString(300/10));
-            dim1PitchSvg = dim1PitchSvg.replace("_y_", Integer.toString((hmax/2+200)/10));
+            dim1FlatSvg = dim1FlatSvg +"<text x=\"_x_\" y=\"_y_\" fill=\"red\" transform=\"rotate(-90 _x_,_y_)\">RET HØJT</text>/>\n";
+            dim1FlatSvg = dim1FlatSvg.replace("_x_", Integer.toString(300/10));
+            dim1FlatSvg = dim1FlatSvg.replace("_y_", Integer.toString((hmax/2+200)/10));
         }
 
         //Bunden af svg - End udv. viewport
         String end0FlatSvg = "</svg>";
 
         //Opbygnng af hele svg billed med de enkelte delstrenge
-        String sumFlatSvg = topFlatSvg + vBox1FlatSvg + frameFlatSvg + centerPitchSvg  +
-                gavlPitchSvg + sternPitchSvg + shedPitchSvg + postPitchSvg+
-                remFlatSvg + dim1PitchSvg + end0FlatSvg;
+        String sumFlatSvg = topFlatSvg + vBox1FlatSvg + frameFlatSvg +
+                shedFlatSvg + postFlatSvg + remFlatSvg + sternFlatSvg + dim1FlatSvg + end0FlatSvg;
 
         session.setAttribute("svg_drawing1", sumFlatSvg);
 

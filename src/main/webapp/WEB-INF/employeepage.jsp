@@ -84,6 +84,9 @@
                        href="FrontController?command=showOrder&action=empOrder0&listNo=<%out.print(i);%>">Vis</a>
                 </td>
 
+                <td><a class="btn btn-primary form-control"
+                       href="FrontController?command=showOrder&action=edit&listNo=<%out.print(i);%>">Edit</a>
+                </td>
 
                 <td><a class="btn btn-danger form-control"
                        href="FrontController?command=showOrder&action=delete&listNo=<%out.print(i);%>">Fjern</a>

@@ -78,7 +78,7 @@
                                 <span class="fas fa-envelope"></span>  <%=userEmail%></a>
                 </li>
 
-                <form name="login" action="FrontController" method="POST">
+                <form name="command" value="login" action="FrontController" method="POST">
                     <li id="logout_button">
                         <input type="hidden" name="command" value="logout">
                         <input type="submit" name="logoutknap" value="Log ud" class="btn btn-success btn-block"/>

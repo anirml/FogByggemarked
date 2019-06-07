@@ -60,13 +60,14 @@ public class ShowOrder extends Command {
 
             int orderId = tempOrder.getOrderId();
 
-            if (!action.equals("delete")) {
+            if (!action.equals("delete")) { //viser forespørgsel med tegning mm
                 int customId = tempOrder.getUserId();
 
                 int cl = 10 * tempOrder.getOrderLength();
                 int cW = 10 * tempOrder.getOrderWidth();
                 int shedLen = 10 * tempOrder.getOrderShedLength();
                 int shedWid = 10 * tempOrder.getOrderShedWidth();
+                int roofAngle = tempOrder.getOrderRoofAngle();
 
                 if (action.equals("empOrder1")) {
                     double orderPrice = tempOrder.getOrderPrice();
@@ -80,12 +81,17 @@ public class ShowOrder extends Command {
                 session.setAttribute("shedWid", Integer.toString(shedWid / 10));
 
                 CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
+                if (roofAngle>0) {
+                    CalculateFacade.drawPitch(request, cW, shedWid, roofAngle);
+                } else {
+                    CalculateFacade.drawFlat(request, cW, shedWid, roofAngle);
+                }
 
                 Koordinat[][] postArray = new Koordinat[9][2];
                 postArray = CalculateFacade.stolpXY(cl, cW, shedLen, shedWid);
 
 
-                if (userType.equals("employee")) {
+                if (userType.equals("employee")) { //stykliste med priser
                     List<User> tempUserList = (List<User>) session.getAttribute("userList");
                     User tempUser = null;
                     for (int i = 0; i < tempUserList.size(); i++) {
@@ -104,7 +110,7 @@ public class ShowOrder extends Command {
                     totalPriceKorr = Double.valueOf(totalPriceS);
 
                     session.setAttribute("totalPriceKorr", (Double.toString(totalPriceKorr)));
-                } else { //customer
+                } else { //customer stykliste uden priser
                     if (tempOrder.getOrderStatus() == 1) {
                         System.out.println("OrderStatus = 1");
                         CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
