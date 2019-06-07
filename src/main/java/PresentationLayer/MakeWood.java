@@ -13,9 +13,13 @@ public class MakeWood extends Command{
 
         String action = request.getParameter("action");
 
+
         try {
 
-            int woodId = Integer.valueOf(request.getParameter("woodId"));
+            int woodId = 0;
+            if (request.getParameter("woodId") != null){
+                woodId = Integer.valueOf(request.getParameter("woodId"));
+            }
             int woodDim1 = Integer.valueOf(request.getParameter("woodDim1"));
             int woodDim2 = Integer.valueOf(request.getParameter("woodDim2"));
             String woodDesc = request.getParameter("woodDesc");
@@ -23,8 +27,8 @@ public class MakeWood extends Command{
             String woodUnit = request.getParameter("woodUnit");
             double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
 
-
             System.out.println(woodId + " " + woodDim1 + " " + woodDim2 + " " + woodDesc + " " + woodLength + " " + woodUnit + " " + woodPrice);
+
 
             if (action.equals("editwood")) {
 
@@ -34,7 +38,6 @@ public class MakeWood extends Command{
             }
 
             if (action.equals("makewood")) {
-
                 FunctionLayer.Wood wood = LogicFacade.createWood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
                 return "woodmaterial" + "page";
             }
