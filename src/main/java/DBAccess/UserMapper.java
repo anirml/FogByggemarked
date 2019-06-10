@@ -34,11 +34,11 @@ public class UserMapper {
             int id = ids.getInt( 1 );
             user.setId( id );
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new FogException( ex.getMessage(), "Der skete en fejl i oprettelse af bruger" );
+            throw new FogException( ex.getMessage(), "Fejl i createUser" );
         }
     }
 
-    public static List<User> readUsers() {
+    public static List<User> readUsers() throws FogException {
 
         List<User> userList = new ArrayList<>();
 
@@ -68,8 +68,9 @@ public class UserMapper {
                 userList.add(tempUser);
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FogException( ex.getMessage(), "Fejl i readUsers" );
+
         }
         return userList;
     }
@@ -93,7 +94,7 @@ public class UserMapper {
                 throw new FogException( "Denne bruger findes ikke" );
             }
         } catch ( ClassNotFoundException | SQLException ex ) {
-            throw new FogException(ex.getMessage(), "Der er ikke forbindelse til databasen");
+            throw new FogException(ex.getMessage(), "Fejl med databasen ved login");
         }
     }
 }

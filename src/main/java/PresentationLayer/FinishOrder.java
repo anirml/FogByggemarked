@@ -15,28 +15,33 @@ public class FinishOrder extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
-        System.out.println("Er i FinishOrder");
+        try {
 
-        HttpSession session = request.getSession();
+            System.out.println("Er i FinishOrder");
 
-        List<Order> order0List = OrderMapper.readOrders0();
-        List<Order> order1List = null;
+            HttpSession session = request.getSession();
 
-        LocalDateTime tidspunkt = LocalDateTime.now();
-        String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            List<Order> order0List = OrderMapper.readOrders0();
+            List<Order> order1List = null;
 
-        int listNo = Integer.valueOf(request.getParameter("listNo"));
+            LocalDateTime tidspunkt = LocalDateTime.now();
+            String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        int orderId = listNo;
+            int listNo = Integer.valueOf(request.getParameter("listNo"));
 
-        String totalPriceKorrS = (String) session.getAttribute("totalPriceKorr");
-        if (orderId>=0) OrderMapper.markSendOrder(timeNow, orderId, Double.valueOf(totalPriceKorrS));
+            int orderId = listNo;
 
-        order0List = DBAccess.OrderMapper.readOrders0();
-        session.setAttribute("order0List",order0List);
-        order1List = DBAccess.OrderMapper.readOrders1();
-        session.setAttribute("order1List",order1List);
+            String totalPriceKorrS = (String) session.getAttribute("totalPriceKorr");
+            if (orderId >= 0) OrderMapper.markSendOrder(timeNow, orderId, Double.valueOf(totalPriceKorrS));
 
-        return "employeepage";
+            order0List = DBAccess.OrderMapper.readOrders0();
+            session.setAttribute("order0List", order0List);
+            order1List = DBAccess.OrderMapper.readOrders1();
+            session.setAttribute("order1List", order1List);
+
+            return "employeepage";
+        } catch (Exception e) {
+            throw new FogException("Fejl i FinishOrder");
+        }
     }
 }

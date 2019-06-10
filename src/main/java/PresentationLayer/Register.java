@@ -8,6 +8,7 @@ import FunctionLayer.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Register extends Command {
@@ -16,7 +17,6 @@ public class Register extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
         HttpSession session = request.getSession();
-
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
@@ -40,7 +40,8 @@ public class Register extends Command {
             session.setAttribute("email",email);
             session.setAttribute( "user", user );
             session.setAttribute( "type", user.getType() );
-            List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            //List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+            List<Order> userOrderList = new ArrayList<>();
             session.setAttribute("userOrderList",userOrderList);
             return user.getType() + "page";
         } else {

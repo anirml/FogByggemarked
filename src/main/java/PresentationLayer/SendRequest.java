@@ -17,52 +17,54 @@ public class SendRequest extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
-        HttpSession session = request.getSession();
-        System.out.println("Er i SendRequest");
+        try {
 
-        LocalDateTime tidspunkt = LocalDateTime.now();
-        String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            HttpSession session = request.getSession();
+            System.out.println("Er i SendRequest");
 
-        int userId= Integer.valueOf((String) session.getAttribute("id"));
-        String orderComment = (String) session.getAttribute("comment");
-        int orderRoofAngle = Integer.valueOf((String) session.getAttribute("angle"));
-        int orderRoofMaterial = Integer.valueOf((String) session.getAttribute("roof"));
-        int orderLength = Integer.valueOf((String) session.getAttribute("lenght"));
-        int orderWidth = Integer.valueOf((String) session.getAttribute("width"));
-        int orderShed = 0;
-        int orderShedLength = Integer.valueOf((String) session.getAttribute("toolShedLength"));
-        int orderShedWidth = Integer.valueOf((String) session.getAttribute("toolShedWidth"));
-        String orderShipDate = "";
+            LocalDateTime tidspunkt = LocalDateTime.now();
+            String timeNow = tidspunkt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        if ((orderShedLength!=0)&&(orderShedWidth!=0)) orderShed = 1;
+            int userId = Integer.valueOf((String) session.getAttribute("id"));
+            String orderComment = (String) session.getAttribute("comment");
+            int orderRoofAngle = Integer.valueOf((String) session.getAttribute("angle"));
+            int orderRoofMaterial = Integer.valueOf((String) session.getAttribute("roof"));
+            int orderLength = Integer.valueOf((String) session.getAttribute("lenght"));
+            int orderWidth = Integer.valueOf((String) session.getAttribute("width"));
+            int orderShed = 0;
+            int orderShedLength = Integer.valueOf((String) session.getAttribute("toolShedLength"));
+            int orderShedWidth = Integer.valueOf((String) session.getAttribute("toolShedWidth"));
+            String orderShipDate = "";
 
-
-        Order order = new Order(timeNow, userId, 0, orderComment, orderRoofAngle, orderRoofMaterial,
-                                      orderLength, orderWidth, orderShed, orderShedLength, orderShedWidth, "");
+            if ((orderShedLength != 0) && (orderShedWidth != 0)) orderShed = 1;
 
 
-        OrderMapper.createRequest(order);
+            Order order = new Order(timeNow, userId, 0, orderComment, orderRoofAngle, orderRoofMaterial,
+                    orderLength, orderWidth, orderShed, orderShedLength, orderShedWidth, "");
 
-        String sendKvit = timeNow+" Der er sendt en forespørgsel på carport med l="+session.getAttribute("lenght")+
-                " og b="+session.getAttribute("width")+", skur-len="+session.getAttribute("toolShedLength")+
-                " og skur-wid="+session.getAttribute("toolShedWidth");
-        session.setAttribute("sendKvit",sendKvit);
+            OrderMapper.createRequest(order);
 
-        User user = (User) session.getAttribute("user");
-        //List<Order> userOrderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
-        //session.setAttribute("orderList",userOrderList);
-        String userType = user.getType();
+            String sendKvit = timeNow + " Der er sendt en forespørgsel på carport med l=" + session.getAttribute("lenght") +
+                    " og b=" + session.getAttribute("width") + ", skur-len=" + session.getAttribute("toolShedLength") +
+                    " og skur-wid=" + session.getAttribute("toolShedWidth");
+            session.setAttribute("sendKvit", sendKvit);
 
-        List<Order> order0List = DBAccess.OrderMapper.readOrders0();
-        session.setAttribute("order0List",order0List);
-        List<Order> order1List = DBAccess.OrderMapper.readOrders1();
-        session.setAttribute("order1List",order1List);
+            User user = (User) session.getAttribute("user");
+            String userType = user.getType();
+
+            List<Order> order0List = DBAccess.OrderMapper.readOrders0();
+            session.setAttribute("order0List", order0List);
+            List<Order> order1List = DBAccess.OrderMapper.readOrders1();
+            session.setAttribute("order1List", order1List);
 
 
-        if (userType.equalsIgnoreCase("employee")){
-            return "employeepage";
-        } else {
-            return "customerpage";
+            if (userType.equalsIgnoreCase("employee")) {
+                return "employeepage";
+            } else {
+                return "customerpage";
+            }
+        } catch (Exception e) {
+            throw new FogException("Fejl i SendRequest");
         }
     }
 }

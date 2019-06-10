@@ -32,9 +32,9 @@ public class MakeRequest extends Command {
 
             HttpSession session = request.getSession();
 
-            switch (request.getParameter("command")){
+            switch (request.getParameter("command")) {
                 case "makeRequest":
-                    switch (request.getParameter("action")){
+                    switch (request.getParameter("action")) {
                         case "step1":
                             destination = "roofstep1page";
                             break;
@@ -42,27 +42,27 @@ public class MakeRequest extends Command {
                             System.out.println("Er i MakeRequest - step2");
                             width = request.getParameter("width");
                             lenght = request.getParameter("lenght");
-                            if (width == null || lenght == null){
-                                request.setAttribute("message","Du mangler at vælge Bredde eller Længde!");
+                            if (width == null || lenght == null) {
+                                request.setAttribute("message", "Du mangler at vælge Bredde eller Længde!");
                                 destination = "roofstep1page";
                                 break;
                             }
-                            session.setAttribute("lenght",lenght);
-                            session.setAttribute("width",width);
+                            session.setAttribute("lenght", lenght);
+                            session.setAttribute("width", width);
                             destination = "roofstep2page";
                             break;
                         case "step3":
                             System.out.println("Er i MakeRequest - step3");
                             roof = request.getParameter("roof");
                             angleS = request.getParameter("angle");
-                            if (roof == null || angleS == null){
-                                request.setAttribute("message","Du mangler at vælge Tagtype eller Taghældning");
+                            if (roof == null || angleS == null) {
+                                request.setAttribute("message", "Du mangler at vælge Tagtype eller Taghældning");
                                 destination = "roofstep2page";
                                 break;
                             }
                             ToolshedChoice.calcToolshedChoice(request);
-                            session.setAttribute("roof",roof);
-                            session.setAttribute("angle",angleS);
+                            session.setAttribute("roof", roof);
+                            session.setAttribute("angle", angleS);
 
                             destination = "roofstep3page";
                             break;
@@ -70,20 +70,20 @@ public class MakeRequest extends Command {
                             System.out.println("Er i MakeRequest - step4");
                             toolShedWidth = request.getParameter("toolShedWidth");
                             toolShedLength = request.getParameter("toolShedLength");
-                            if (toolShedWidth == null || toolShedLength == null){
-                                request.setAttribute("message","Du mangler at vælge SkurBredde eller SkurLængde");
+                            if (toolShedWidth == null || toolShedLength == null) {
+                                request.setAttribute("message", "Du mangler at vælge SkurBredde eller SkurLængde");
                                 destination = "roofstep2page";
                                 break;
                             }
-                            session.setAttribute("toolShedLength",toolShedLength);
-                            session.setAttribute("toolShedWidth",toolShedWidth);
+                            session.setAttribute("toolShedLength", toolShedLength);
+                            session.setAttribute("toolShedWidth", toolShedWidth);
                             destination = "roofstep4page";
                             break;
                         case "step5":
 
                             System.out.println("Er i MakeRequest - step5");
 
-                            session.setAttribute("comment",request.getParameter("comment"));
+                            session.setAttribute("comment", request.getParameter("comment"));
 
                             int cl = 10 * Integer.valueOf((String) session.getAttribute("lenght"));
                             int cW = 10 * Integer.valueOf((String) session.getAttribute("width"));
@@ -95,7 +95,7 @@ public class MakeRequest extends Command {
                             String userType = (String) session.getAttribute("type");
 
                             String showStykList = "0";
-                            session.setAttribute("showStykList",showStykList);
+                            session.setAttribute("showStykList", showStykList);
 
                             Boolean roofPitch = Boolean.valueOf((Boolean) session.getAttribute("roofPitch"));
 
@@ -106,16 +106,15 @@ public class MakeRequest extends Command {
                                 CalculateFacade.drawFlat(request, cW, shedWid, angle);
                             }
 
-                            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid,userType);
+                            CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
 
                             destination = "draw" + "page";
                             break;
-
-                        default :
+                        default:
                             destination = "404page";
                     }
                 case "makeRequestBack":
-                    switch (request.getParameter("action")){
+                    switch (request.getParameter("action")) {
                         case "bstep1":
                             destination = "roofstep1page";
                             break;
@@ -131,14 +130,15 @@ public class MakeRequest extends Command {
                             System.out.println("step4");
                             destination = "roofstep4page";
                             break;
+                        //default:
+                        //    destination = "404page";
                     }
             }
 
             return destination;
 
-        } catch (Exception e){
-            System.out.println("der var en fejl i MakeRequest");
+        } catch (Exception e) {
+            throw new FogException("Fejl i MakeRequest");
         }
-        return "404page";
     }
 }

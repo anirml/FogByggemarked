@@ -1,5 +1,6 @@
 package PresentationLayer;
 
+import DBAccess.ItemMapper;
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
 import FunctionLayer.*;
@@ -13,26 +14,57 @@ public class ShowOrder extends Command {
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws FogException {
 
-        System.out.println("Er i ShowOrder");
+        try {
 
-        HttpSession session = request.getSession();
+            System.out.println("Er i ShowOrder");
 
-        User user = (User) session.getAttribute("user");
-        String userType = (String) session.getAttribute("type");
+            HttpSession session = request.getSession();
 
-        List<Order> orderList = null;
-        String action = request.getParameter("action");
+            User user = (User) session.getAttribute("user");
+            String userType = (String) session.getAttribute("type");
 
-        String showStykList = "0";
-        String procentS = "0";
-        session.setAttribute("procent", procentS);
-        double totalPriceKorr = 0;
-        String finishOrder = "0";
+            List<Order> orderList = null;
+            List<Roof> roofList = null;
+            List<User> userList = null;
+            String action = request.getParameter("action");
 
-        if (!action.equals("beregn")) {
+            String showStykList = "0";
+            String procentS = "0";
+            session.setAttribute("procent", procentS);
+            double totalPriceKorr = 0;
+            String finishOrder = "0";
+            String roofDesc = "";
+            String userEmail = "";
+
+            if (action.equals("beregn")) { //beregn pris efter procent ændring
+                System.out.println("Er i showOrder under beregn ");
+
+                showStykList = "1";
+
+                procentS = request.getParameter("procent");
+                session.setAttribute("procent", procentS);
+
+                double procent = Double.valueOf(procentS);
+                String totalPriceS = (String) session.getAttribute("totalPrice");
+                //System.out.println("procent = "+procent);
+                totalPriceKorr = CalculateFacade.afrund(Double.valueOf(totalPriceS) * (1 + procent / 100), 2);
+                session.setAttribute("totalPriceKorr", Double.toString(totalPriceKorr));
+                session.setAttribute("showStykList", showStykList);
+                return "draw" + "page";
+            }
+
             switch (action) {
                 case "customer":
                     orderList = OrderMapper.readUserOrders(Integer.valueOf(user.getId()));
+                    break;
+                case "edit":
+                    orderList = OrderMapper.readOrders0();
+                    roofList = ItemMapper.readRoofList();
+                    userList = UserMapper.readUsers();
+                    List<Roof> menuPitchList = DBAccess.ItemMapper.makePitchRoofMenu(roofList);
+                    session.setAttribute("roofPitchMenu", menuPitchList);
+                    List<Roof> menuFlatList = DBAccess.ItemMapper.makeFlatRoofMenu(roofList);
+                    session.setAttribute("roofFlatMenu", menuFlatList);
                     break;
                 case "delete":
                     orderList = OrderMapper.readOrders0();
@@ -60,67 +92,29 @@ public class ShowOrder extends Command {
 
             int orderId = tempOrder.getOrderId();
 
-            if (!action.equals("delete")) { //viser forespørgsel med tegning mm
-                int customId = tempOrder.getUserId();
 
-                int cl = 10 * tempOrder.getOrderLength();
-                int cW = 10 * tempOrder.getOrderWidth();
-                int shedLen = 10 * tempOrder.getOrderShedLength();
-                int shedWid = 10 * tempOrder.getOrderShedWidth();
-                int roofAngle = tempOrder.getOrderRoofAngle();
+            if (action.equals("edit")) {
 
-                if (action.equals("empOrder1")) {
-                    double orderPrice = tempOrder.getOrderPrice();
-                    session.setAttribute("orderPrice", Double.toString(orderPrice));
-                }
-                session.setAttribute("orderId", Integer.toString(orderId));
-
-                session.setAttribute("lenght", Integer.toString(cl / 10));
-                session.setAttribute("width", Integer.toString(cW / 10));
-                session.setAttribute("shedLen", Integer.toString(shedLen / 10));
-                session.setAttribute("shedWid", Integer.toString(shedWid / 10));
-
-                CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
-                if (roofAngle>0) {
-                    CalculateFacade.drawPitch(request, cW, shedWid, roofAngle);
-                } else {
-                    CalculateFacade.drawFlat(request, cW, shedWid, roofAngle);
-                }
-
-                Koordinat[][] postArray = new Koordinat[9][2];
-                postArray = CalculateFacade.stolpXY(cl, cW, shedLen, shedWid);
-
-
-                if (userType.equals("employee")) { //stykliste med priser
-                    List<User> tempUserList = (List<User>) session.getAttribute("userList");
-                    User tempUser = null;
-                    for (int i = 0; i < tempUserList.size(); i++) {
-                        if (customId == tempUserList.get(i).getIdInt()) {
-                            tempUser = new User(tempUserList.get(i).getName(), tempUserList.get(i).getEmail(),
-                                    tempUserList.get(i).getAddress(), tempUserList.get(i).getZipcode(),
-                                    tempUserList.get(i).getCity(), tempUserList.get(i).getPhone());
-                        }
-                    }
-                    session.setAttribute("customUser", tempUser);
-
-                    CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
-                    showStykList = "1";
-
-                    String totalPriceS = (String) session.getAttribute("totalPrice");
-                    totalPriceKorr = Double.valueOf(totalPriceS);
-
-                    session.setAttribute("totalPriceKorr", (Double.toString(totalPriceKorr)));
-                } else { //customer stykliste uden priser
-                    if (tempOrder.getOrderStatus() == 1) {
-                        System.out.println("OrderStatus = 1");
-                        CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
-                        showStykList = "1";
-
-                    } else {
-                        //showStykList = "0";
+                session.setAttribute("order", tempOrder);
+                for (int i = 0; i < roofList.size(); i++) {
+                    if (tempOrder.getOrderRoofMaterial() == roofList.get(i).getRoofId()) {
+                        roofDesc = roofList.get(i).getRoofDesc();
+                        roofDesc = roofDesc + " " + roofList.get(i).getRoofColor();
                     }
                 }
-            } else {
+                for (int i = 0; i < userList.size(); i++) {
+                    if (tempOrder.getUserId() == userList.get(i).getIdInt()) {
+                        userEmail = userList.get(i).getEmail();
+                    }
+                }
+                session.setAttribute("orderId", orderId);
+                session.setAttribute("roofDesc", roofDesc);
+                session.setAttribute("userEmail", userEmail);
+                return "orderedit1" + "page";
+            }
+
+
+            if (action.equals("delete")) {
                 //delete forespørgsel
                 DBAccess.OrderMapper.deleteOrder(orderId);
                 orderList = OrderMapper.readOrders0();
@@ -128,23 +122,75 @@ public class ShowOrder extends Command {
                 return "employee" + "page";
             }
 
-        } else { //beregn pris efter procent ændring
-            System.out.println("Er i showOrder under beregn ");
 
-            showStykList = "1";
+            //viser forespørgsel med tegning mm
+            int customId = tempOrder.getUserId();
 
-            procentS = request.getParameter("procent");
-            session.setAttribute("procent", procentS);
+            int cl = 10 * tempOrder.getOrderLength();
+            int cW = 10 * tempOrder.getOrderWidth();
+            int shedLen = 10 * tempOrder.getOrderShedLength();
+            int shedWid = 10 * tempOrder.getOrderShedWidth();
+            int roofAngle = tempOrder.getOrderRoofAngle();
 
-            double procent = Double.valueOf(procentS);
-            String totalPriceS = (String) session.getAttribute("totalPrice");
-            //System.out.println("procent = "+procent);
-            totalPriceKorr = CalculateFacade.afrund(Double.valueOf(totalPriceS) * (1 + procent / 100), 2);
-            session.setAttribute("totalPriceKorr", Double.toString(totalPriceKorr));
+            if (action.equals("empOrder1")) {
+                double orderPrice = tempOrder.getOrderPrice();
+                session.setAttribute("orderPrice", Double.toString(orderPrice));
+            }
+            session.setAttribute("orderId", Integer.toString(orderId));
+
+            session.setAttribute("lenght", Integer.toString(cl / 10));
+            session.setAttribute("width", Integer.toString(cW / 10));
+            session.setAttribute("shedLen", Integer.toString(shedLen / 10));
+            session.setAttribute("shedWid", Integer.toString(shedWid / 10));
+
+            CalculateFacade.drawing(request, cl, cW, shedLen, shedWid);
+            if (roofAngle > 0) {
+                CalculateFacade.drawPitch(request, cW, shedWid, roofAngle);
+            } else {
+                CalculateFacade.drawFlat(request, cW, shedWid, roofAngle);
+            }
+
+            Koordinat[][] postArray = new Koordinat[9][2];
+            postArray = CalculateFacade.stolpXY(cl, cW, shedLen, shedWid);
+
+
+            if (userType.equals("employee")) { //stykliste med priser
+                List<User> tempUserList = (List<User>) session.getAttribute("userList");
+                User tempUser = null;
+                for (int i = 0; i < tempUserList.size(); i++) {
+                    if (customId == tempUserList.get(i).getIdInt()) {
+                        tempUser = new User(tempUserList.get(i).getName(), tempUserList.get(i).getEmail(),
+                                tempUserList.get(i).getAddress(), tempUserList.get(i).getZipcode(),
+                                tempUserList.get(i).getCity(), tempUserList.get(i).getPhone());
+                    }
+                }
+                session.setAttribute("customUser", tempUser);
+
+                CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
+                showStykList = "1";
+
+                String totalPriceS = (String) session.getAttribute("totalPrice");
+                totalPriceKorr = Double.valueOf(totalPriceS);
+
+                session.setAttribute("totalPriceKorr", (Double.toString(totalPriceKorr)));
+            } else { //customer stykliste uden priser
+                if (tempOrder.getOrderStatus() == 1) {
+                    System.out.println("OrderStatus = 1");
+                    CalculateFacade.stykList(request, cl, cW, shedLen, shedWid, userType);
+                    showStykList = "1";
+
+                } else {
+                    //showStykList = "0";
+                }
+            }
+
+
+            session.setAttribute("showStykList", showStykList);
+
+            return "draw" + "page";
+
+        } catch (Exception e) {
+            throw new FogException("Fejl i ShowOrder");
         }
-
-        session.setAttribute("showStykList", showStykList);
-
-        return "draw" + "page";
     }
 }

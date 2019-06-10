@@ -14,6 +14,43 @@ public class OrderMapper {
 
 
 
+
+    public static void editOrder(Order order, int orderId) throws FogException {
+
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        try {
+
+            Connection con = Connector.connection();
+
+            String SQL = "UPDATE fog_byggemarked.orders_oh SET order_roof_angle = ?, order_roof_material = ?," +
+                    "order_length = ?, order_width = ?, order_shed = ? ,order_shed_length = ?," +
+                    "order_shed_width = ? WHERE (order_id = ?)";
+
+
+            ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+
+
+
+            ps.setInt(1, order.getOrderRoofAngle());
+            ps.setInt(2, order.getOrderRoofMaterial());
+            ps.setInt(3, order.getOrderLength());
+            ps.setInt(4, order.getOrderWidth());
+            ps.setInt(5, order.getOrderShed());
+            ps.setInt(6, order.getOrderShedLength());
+            ps.setInt(7, order.getOrderShedWidth());
+            ps.setInt(8, orderId);
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i editOrder");
+        }
+    }
+
+
     public static void createRequest(Order order) throws FogException {
 
         //HttpSession session = request.getSession();
@@ -102,7 +139,7 @@ public class OrderMapper {
         return orderList;
     }
 
-    public static List<Order> readOrders1() {
+    public static List<Order> readOrders1() throws FogException {
 
         List<Order> orderList = new ArrayList<>();
 
@@ -138,14 +175,14 @@ public class OrderMapper {
                 orderList.add(tempOrder);
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i readOrders1");
         }
         return orderList;
     }
 
 
-    public static List<Order> readUserOrders(int userId) {
+    public static List<Order> readUserOrders(int userId) throws FogException {
         List<Order> userOrderList = new ArrayList<>();
         try {
             Connection con = Connector.connection();
@@ -179,8 +216,8 @@ public class OrderMapper {
                 //System.out.println(orderComment);
             }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new FogException(ex.getMessage(), "Fejl i readUserOrders");
         }
         return userOrderList;
     }
@@ -223,7 +260,7 @@ public class OrderMapper {
 
 
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new FogException(ex.getMessage(), "Fejl i createRequest");
+            throw new FogException(ex.getMessage(), "Fejl i deleteOrder");
         }
     }
 }

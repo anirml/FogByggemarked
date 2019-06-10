@@ -65,6 +65,16 @@ public class Order {
         this.orderPrice = orderPrice;
     }
 
+    public Order(int orderRoofAngle, int orderRoofMaterial, int orderLength, int orderWidth, int orderShed, int orderShedLength, int orderShedWidth) {
+        this.orderRoofAngle = orderRoofAngle;
+        this.orderRoofMaterial = orderRoofMaterial;
+        this.orderLength = orderLength;
+        this.orderWidth = orderWidth;
+        this.orderShed = orderShed;
+        this.orderShedLength = orderShedLength;
+        this.orderShedWidth = orderShedWidth;
+    }
+
     public int getOrderId() {
         return orderId;
     }

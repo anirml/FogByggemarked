@@ -184,7 +184,7 @@ public class ItemMapper {
             ps.setString( 6, Double.toString(wood.getWoodPrice()) );
             ps.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new FogException( ex.getMessage() );
+            throw new FogException(ex.toString(), "Fejl i createWood");
         }
     }
 
@@ -203,7 +203,7 @@ public class ItemMapper {
             ps.setString( 7, Integer.toString(wood.getWoodId()));
             ps.executeUpdate();
         } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new FogException( ex.getMessage() );
+            throw new FogException( ex.toString(), "Fejl i editWood" );
         }
     }
 }

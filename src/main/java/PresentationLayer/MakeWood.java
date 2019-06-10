@@ -27,9 +27,6 @@ public class MakeWood extends Command{
             String woodUnit = request.getParameter("woodUnit");
             double woodPrice = Double.valueOf(request.getParameter("woodPrice"));
 
-            System.out.println(woodId + " " + woodDim1 + " " + woodDim2 + " " + woodDesc + " " + woodLength + " " + woodUnit + " " + woodPrice);
-
-
             if (action.equals("editwood")) {
 
                 FunctionLayer.Wood wood = LogicFacade.editWood(woodId, woodDim1, woodDim2, woodDesc, woodLength, woodUnit, woodPrice);
